@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="">
+<!-- XHTML 5 -->
+
+<head>
+
+    <!--
+    EB_Template version 1.0 (2/2016)
+-->
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- for eSend/FIPS -->
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>EB_Template</title>
+
+    <link rel="stylesheet" href="http://images.monster.com/atge/interactive/printcss/print.css" media="print" />
+
+<!--
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+-->
+
+    <style>
+        html {
+            min-height: 100%;
+            -webkit-text-size-adjust: none; /* iPhone portrait>landscape textzoom off */
+        }
+
+        body {
+            background: linear-gradient(to bottom, #ffffff 30%, #bababa 100%);
+        }
+
+        .container * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container img {
+            border: 0;
+            display: block;
+        }
+
+        .container h1 {
+            font-size: 2em;
+            line-height: normal;
+            display: inline;
+        }
+
+        .container h2 {
+            font-size: 1.5em;
+        }
+
+        .container h3 {
+            font-size: 1.2em;
+        }
+
+        .container h1 small {
+            font-size: 0.7em;
+            font-weight: normal;
+        }
+
+        .container ul { text-align: left; margin: 0 1em 1.3em 0; }
+        .container ul li {
+            list-style-type: none;
+            position: relative;
+            left: 1.3em;
+        }
+        .container ul li::before {
+            content: "❖"; /* • ● ■ ▪ ◆ ❖ ✔ » ▸ ▶ ► ➤ ➢ ➧ ➭ ➽ ➲ 》➠ ◢ ◥ ☛ */
+            color: #286090;
+            position: absolute;
+            left: -1.3em; top: 0;
+        }
+        /*
+        .container ul ul {margin-bottom: 0;}
+        .container ul ul li {padding-left: 1.3em;}
+        .container ul ul li::before {
+            content: "○";
+            color: inherit;
+            position: absolute;
+            left: 0; top: 0;
+        }
+        */
+
+        .container a {
+            color: darkblue;
+            text-decoration: underline;
+            font-weight: inherit;/* Monster mobile Redux bugfix */
+            hyphens: manual;
+        }
+
+        .container a:hover {
+            color: red;
+            text-decoration: underline;
+        }
+
+        .container a[href ^="mailto"] {
+            white-space: nowrap;/* avoids wrapping after a dash in e-mails */
+        }
+
+        .container address {
+            font-style: normal;
+            margin: 1.2em 0 0 0;
+        }
+
+        .container .content p {
+            margin-bottom: 1em;
+        }
+
+        .container .content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 3% auto;
+            border: 1px solid #909090;
+            color: #303030;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            text-align: left;
+            line-height: 1.25em;
+            text-shadow: none;
+            background: white;
+            position: relative;
+            hyphens: manual;
+        }
+
+        .container .header {
+            margin-bottom: 1.5em;
+        }
+
+        .container .header img {
+            width: 100%;
+            height: auto;
+        }
+
+        .container .company {
+            background-color: #f0f0f0;
+            margin-top: 1.5em;
+        }
+
+        .container .content {
+            padding: 35px;
+        }
+
+        #menu {
+            display: none;
+            margin-bottom: 1em;
+        }
+
+        #menu::after {
+            clear: both;
+            display: block;
+            content: "";
+        }
+
+        #menu a {
+            float: left;
+            border-left: 2px solid white;
+            outline: 0;
+            box-sizing: border-box;
+            width: calc(100% / 4);
+            padding: .7em 2%;
+            background-color: #ecedf5;
+            color: #505050;
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: background .6s ease;
+        }
+
+        #menu a:first-child {
+            border-left-width: 0;
+        }
+
+        #menu a:hover {
+            background-color: #c8cfe0;
+        }
+
+
+        #menu a.active {
+            background-color: #c8cfe0;
+        }
+
+        #mobileMenuButton {
+            display: none;
+            width: 42px;
+            padding: 0 2px;
+            box-sizing: content-box;
+            overflow: hidden;
+            position: fixed;
+            right: 0;
+            top: 0;
+            background-color: rgba(54, 57, 131, 0.6);
+        }
+
+        #mobileMenuButton:hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 90, 0.5);
+        }
+
+        .container .leftColumn {
+            float: left;
+            width: 48%;
+        }
+
+        .container .rightColumn {
+            float: right;
+            width: 48%;
+        }
+
+        .container .cleaner {
+            clear: both;
+            font-size: 0;
+            height: 0;
+            line-height: 0;
+        }
+
+        .container .nowrap {
+            white-space: nowrap;
+        }
+
+        #jobViewBody,
+        #jobViewBody .ui-box {
+            padding: 0 !important;
+            /* Monster mobile-Redux padding 0 for correct navigation alignment */
+        }
+
+
+        @media screen and (max-width: 960px) {
+            .container {
+                margin: auto;
+                border: none;
+            }
+        }
+
+        /* -=-=-=- SMALL MOBILE SCREEN, MOBILE MENU BUTTON -=-=-=- */
+        @media screen and (max-width: 680px) {
+            /* modern mobile phones - landscape orientation */
+            #mobileMenuButton {
+                display: block;
+                z-index: 53;
+            }
+            #menu {
+                position: fixed;
+                left: 0px;
+                top: 0;
+                width: 100%;
+                display: none;
+                z-index: 52;
+            }
+            #menu a {
+                width: 100%;
+                height: auto;
+                padding: 1em 60px 1em 6%;
+                border: none;
+                background-color: #ebebeb;
+                color: black;
+                text-align: left;
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 1.2em;
+            }
+            #menu a:first-child {
+                border: none;
+            }
+            #menu a:hover {
+                background-color: #8280b2;
+                color: white;
+            }
+            #menu a.active {
+                background-color: #8280b2;
+                color: white;
+            }
+            .container .content {
+                padding: 20px;
+            }
+            .container .leftColumn,
+            .container .rightColumn {
+                float: none;
+                width: auto;
+            }
+        }
+
+        @media screen and (max-width: 380px) {
+            /* modern mobile phones - portrait orientation */
+
+        }
+
+
+        @media print {
+            .container .tabContent {
+                display: block !important;
+                margin-bottom: 2em;
+            }
+            .container {
+                margin: 0;
+                border: none;
+            }
+            #menu {
+                display: none !important;
+            }
+            .container .noprint {
+                display: none;
+            }
+        }
+    </style>
+
+
+    <script src="http://media.newjobs.com/atge/interactive/js/jquery/jquery-2.1.4.min.js"></script>
+    <script src="EB-template.fnp.js">/* EB-template */</script>
+
+    <script src="jquery.bxslider.min.js">/* BXSlider */</script>
+
+    <script>
+        var jQ = jQuery.noConflict();
+        jQ(function ($) {
+            $("#slideshow").bxSlider({
+                mode: "fade",
+                controls: false,
+                pagerCustom: $("#menu")
+            });
+        });
+
+        //console.info("EB_Template " + EB_Template.version);
+    </script>
+
+
+    <!-- BEGIN: LEAFLET MAP CODE -->
+    <style title="LeafletMap">
+        #LeafletMap {
+            width: auto;
+            height: 360px;
+        }
+        #LeafletMap .leaflet-control-attribution img {
+            display: inline;
+        }
+        #LeafletMap .leaflet-control-layers label {
+            cursor: pointer;
+            padding: 3px;
+        }
+        #LeafletMap .leaflet-control-layers label:hover {
+            background-color: #d1e2ca;
+        }
+        #LeafletMap .leaflet-control { padding: 0; }
+        #LeafletMap .leaflet-control-layers-list {
+            background-color: #efefef;
+            padding: 5px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="http://media.newjobs.com/atge/interactive/js/leaflet077/leaflet.css" />
+    <script src="http://media.newjobs.com/atge/interactive/js/leaflet077/leaflet.js"></script>
+    <script src="EB-template-map.fnp.js">/* EB LeafletMap */</script>
+    <!-- END: LEAFLET MAP CODE -->
+
+
+</head>
+
+<body>
+
+
+    <div class="container">
+
+
+        <div id="mobileMenuButton">
+            <img src="menubutton.svg" alt="&#9776;" />
+        </div>
+
+
+        <div class="content">
+
+
+            <div class="header" id="slideshow">
+
+                <img src="p1.jpeg" alt="" />
+                <img src="p2.jpeg" alt="" />
+                <img src="p3.jpeg" alt="" />
+                <img src="p4.jpeg" alt="" />
+
+            </div>
+
+
+            <nav id="menu" role="navigation">
+                <a href="#" data-slide-index="0">
+                    Tab 1
+                </a>
+                <a href="#" data-slide-index="1">
+                    Tab 2
+                </a>
+                <a href="#" data-slide-index="2">
+                    Tab 3
+                </a>
+                <a href="#" data-slide-index="3">
+                    Tab 4
+                </a>
+            </nav>
+            <!-- #menu -->
+
+
+            <div id="hook"></div>
+
+
+            <section class="tabContent">
+                <h3>PAGE 1</h3>
+
+                1 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec vitae arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Etiam dictum tincidunt diam. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem. Cras elementum. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Nulla non lectus sed nisl molestie malesuada. Nulla accumsan, elit sit amet varius semper, nulla mauris mollis quam, tempor suscipit diam nulla vel leo. Donec vitae arcu. Praesent in mauris eu tortor porttitor accumsan. Vivamus porttitor turpis ac leo. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. Fusce suscipit libero eget elit. Duis viverra diam non justo.
+                <br />
+                <br />
+
+                <ul>
+                    <li>Lorem ipsum dolor sit amet </li>
+                    <li>Donec tristique non sapien in porta </li>
+                    <li>Nulla pulvinar molestie metus, et blandit sapien pellentesque in </li>
+                    <li>Ut ac mollis justo, eu varius augue</li>
+                    <li>Nam fermentum, quam nec mattis vehicula, felis nibh blandit est, ac dictum</li>
+                    <li>Duis sollicitudin, orci ac lobortis luctus, elit leo hendrerit est, sit amet</li>
+                </ul>
+
+                3 Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Duis pulvinar. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Vivamus luctus egestas leo. Aliquam erat volutpat. Etiam bibendum elit eget erat. Phasellus et lorem id felis nonummy placerat. Vivamus luctus egestas leo. Fusce consectetuer risus a nunc. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy ac, erat. Cras elementum. Nullam at arcu a est sollicitudin euismod. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                <br />
+                <br /> 4 Maecenas ipsum velit, consectetuer eu lobortis ut, dictum at dui. Aenean fermentum risus id tortor. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Vestibulum fermentum tortor id mi. Aenean id metus id velit ullamcorper pulvinar. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas sollicitudin. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Aliquam erat volutpat. Curabitur bibendum justo non orci. Nulla est. Ut tempus purus at lorem. Sed convallis magna eu sem.
+                <br />
+                <br /> 5 Integer malesuada. In convallis. Proin in tellus sit amet nibh dignissim sagittis. Praesent vitae arcu tempor neque lacinia pretium. Curabitur bibendum justo non orci. Nunc auctor. In convallis. Nullam eget nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus purus, vel sagittis velit mauris vel metus. Nulla non arcu lacinia neque faucibus fringilla. Nullam lectus justo, vulputate eget mollis sed, tempor sed magna. Etiam egestas wisi a erat. Maecenas sollicitudin. Aenean vel massa quis mauris vehicula lacinia. Etiam bibendum elit eget erat. Nulla non lectus sed nisl molestie malesuada. Proin in tellus sit amet nibh dignissim sagittis. In sem justo, commodo ut, suscipit at, pharetra vitae, orci. Nulla quis diam.
+                <br />
+                <br /> 6 Quisque tincidunt scelerisque libero. Donec quis nibh at felis congue commodo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Fusce tellus. Integer malesuada. Phasellus et lorem id felis nonummy placerat. Nullam sit amet magna in magna gravida vehicula. Nunc auctor. Nullam feugiat, turpis at pulvinar vulputate, erat libero tristique tellus, nec bibendum odio risus sit amet ante. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Maecenas sollicitudin. Aenean vel massa quis mauris vehicula lacinia. Aliquam ornare wisi eu metus. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Nullam faucibus mi quis velit. Nunc auctor.
+                <br />
+                <br /> 7 Praesent id justo in neque elementum ultrices. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Curabitur sagittis hendrerit ante. Maecenas sollicitudin. Nullam faucibus mi quis velit. Praesent in mauris eu tortor porttitor accumsan. In dapibus augue non sapien. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Integer vulputate sem a nibh rutrum consequat. Duis ante orci, molestie vitae vehicula venenatis, tincidunt ac pede. Aliquam erat volutpat.
+                <br />
+                <br /> 8 Etiam neque. Phasellus rhoncus. Nullam eget nisl. Sed elit dui, pellentesque a, faucibus vel, interdum nec, diam. Pellentesque arcu. Integer vulputate sem a nibh rutrum consequat. Aenean fermentum risus id tortor. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. Aliquam erat volutpat. Vestibulum fermentum tortor id mi. Integer in sapien. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Nullam sit amet magna in magna gravida vehicula. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Donec vitae arcu. Vivamus luctus egestas leo. Suspendisse sagittis ultrices augue.
+
+            </section>
+
+
+            <section class="tabContent">
+                <h3>PAGE 2</h3>
+
+                Integer malesuada. In convallis. Proin in tellus sit amet nibh dignissim sagittis. Praesent vitae arcu tempor neque lacinia pretium. Curabitur bibendum justo non orci. Nunc auctor. In convallis. Nullam eget nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus purus, vel sagittis velit mauris vel metus. Nulla non arcu lacinia neque faucibus fringilla. Nullam lectus justo, vulputate eget mollis sed, tempor sed magna. Etiam egestas wisi a erat. Maecenas sollicitudin. Aenean vel massa quis mauris vehicula lacinia. Etiam bibendum elit eget erat. Nulla non lectus sed nisl molestie malesuada. Proin in tellus sit amet nibh dignissim sagittis. In sem justo, commodo ut, suscipit at, pharetra vitae, orci. Nulla quis diam.
+                <br />
+                <br />
+
+                <div id="LeafletMap">
+                </div>
+
+                <br /><br />
+                Praesent id justo in neque elementum ultrices. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Curabitur sagittis hendrerit ante. Maecenas sollicitudin. Nullam faucibus mi quis velit. Praesent in mauris eu tortor porttitor accumsan. In dapibus augue non sapien. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Integer vulputate sem a nibh rutrum consequat. Duis ante orci, molestie vitae vehicula venenatis, tincidunt ac pede. Aliquam erat volutpat.
+                <br />
+                <br /> Aenean interdum leo sit amet risus sodales pellentesque. Morbi posuere mollis velit sit amet tempor. Cras luctus lectus quis dui auctor, quis vestibulum nisl elementum. Pellentesque tincidunt scelerisque faucibus. Praesent urna erat, interdum eget iaculis ut, imperdiet ut massa. Duis placerat cursus nunc. Nulla facilisi. Mauris fringilla orci eget erat sagittis aliquam. Vivamus pellentesque tristique leo et iaculis. Sed vitae semper lectus, sed semper velit. Nunc ac varius est, quis gravida urna.
+                <br />
+                <br /> Ut nec eros interdum, molestie eros nec, cursus est. Duis accumsan metus suscipit arcu molestie, at ullamcorper risus malesuada. Morbi pulvinar auctor semper. Sed pharetra erat eu dignissim sollicitudin. Suspendisse potenti. Cras sit amet augue id lectus facilisis mattis. Vivamus ultrices lorem sed consequat gravida. Cras at dolor eget urna rutrum sodales.
+
+
+
+            </section>
+
+
+
+            <section class="tabContent">
+                <h3>PAGE 3</h3>
+
+                Etiam neque. Phasellus rhoncus. Nullam eget nisl. Sed elit dui, pellentesque a, faucibus vel, interdum nec, diam. Pellentesque arcu. Integer vulputate sem a nibh rutrum consequat. Aenean fermentum risus id tortor. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. Aliquam erat volutpat. Vestibulum fermentum tortor id mi. Integer in sapien. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Nullam sit amet magna in magna gravida vehicula. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Donec vitae arcu. Vivamus luctus egestas leo. Suspendisse sagittis ultrices augue.
+                <br />
+                <br /> Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                <br />
+                <br /> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                <br />
+                <br /> Nullam feugiat, turpis at pulvinar vulputate, erat libero tristique tellus, nec bibendum odio risus sit amet ante. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Etiam posuere lacus quis dolor. Donec quis nibh at felis congue commodo. Etiam sapien elit, consequat eget, tristique non, venenatis quis, ante. Maecenas lorem. Duis risus. Phasellus enim erat, vestibulum vel, aliquam a, posuere eu, velit.
+
+            </section>
+
+
+
+            <section class="tabContent">
+                <h3>PAGE 4</h3>
+
+                Praesent id justo in neque elementum ultrices. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Curabitur sagittis hendrerit ante. Maecenas sollicitudin. Nullam faucibus mi quis velit. Praesent in mauris eu tortor porttitor accumsan. In dapibus augue non sapien. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Integer vulputate sem a nibh rutrum consequat. Duis ante orci, molestie vitae vehicula venenatis, tincidunt ac pede. Aliquam erat volutpat. Nullam feugiat, turpis at pulvinar vulputate, erat libero tristique tellus, nec bibendum odio risus sit amet ante. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Etiam posuere lacus quis dolor.
+                <br />
+                <br /> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                <br />
+                <br /> Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+
+            </section>
+
+
+
+            <footer class="company">
+
+                <address>
+                    COMPANY NAME<br />
+                    STREET NUMBER<br />
+                    CITY STATE
+                </address>
+
+            </footer>
+
+
+        </div>
+        <!-- .content -->
+
+    </div>
+    <!-- .container -->
+
+
+</body>
+</html>
