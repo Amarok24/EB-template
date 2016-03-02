@@ -63,10 +63,10 @@ var EB_Template = (function () {
 
         //ev.preventDefault(); // ev = click event (prevents jump to top / href=#)
 
-        // nodeListRemoveClass(document.querySelectorAll("#menu a"), "active");
+        // nodeListRemoveClass(document.querySelectorAll("#menu button"), "active");
         // -- vanillaJS classList only in IE 10+
-        jQ("#menu a").removeClass("active");
-        jQ("#menu a:eq(" + n + ")").addClass("active");
+        jQ("#menu button").removeClass("active");
+        jQ("#menu button:eq(" + n + ")").addClass("active");
         for (i=0; i < tabContent.length; i++) {
             tabContent[i].style.display = "none";
         }
@@ -139,14 +139,14 @@ var EB_Template = (function () {
             }
         }
         if (params.tab) {
-            document.querySelectorAll("#menu a")[params.tab].click();
+            document.querySelectorAll("#menu button")[params.tab].click();
         }
     }
 
 
     function addEvents() {
         var i;
-        var menuItems = document.querySelectorAll("#menu a");
+        var menuItems = document.querySelectorAll("#menu button");
 
         for (i=0; i < menuItems.length; i++) {
             menuItems[i].addEventListener("click", menuItemClick);
@@ -196,7 +196,7 @@ var EB_Template = (function () {
         for (i = 0; i < tabContents.length; i++) {
             tabContents[i].style.display = "none";
         }
-        document.querySelector("#menu a").click(); // directly click on 1st item
+        document.querySelector("#menu button").click(); // directly click on 1st item
     }
 
 
@@ -207,7 +207,7 @@ var EB_Template = (function () {
         initAllTabs();
         monsterBugFixes();
         urlParameterSwitchTab();
-    } // end startTemplate
+    }
 
 
     document.addEventListener("DOMContentLoaded", startTemplate);

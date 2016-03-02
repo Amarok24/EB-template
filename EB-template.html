@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="de">
 <!-- XHTML 5 -->
 
 <head>
 
-    <!--
-    EB_Template version 1.0 (2/2016)
+<!--
+    EB_Template version 1.0
+    + Leaflet map
+    + Owl Carousel 2
 -->
 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><!-- for eSend/FIPS -->
     <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!-- for eSend/FIPS -->
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,6 +19,8 @@
     <title>EB_Template</title>
 
     <link rel="stylesheet" href="http://images.monster.com/atge/interactive/printcss/print.css" media="print" />
+
+    <link rel="stylesheet" href="owl.carousel.fnp.min.css" />
 
 <!--
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
@@ -31,6 +34,7 @@
 
         body {
             background: linear-gradient(to bottom, #ffffff 30%, #bababa 100%);
+            margin: 0;
         }
 
         .container * {
@@ -147,62 +151,8 @@
             padding: 35px;
         }
 
-        #menu {
-            display: none;
-            margin-bottom: 1em;
-        }
-
-        #menu::after {
-            clear: both;
-            display: block;
-            content: "";
-        }
-
-        #menu a {
-            float: left;
-            border-left: 2px solid white;
-            outline: 0;
-            box-sizing: border-box;
-            width: calc(100% / 4);
-            padding: .7em 2%;
-            background-color: #ecedf5;
-            color: #505050;
-            font-weight: bold;
-            font-style: normal;
-            text-decoration: none;
-            text-align: center;
-            cursor: pointer;
-            transition: background .6s ease;
-        }
-
-        #menu a:first-child {
-            border-left-width: 0;
-        }
-
-        #menu a:hover {
-            background-color: #c8cfe0;
-        }
-
-
-        #menu a.active {
-            background-color: #c8cfe0;
-        }
-
-        #mobileMenuButton {
-            display: none;
-            width: 42px;
-            padding: 0 2px;
-            box-sizing: content-box;
-            overflow: hidden;
-            position: fixed;
-            right: 0;
-            top: 0;
-            background-color: rgba(54, 57, 131, 0.6);
-        }
-
-        #mobileMenuButton:hover {
-            cursor: pointer;
-            background-color: rgba(0, 0, 90, 0.5);
+        .container .tabContent {
+            margin: 1.5em 0 0 0;
         }
 
         .container .leftColumn {
@@ -226,6 +176,70 @@
             white-space: nowrap;
         }
 
+
+        nav#menu {
+            display: none;
+        }
+
+        nav#menu::after {
+            clear: both;
+            display: block;
+            content: "";
+        }
+
+        nav#menu button {
+            float: left;
+            border: 0;
+            border-left: 2px solid white;
+            outline: 0;
+            box-sizing: border-box;
+            width: calc(100% / 4);
+            padding: .7em 2%;
+            background-color: #ecedf5;
+            color: #505050;
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: background .6s ease;
+        }
+
+        nav#menu button:first-child {
+            border-left-width: 0;
+        }
+
+        nav#menu button:hover {
+            background-color: #c8cfe0;
+        }
+
+
+        nav#menu button.active {
+            background-color: #c8cfe0;
+        }
+
+        #mobileMenuButton {
+            display: none;
+            font-size: 32px;
+            line-height: 32px;
+            text-align: center;
+            color: white;
+            width: 42px;
+            padding: 0 2px;
+            box-sizing: content-box;
+            overflow: hidden;
+            position: fixed;
+            right: 0;
+            top: 0;
+            background-color: rgba(54, 57, 131, 0.6);
+        }
+
+        #mobileMenuButton:hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 90, 0.5);
+        }
+
+
         #jobViewBody,
         #jobViewBody .ui-box {
             padding: 0 !important;
@@ -247,39 +261,43 @@
                 display: block;
                 z-index: 53;
             }
-            #menu {
+            nav#menu {
                 position: fixed;
-                left: 0px;
+                left: 0;
                 top: 0;
                 width: 100%;
                 display: none;
                 z-index: 52;
             }
-            #menu a {
+            nav#menu button {
                 width: 100%;
                 height: auto;
-                padding: 1em 60px 1em 6%;
+                min-height: 43px;
+                margin: 0;
+                padding: 14px 60px 10px 20px;
                 border: none;
+                border-bottom: thin solid white;
                 background-color: #ebebeb;
                 color: black;
                 text-align: left;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: normal;
                 text-transform: uppercase;
-                font-weight: bold;
-                font-size: 1.2em;
             }
-            #menu a:first-child {
+            nav#menu button:first-child {
                 border: none;
             }
-            #menu a:hover {
+            nav#menu button:hover {
                 background-color: #8280b2;
                 color: white;
             }
-            #menu a.active {
+            nav#menu button.active {
                 background-color: #8280b2;
                 color: white;
             }
             .container .content {
-                padding: 20px;
+                padding: 15px;
             }
             .container .leftColumn,
             .container .rightColumn {
@@ -290,21 +308,22 @@
 
         @media screen and (max-width: 380px) {
             /* modern mobile phones - portrait orientation */
-
+            .container .content {
+                padding: 10px;
+            }
         }
 
 
         @media print {
+            nav#menu {
+                display: none !important;
+            }
             .container .tabContent {
                 display: block !important;
-                margin-bottom: 2em;
             }
             .container {
                 margin: 0;
                 border: none;
-            }
-            #menu {
-                display: none !important;
             }
             .container .noprint {
                 display: none;
@@ -316,18 +335,25 @@
     <script src="http://media.newjobs.com/atge/interactive/js/jquery/jquery-2.1.4.min.js"></script>
     <script src="EB-template.fnp.js">/* EB-template */</script>
 
-    <script src="jquery.bxslider.min.js">/* BXSlider */</script>
+    <script src="owl.carousel.fnp.min.js">/* OwlCarousel2 */</script>
 
     <script>
         var jQ = jQuery.noConflict();
         jQ(function ($) {
-            $("#slideshow").bxSlider({
-                mode: "fade",
-                controls: false,
-                pagerCustom: $("#menu")
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
+                items: 1,
+                loop: true,
+                autoplay: false,
+                animateOut: 'fadeOut',
+                mouseDrag: false,
+                touchDrag: false
             });
-        });
 
+            $('#menu button').click(function() {
+                owl.trigger('to.owl.carousel', $(this).index());
+            })
+        });
         //console.info("EB_Template " + EB_Template.version);
     </script>
 
@@ -360,7 +386,6 @@
     <script src="EB-template-map.fnp.js">/* EB LeafletMap */</script>
     <!-- END: LEAFLET MAP CODE -->
 
-
 </head>
 
 <body>
@@ -368,16 +393,14 @@
 
     <div class="container">
 
-
         <div id="mobileMenuButton">
-            <img src="menubutton.svg" alt="&#9776;" />
+            <img src="http://media.newjobs.com/atge/interactive/Monster/2016/03-Maerz/Monster/menubutton.svg" alt="&#9776;" />
         </div>
 
 
         <div class="content">
 
-
-            <div class="header" id="slideshow">
+            <div class="header owl-carousel">
 
                 <img src="p1.jpeg" alt="" />
                 <img src="p2.jpeg" alt="" />
@@ -388,20 +411,11 @@
 
 
             <nav id="menu" role="navigation">
-                <a href="#" data-slide-index="0">
-                    Tab 1
-                </a>
-                <a href="#" data-slide-index="1">
-                    Tab 2
-                </a>
-                <a href="#" data-slide-index="2">
-                    Tab 3
-                </a>
-                <a href="#" data-slide-index="3">
-                    Tab 4
-                </a>
+                <button> Navi tab 1 </button>
+                <button> Navi tab 2 </button>
+                <button> Navi tab 3 </button>
+                <button> Navi tab 4 </button>
             </nav>
-            <!-- #menu -->
 
 
             <div id="hook"></div>
@@ -454,8 +468,6 @@
                 <br /> Aenean interdum leo sit amet risus sodales pellentesque. Morbi posuere mollis velit sit amet tempor. Cras luctus lectus quis dui auctor, quis vestibulum nisl elementum. Pellentesque tincidunt scelerisque faucibus. Praesent urna erat, interdum eget iaculis ut, imperdiet ut massa. Duis placerat cursus nunc. Nulla facilisi. Mauris fringilla orci eget erat sagittis aliquam. Vivamus pellentesque tristique leo et iaculis. Sed vitae semper lectus, sed semper velit. Nunc ac varius est, quis gravida urna.
                 <br />
                 <br /> Ut nec eros interdum, molestie eros nec, cursus est. Duis accumsan metus suscipit arcu molestie, at ullamcorper risus malesuada. Morbi pulvinar auctor semper. Sed pharetra erat eu dignissim sollicitudin. Suspendisse potenti. Cras sit amet augue id lectus facilisis mattis. Vivamus ultrices lorem sed consequat gravida. Cras at dolor eget urna rutrum sodales.
-
-
 
             </section>
 

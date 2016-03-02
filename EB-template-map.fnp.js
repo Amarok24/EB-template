@@ -102,7 +102,7 @@ var LeafletMap = (function() {
         var timeout = (!!window.chrome)? 150 : 0; // 150ms OR 0ms, Chrome bugfix
         setTimeout(initMap, timeout); // Chrome bugfix
         */
-        document.querySelectorAll("#menu a")[mapTabIndex].addEventListener("click", drawMap);
+        document.querySelectorAll("#menu button")[mapTabIndex].addEventListener("click", drawMap);
     });
 
 
@@ -110,4 +110,4 @@ var LeafletMap = (function() {
         /* public objects */
     };
 
-})(); // end LeafLetMap
+})(); // end LeafletMap
