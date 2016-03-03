@@ -52,7 +52,7 @@ var LeafletMap = (function() {
         jsmapLayer1 = L.tileLayer('http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
             { /* MapQuest */
             maxZoom: 18,
-            attribution: '© <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors, Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>',
+            attribution: '\u00A9 <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors, Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>',
             subdomains: ['otile1','otile2','otile3','otile4'], /* MapQuest-Open tile servers */
             id: 'Map01'
             });
@@ -60,7 +60,7 @@ var LeafletMap = (function() {
         jsmapLayer2 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             { /* OSM */
             maxZoom: 18,
-            attribution: '© <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors',
+            attribution: '\u00A9 <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors',
             subdomains: ['a','b','c'], /* OpenStreetMap tile servers */
             id: 'Map02'
             });
@@ -68,7 +68,7 @@ var LeafletMap = (function() {
         jsmapLayer3 = L.tileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png',
             { /* Thunderforest */
             maxZoom: 18,
-            attribution: 'Maps © <a href="http://www.thunderforest.com/" target="_blank">Thunderforest</a>, Data © <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors',
+            attribution: 'Maps \u00A9 <a href="http://www.thunderforest.com/" target="_blank">Thunderforest</a>, Data \u00A9 <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors',
             subdomains: ['a','b','c'], /* Thunderforest tile servers */
             id: 'Map03'
             });
@@ -102,7 +102,7 @@ var LeafletMap = (function() {
         var timeout = (!!window.chrome)? 150 : 0; // 150ms OR 0ms, Chrome bugfix
         setTimeout(initMap, timeout); // Chrome bugfix
         */
-        document.querySelectorAll("#menu button")[mapTabIndex].addEventListener("click", drawMap);
+        document.querySelectorAll("#navigation button")[mapTabIndex].addEventListener("click", drawMap);
     });
 
 

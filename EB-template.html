@@ -5,9 +5,7 @@
 <head>
 
 <!--
-    EB_Template version 1.0
-    + Leaflet map
-    + Owl Carousel 2
+    EB_Template version 1.01
 -->
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><!-- for eSend/FIPS -->
@@ -18,12 +16,12 @@
 
     <title>EB_Template</title>
 
-    <link rel="stylesheet" href="http://images.monster.com/atge/interactive/printcss/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="http://images.monster.com/atge/interactive/printcss/print.css" media="print" />
 
-    <link rel="stylesheet" href="owl.carousel.fnp.min.css" />
+    <link rel="stylesheet" type="text/css" href="owl.carousel.fnp.min.css" />
 
 <!--
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 -->
 
     <style>
@@ -177,45 +175,61 @@
         }
 
 
-        nav#menu {
+        nav#navigation {
             display: none;
+            /*
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            */
         }
 
-        nav#menu::after {
+        nav#navigation::after {
             clear: both;
             display: block;
             content: "";
         }
 
-        nav#menu button {
+        nav#navigation button {
             float: left;
             border: 0;
             border-left: 2px solid white;
-            outline: 0;
             box-sizing: border-box;
             width: calc(100% / 4);
             padding: .7em 2%;
             background-color: #ecedf5;
             color: #505050;
-            font-weight: bold;
-            font-style: normal;
             text-decoration: none;
             text-align: center;
             cursor: pointer;
             transition: background .6s ease;
+            /* mobile redux fixes: */
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            font-style: normal;
+            line-height: inherit;
         }
 
-        nav#menu button:first-child {
+        nav#navigation button:first-child {
             border-left-width: 0;
         }
 
-        nav#menu button:hover {
+        nav#navigation button:hover {
             background-color: #c8cfe0;
         }
 
-
-        nav#menu button.active {
+        nav#navigation button.active {
             background-color: #c8cfe0;
+        }
+
+        nav#navigation button:focus {
+            outline-style: none; /* Webkit fix */
+        }
+        nav#navigation button::-moz-focus-inner {
+            border: 0; /* Firefox fix */
         }
 
         #mobileMenuButton {
@@ -236,7 +250,7 @@
 
         #mobileMenuButton:hover {
             cursor: pointer;
-            background-color: rgba(0, 0, 90, 0.5);
+            background-color: midnightblue;
         }
 
 
@@ -261,7 +275,7 @@
                 display: block;
                 z-index: 53;
             }
-            nav#menu {
+            nav#navigation {
                 position: fixed;
                 left: 0;
                 top: 0;
@@ -269,7 +283,7 @@
                 display: none;
                 z-index: 52;
             }
-            nav#menu button {
+            nav#navigation button {
                 width: 100%;
                 height: auto;
                 min-height: 43px;
@@ -280,19 +294,16 @@
                 background-color: #ebebeb;
                 color: black;
                 text-align: left;
-                font-size: 16px;
+                font-size: 14px;
                 font-weight: 600;
                 line-height: normal;
                 text-transform: uppercase;
             }
-            nav#menu button:first-child {
-                border: none;
-            }
-            nav#menu button:hover {
+            nav#navigation button:hover {
                 background-color: #8280b2;
                 color: white;
             }
-            nav#menu button.active {
+            nav#navigation button.active {
                 background-color: #8280b2;
                 color: white;
             }
@@ -315,7 +326,7 @@
 
 
         @media print {
-            nav#menu {
+            nav#navigation {
                 display: none !important;
             }
             .container .tabContent {
@@ -329,6 +340,7 @@
                 display: none;
             }
         }
+
     </style>
 
 
@@ -350,7 +362,7 @@
                 touchDrag: false
             });
 
-            $('#menu button').click(function() {
+            $('#navigation button').click(function() {
                 owl.trigger('to.owl.carousel', $(this).index());
             })
         });
@@ -359,10 +371,16 @@
 
 
     <!-- BEGIN: LEAFLET MAP CODE -->
+<!--
+    <link rel="stylesheet" type="text/css" href="http://media.newjobs.com/atge/interactive/js/leaflet077/leaflet.css" />
     <style title="LeafletMap">
         #LeafletMap {
             width: auto;
             height: 360px;
+        }
+        #LeafletMap .leaflet-control-attribution a {
+            text-decoration: none;
+            color: #0078A8;
         }
         #LeafletMap .leaflet-control-attribution img {
             display: inline;
@@ -374,21 +392,39 @@
         #LeafletMap .leaflet-control-layers label:hover {
             background-color: #d1e2ca;
         }
+        #LeafletMap .leaflet-control-zoom a {
+            text-decoration: none;
+            color: inherit;
+        }
         #LeafletMap .leaflet-control { padding: 0; }
         #LeafletMap .leaflet-control-layers-list {
             background-color: #efefef;
             padding: 5px;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
         }
     </style>
 
-    <link rel="stylesheet" href="http://media.newjobs.com/atge/interactive/js/leaflet077/leaflet.css" />
     <script src="http://media.newjobs.com/atge/interactive/js/leaflet077/leaflet.js"></script>
     <script src="EB-template-map.fnp.js">/* EB LeafletMap */</script>
     <!-- END: LEAFLET MAP CODE -->
 
+<!--
+<style id="header-test">
+    header.landingpage {height: 37px; background-color: darkviolet;}
+    header.desktop {height: 159px; background-color: darkviolet;}
+    header.mobile {height: 63px; background-color: darkviolet;}
+</style>
+-->
 </head>
 
 <body>
+<!--
+<header class="landingpage" id="myheader_content"></header>
+<header class="desktop" id="monsterAppliesPageWrapper"></header>
+<header class="mobile" id="jobViewBody"></header>
+-->
 
 
     <div class="container">
@@ -410,11 +446,11 @@
             </div>
 
 
-            <nav id="menu" role="navigation">
-                <button> Navi tab 1 </button>
-                <button> Navi tab 2 </button>
-                <button> Navi tab 3 </button>
-                <button> Navi tab 4 </button>
+            <nav id="navigation" role="navigation">
+                <button type="button"> Navi tab 1 </button>
+                <button type="button"> Navi tab 2 </button>
+                <button type="button"> Navi tab 3 </button>
+                <button type="button"> Navi tab 4 </button>
             </nav>
 
 

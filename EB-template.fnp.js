@@ -30,10 +30,10 @@ var EB_Template = (function () {
 
 
     function toggleMobileMenu() {
-        if (idGetCss("menu", "display") === "none") {
-            idSetCss("menu", "display", "block");
+        if (idGetCss("navigation", "display") === "none") {
+            idSetCss("navigation", "display", "block");
         } else {
-            idSetCss("menu", "display", "none");
+            idSetCss("navigation", "display", "none");
         }
     }
 
@@ -63,10 +63,10 @@ var EB_Template = (function () {
 
         //ev.preventDefault(); // ev = click event (prevents jump to top / href=#)
 
-        // nodeListRemoveClass(document.querySelectorAll("#menu button"), "active");
+        // nodeListRemoveClass(document.querySelectorAll("#navigation button"), "active");
         // -- vanillaJS classList only in IE 10+
-        jQ("#menu button").removeClass("active");
-        jQ("#menu button:eq(" + n + ")").addClass("active");
+        jQ("#navigation button").removeClass("active");
+        jQ("#navigation button:eq(" + n + ")").addClass("active");
         for (i=0; i < tabContent.length; i++) {
             tabContent[i].style.display = "none";
         }
@@ -74,14 +74,18 @@ var EB_Template = (function () {
 
         if (idGetCss("mobileMenuButton", "display") === "block") {
             toggleMobileMenu();
-            scrollToId("hook", -15);
+            if (monsterHeaderType.mobile) {
+                scrollToId("hook", -70); // -70 because of fixed mobile header
+            } else {
+                scrollToId("hook");
+            }
         }
     } // menuItemClick()
 
 
     function contentClick() {
         if (idGetCss("mobileMenuButton", "display") === "block") {
-            idSetCss("menu", "display", "none");
+            idSetCss("navigation", "display", "none");
         }
     }
 
@@ -90,9 +94,9 @@ var EB_Template = (function () {
 
         function windowResizeAction() {
             if (idGetCss("mobileMenuButton", "display") === "block") {
-                idSetCss("menu", "display", "none");
+                idSetCss("navigation", "display", "none");
             } else {
-                idSetCss("menu", "display", "block");
+                idSetCss("navigation", "display", "block");
             }
         }
 
@@ -106,14 +110,11 @@ var EB_Template = (function () {
         function windowScrollAction() {
             /* executed only 1x every 30ms, but only the very last timeout fires this function,
                     because all previous timeouts are being discarded with every new scroll event */
-            var mobileButtonId = document.getElementById("mobileMenuButton"),
-                menuId = document.getElementById("menu");
-            if (window.pageYOffset > 63) {
-                mobileButtonId.style.top = 0;
-                menuId.style.top = 0;
+            var navigation = document.getElementById("navigation");
+            if (window.pageYOffset > 37) {
+                navigation.style.top = 0;
             } else {
-                mobileButtonId.style.top = "64px";
-                menuId.style.top = "64px";
+                navigation.style.top = "38px";
             }
         }
 
@@ -139,14 +140,15 @@ var EB_Template = (function () {
             }
         }
         if (params.tab) {
-            document.querySelectorAll("#menu button")[params.tab].click();
+            document.querySelectorAll("#navigation button")[params.tab].click();
         }
     }
 
 
     function addEvents() {
         var i;
-        var menuItems = document.querySelectorAll("#menu button");
+        var menuItems = document.querySelectorAll("#navigation button");
+        var menu = document.getElementById("navigation");
 
         for (i=0; i < menuItems.length; i++) {
             menuItems[i].addEventListener("click", menuItemClick);
@@ -155,11 +157,11 @@ var EB_Template = (function () {
         document.querySelector(".container .content").addEventListener("click", contentClick);
         window.addEventListener("resize", onWindowResize);
 
-        if (monsterHeaderType.mobile) {
+        if (monsterHeaderType.landingpage && idGetCss("navigation", "position") === "fixed") {
+            // if we have a fixed menu, we need a 'sticky' emulation for landingpages
+            // 'position: sticky' works only in Firefox (44)
             window.addEventListener("scroll", onWindowScroll);
-            if (idGetCss("mobileMenuButton", "display") === "block") {
-                onWindowScroll(); // immediately set correct button position
-            }
+            onWindowScroll(); // immediately set the correct menu position
         }
     }
 
@@ -168,16 +170,14 @@ var EB_Template = (function () {
         if (monsterHeaderType.desktop) {
             var afh = document.querySelector(".AppliesFooterHolder");
             var mapw = document.getElementById("monsterAppliesPageWrapper");
-
             /* Monster Redux bug fix (EB page scrolling with Javascript)  */
             document.getElementsByTagName("html")[0].setAttribute(
                 "style", "height:auto !important; overflow:auto !important");
             document.getElementsByTagName("body")[0].setAttribute(
                 "style", "height:auto !important; overflow:hidden !important");
-
-            // following 2 are other fixes, not to do with EB scrolling
-            if (afh) { afh.setAttribute('style', 'margin-top: 0 !important'); }
-            if (mapw) { mapw.setAttribute('style', 'overflow: hidden !important'); }
+            // following 2 are other fixes, not to do with EB scrolling, unimportant now?
+            //if (afh) { afh.setAttribute('style', 'margin-top: 0 !important'); }
+            //if (mapw) { mapw.setAttribute('style', 'overflow: hidden !important'); }
             console.info('monsterHeaderType.desktop bugfix applied');
         }
     }
@@ -196,13 +196,18 @@ var EB_Template = (function () {
         for (i = 0; i < tabContents.length; i++) {
             tabContents[i].style.display = "none";
         }
-        document.querySelector("#menu button").click(); // directly click on 1st item
+        if (monsterHeaderType.mobile) {
+            document.getElementById("navigation").style.top = "64px";
+        }
+        //document.querySelector("#navigation button").click(); // directly click on 1st item
+        tabContents[0].style.display = "block";
+        jQ(document.querySelector("#navigation button")).addClass("active");
     }
 
 
     function startTemplate() {
         getHeaderType();
-        onWindowResize(); // show #menu if #mobileMenuButton is hidden
+        onWindowResize(); // show #navigation if #mobileMenuButton is hidden
         addEvents();
         initAllTabs();
         monsterBugFixes();
@@ -219,7 +224,7 @@ var EB_Template = (function () {
         monsterHeaderType: monsterHeaderType,
         idGetCss: idGetCss,
         idSetCss: idSetCss,
-        version: "1.0"
+        version: "1.01"
     };
 
 })(); // end EB_Template
