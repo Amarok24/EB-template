@@ -43,13 +43,9 @@ var EB_Template = (function () {
         for (var i; i < nlist.length; i++) { nlist[i].classList.remove(className); }
     }
 */
-    function menuItemClick(ev) {
+    function navButtonClick(buttonIndex) {
         var i;
         var tabContent = document.querySelectorAll(".container .tabContent");
-        var n = jQ(ev.currentTarget).index();
-        /* "currentTarget" always refers to the element whose event listener
-            triggered the event, opposed to the "target" property, which
-            returns the element that triggered the event */
 
         var scrollToId = function(css_id, correction) {
             var css_id = css_id || "#";
@@ -61,16 +57,14 @@ var EB_Template = (function () {
             }, "slow");
         };
 
-        //ev.preventDefault(); // ev = click event (prevents jump to top / href=#)
-
         // nodeListRemoveClass(document.querySelectorAll("#navigation button"), "active");
         // -- vanillaJS classList only in IE 10+
         jQ("#navigation button").removeClass("active");
-        jQ("#navigation button:eq(" + n + ")").addClass("active");
+        jQ("#navigation button:eq(" + buttonIndex + ")").addClass("active");
         for (i=0; i < tabContent.length; i++) {
             tabContent[i].style.display = "none";
         }
-        tabContent[n].style.display = "block";
+        tabContent[buttonIndex].style.display = "block";
 
         if (idGetCss("mobileMenuButton", "display") === "block") {
             toggleMobileMenu();
@@ -80,7 +74,7 @@ var EB_Template = (function () {
                 scrollToId("hook");
             }
         }
-    } // menuItemClick()
+    } // navButtonClick()
 
 
     function contentClick() {
@@ -147,11 +141,11 @@ var EB_Template = (function () {
 
     function addEvents() {
         var i;
-        var menuItems = document.querySelectorAll("#navigation button");
-        var menu = document.getElementById("navigation");
+        var navItems = document.querySelectorAll("#navigation button");
 
-        for (i=0; i < menuItems.length; i++) {
-            menuItems[i].addEventListener("click", menuItemClick);
+        for (i=0; i < navItems.length; i++) {
+            // stackoverflow.com/questions/35775562/get-index-of-child-with-event-currenttarget
+            navItems[i].addEventListener("click", navButtonClick.bind(null, i));
         }
         document.getElementById("mobileMenuButton").addEventListener("click", toggleMobileMenu);
         document.querySelector(".container .content").addEventListener("click", contentClick);
