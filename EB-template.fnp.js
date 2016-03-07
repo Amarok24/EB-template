@@ -17,6 +17,61 @@ var EB_Template = (function () {
         timeoutIDwindowResize = null;
 
 
+    window.requestAnimFrame = (function() {
+        // SHIM for RAF, paulirish.com/2011/requestanimationframe-for-smart-animating/
+        return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        function(callback){ window.setTimeout(callback, 1000 / 60); };
+    })();
+
+
+    function scrollToId(css_id, correction, easingMethod) {
+        var easingMethod = easingMethod || "easeInOutQuint";
+        var correction = correction || 0;
+        var el = document.getElementById(css_id);
+
+        var scrollToY = function(scrollTargetY, speed, easing) {
+        /*  Source: http://stackoverflow.com/a/26808520/5986007
+            speed: time in pixels per second */
+            var scrollY = window.scrollY,
+                scrollTargetY = scrollTargetY || 0,
+                speed = speed || 2000,
+                easing = easing || 'easeOutSine',
+                currentTime = 0;
+            // min time .1, max time .8 seconds
+            var time = Math.max(.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, .8));
+            // easing equations from https://github.com/danro/easing-js/blob/master/easing.js
+            var PI_D2 = Math.PI / 2;
+            var easingEquations = {
+                easeOutSine: function(pos) { return Math.sin(pos * (Math.PI / 2)); },
+                easeInOutSine: function(pos) { return (-0.5 * (Math.cos(Math.PI * pos) - 1)); },
+                easeInOutQuint: function(pos) {
+                    if ((pos /= 0.5) < 1) { return 0.5 * Math.pow(pos, 5); }
+                    return 0.5 * (Math.pow((pos - 2), 5) + 2);
+                }
+            };
+            function tick() { // add animation loop
+                currentTime += 1 / 60;
+                var p = currentTime / time;
+                var t = easingEquations[easing](p);
+                if (p < 1) {
+                    requestAnimFrame(tick);
+                    window.scrollTo(0, scrollY + ((scrollTargetY - scrollY) * t));
+                } else {
+                    window.scrollTo(0, scrollTargetY);
+                    //console.info('scrollToY done');
+                }
+            }
+            tick(); // call it once to get started
+        }; // end scrollToY
+
+        if (el) {
+            scrollToY(el.offsetTop + correction, 500, easingMethod);
+        }
+    } // end scrollToId
+
+
     function idGetCss(s_elementId, s_styleProp) {
         var element = document.getElementById(s_elementId);
         return window.getComputedStyle(element, null).getPropertyValue(s_styleProp);
@@ -46,16 +101,6 @@ var EB_Template = (function () {
     function navButtonClick(buttonIndex) {
         var i;
         var tabContent = document.querySelectorAll(".container .tabContent");
-
-        var scrollToId = function(css_id, correction) {
-            var css_id = css_id || "#";
-            var correction = correction || 0;
-
-            var divPosition = jQ("#" + css_id).offset();
-            jQ("html, body").animate({
-                scrollTop: divPosition.top + correction
-            }, "slow");
-        };
 
         // nodeListRemoveClass(document.querySelectorAll("#navigation button"), "active");
         // -- vanillaJS classList only in IE 10+
@@ -218,7 +263,7 @@ var EB_Template = (function () {
         monsterHeaderType: monsterHeaderType,
         idGetCss: idGetCss,
         idSetCss: idSetCss,
-        version: "1.01"
+        version: "1.02"
     };
 
 })(); // end EB_Template
