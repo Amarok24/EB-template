@@ -1,7 +1,7 @@
 /* @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3-or-Later */
 
-/*jslint browser: true, node: true, devel: true, sloppy: false,
-  white: true, vars: true, plusplus: true, indent: 4, maxlen: 90*/
+/* jshint devel: true, browser: true, jquery: true, shadow: true,
+          unused: true, undef: true, strict: true, esversion: 6 */
 
 var EB_Template = (function () {
 
@@ -40,9 +40,8 @@ var EB_Template = (function () {
                 easing = easing || 'easeOutSine',
                 currentTime = 0;
             // min time .1, max time .8 seconds
-            var time = Math.max(.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, .8));
+            var time = Math.max(0.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, 0.8));
             // easing equations from https://github.com/danro/easing-js/blob/master/easing.js
-            var PI_D2 = Math.PI / 2;
             var easingEquations = {
                 easeOutSine: function(pos) { return Math.sin(pos * (Math.PI / 2)); },
                 easeInOutSine: function(pos) { return (-0.5 * (Math.cos(Math.PI * pos) - 1)); },
@@ -56,7 +55,7 @@ var EB_Template = (function () {
                 var p = currentTime / time;
                 var t = easingEquations[easing](p);
                 if (p < 1) {
-                    requestAnimFrame(tick);
+                    window.requestAnimFrame(tick);
                     window.scrollTo(0, scrollY + ((scrollTargetY - scrollY) * t));
                 } else {
                     window.scrollTo(0, scrollTargetY);
@@ -207,14 +206,15 @@ var EB_Template = (function () {
 
     function monsterBugFixes() {
         if (monsterHeaderType.desktop) {
-            var afh = document.querySelector(".AppliesFooterHolder");
-            var mapw = document.getElementById("monsterAppliesPageWrapper");
+
             /* Monster Redux bug fix (EB page scrolling with Javascript)  */
             document.getElementsByTagName("html")[0].setAttribute(
                 "style", "height:auto !important; overflow:auto !important");
             document.getElementsByTagName("body")[0].setAttribute(
                 "style", "height:auto !important; overflow:hidden !important");
-            // following 2 are other fixes, not to do with EB scrolling, unimportant now?
+            // following are other fixes, not to do with EB scrolling, unimportant now?
+            //var afh = document.querySelector(".AppliesFooterHolder");
+            //var mapw = document.getElementById("monsterAppliesPageWrapper");
             //if (afh) { afh.setAttribute('style', 'margin-top: 0 !important'); }
             //if (mapw) { mapw.setAttribute('style', 'overflow: hidden !important'); }
             console.info('monsterHeaderType.desktop bugfix applied');
