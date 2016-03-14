@@ -202,8 +202,8 @@ var EB_Template = (function () {
 
 
     function monsterBugFixes() {
-        if (monsterHeaderType.desktop) {
-            /* Monster Redux bug fix (EB page scrolling with Javascript)  */
+        /* if (monsterHeaderType.desktop) {
+            // Monster Redux bug fix (EB page scrolling with Javascript)
             document.getElementsByTagName("html")[0].setAttribute(
                 "style", "height:auto !important; overflow:auto !important");
             document.getElementsByTagName("body")[0].setAttribute(
@@ -211,11 +211,9 @@ var EB_Template = (function () {
             // following corrects the position of desktop-redux footer
             var afh = document.querySelector(".AppliesFooterHolder");
             if (afh) { afh.setAttribute('style', 'margin-top: 0 !important'); }
-            /* var mapw = document.getElementById("monsterAppliesPageWrapper");
-            if (mapw) { mapw.setAttribute('style', 'overflow: hidden !important'); }  */
-        }
+        } */
         if (monsterHeaderType.mobile) {
-            // Monster mobile-Redux padding 0 for correct navigation alignment
+            // Monster mobile-Redux padding 0 for correct mobile navigation alignment
             var jvb = document.getElementById("jobViewBody");
             var uibox = document.querySelector("#jobViewBody .ui-box");
             if (jvb) { jvb.setAttribute("style", "padding: 0"); }
