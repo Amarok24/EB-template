@@ -3,6 +3,8 @@ EB-template
 
 Changelog (only significant changes listed)
 -------------------------------------------
+v1.03 -- 20160314, desktop redux scrolling bugfix
+
 v1.02 -- 20160310, code cleanup
 
 v1.01 -- 20160303, prepared for sticky-header simulation (position fixed) with monsterHeaderType.landingpage 
