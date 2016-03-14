@@ -10,7 +10,7 @@ var EB_Template = (function () {
 
     var monsterHeaderType = {
         desktop: false, // height 159px
-        mobile: false,  // height 63px
+        mobile: false,  // height 62px
         landingpage: false  // height 37px
     };
     var timeoutIDwindowScroll = null,
@@ -27,7 +27,7 @@ var EB_Template = (function () {
 
 
     function scrollToId(css_id, correction, easingMethod) {
-        var easingMethod = easingMethod || "easeInOutQuint";
+        var easingMethod = easingMethod || "easeOutSine";
         var correction = correction || 0;
         var el = document.getElementById(css_id);
 
@@ -112,12 +112,9 @@ var EB_Template = (function () {
 
         if (idGetCss("mobileMenuButton", "display") === "block") {
             toggleMobileMenu();
-            if (monsterHeaderType.mobile) {
-                scrollToId("hook", -70); // -70 because of fixed mobile header
-            } else {
-                scrollToId("hook");
-            }
+            scrollToId("hook");
         }
+        //scrollToId("hook");
     } // navButtonClick()
 
 
@@ -197,7 +194,7 @@ var EB_Template = (function () {
 
         if (monsterHeaderType.landingpage && idGetCss("navigation", "position") === "fixed") {
             // if we have a fixed menu, we need a 'sticky' emulation for landingpages
-            // 'position: sticky' works only in Firefox (44)
+            // css3 "position: sticky" currently works only in Firefox (44)
             window.addEventListener("scroll", onWindowScroll);
             onWindowScroll(); // immediately set the correct menu position
         }
@@ -206,18 +203,23 @@ var EB_Template = (function () {
 
     function monsterBugFixes() {
         if (monsterHeaderType.desktop) {
-
             /* Monster Redux bug fix (EB page scrolling with Javascript)  */
             document.getElementsByTagName("html")[0].setAttribute(
                 "style", "height:auto !important; overflow:auto !important");
             document.getElementsByTagName("body")[0].setAttribute(
                 "style", "height:auto !important; overflow:hidden !important");
-            // following are other fixes, not to do with EB scrolling, unimportant now?
-            //var afh = document.querySelector(".AppliesFooterHolder");
-            //var mapw = document.getElementById("monsterAppliesPageWrapper");
-            //if (afh) { afh.setAttribute('style', 'margin-top: 0 !important'); }
-            //if (mapw) { mapw.setAttribute('style', 'overflow: hidden !important'); }
-            console.info('monsterHeaderType.desktop bugfix applied');
+            // following corrects the position of desktop-redux footer
+            var afh = document.querySelector(".AppliesFooterHolder");
+            if (afh) { afh.setAttribute('style', 'margin-top: 0 !important'); }
+            /* var mapw = document.getElementById("monsterAppliesPageWrapper");
+            if (mapw) { mapw.setAttribute('style', 'overflow: hidden !important'); }  */
+        }
+        if (monsterHeaderType.mobile) {
+            // Monster mobile-Redux padding 0 for correct navigation alignment
+            var jvb = document.getElementById("jobViewBody");
+            var uibox = document.querySelector("#jobViewBody .ui-box");
+            if (jvb) { jvb.setAttribute("style", "padding: 0"); }
+            if (uibox) { uibox.setAttribute("style", "padding: 0"); }
         }
     }
 
@@ -236,7 +238,8 @@ var EB_Template = (function () {
             tabContents[i].style.display = "none";
         }
         if (monsterHeaderType.mobile) {
-            document.getElementById("navigation").style.top = "64px";
+            idSetCss("mobileMenuButton", "top", "62px");
+            idSetCss("navigation", "top", "62px");
         }
         //document.querySelector("#navigation button").click(); // directly click on 1st item
         tabContents[0].style.display = "block";
@@ -263,7 +266,7 @@ var EB_Template = (function () {
         monsterHeaderType: monsterHeaderType,
         idGetCss: idGetCss,
         idSetCss: idSetCss,
-        version: "1.02"
+        version: "1.03"
     };
 
 })(); // end EB_Template
