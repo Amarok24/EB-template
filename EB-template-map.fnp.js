@@ -75,7 +75,8 @@ var LeafletMap = (function() {
 
         jsmap = L.map('LeafletMap', {
                 center: [51.3, 10.6], /* MAP CENTER COORDINATES */
-                zoom: 5,
+                zoom: 6,
+                minZoom: 5,
                 scrollWheelZoom: false,
                 layers: [jsmapLayer1]
             });
