@@ -65,8 +65,21 @@ var EB_Template = (function () {
             tick(); // call it once to get started
         }; // end scrollToY
 
+        var getOffset = function(elem) {
+            // http://stackoverflow.com/a/442474/5986007 + https://www.kirupa.com/html5/get_element_position_using_javascript.htm
+            var _x = 0;
+            var _y = 0;
+            while (elem && !isNaN(elem.offsetLeft) && !isNaN(elem.offsetTop)) {
+                _x += elem.offsetLeft - elem.scrollLeft; // + elem.clientLeft
+                _y += elem.offsetTop - elem.scrollTop; // + elem.clientTop
+                elem = elem.offsetParent;
+            }
+            return {top: _y, left: _x};
+        };
+
         if (el) {
-            scrollToY(el.offsetTop + correction, 500, easingMethod);
+            //scrollToY( getOffset(el).top + correction, 500, easingMethod); DIFFERENT VALUES IN FF vs Chrome!
+            scrollToY( jQ(el).offset().top + correction, 500, easingMethod);
         }
     } // end scrollToId
 
@@ -100,6 +113,7 @@ var EB_Template = (function () {
     function navButtonClick(buttonIndex) {
         var i;
         var tabContent = document.querySelectorAll(".container .tabContent");
+        var yCorrection;
 
         // nodeListRemoveClass(document.querySelectorAll("#navigation button"), "active");
         // -- vanillaJS classList only in IE 10+
@@ -112,7 +126,8 @@ var EB_Template = (function () {
 
         if (idGetCss("mobileMenuButton", "display") === "block") {
             toggleMobileMenu();
-            scrollToId("hook");
+            yCorrection = monsterHeaderType.mobile ? -60 : 0;
+            scrollToId("hook", yCorrection);
         }
         //scrollToId("hook");
     } // navButtonClick()
