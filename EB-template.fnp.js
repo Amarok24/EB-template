@@ -13,7 +13,7 @@ var EB_Template = (function () {
         mobile: false,  // height 62px
         landingpage: false  // height 37px
     };
-    var timeoutIDwindowScroll = null,
+    var //timeoutIDwindowScroll = null,
         timeoutIDwindowResize = null;
 
 
@@ -64,7 +64,7 @@ var EB_Template = (function () {
             }
             tick(); // call it once to get started
         }; // end scrollToY
-
+/*
         var getOffset = function(elem) {
             // http://stackoverflow.com/a/442474/5986007 + https://www.kirupa.com/html5/get_element_position_using_javascript.htm
             var _x = 0;
@@ -75,10 +75,10 @@ var EB_Template = (function () {
                 elem = elem.offsetParent;
             }
             return {top: _y, left: _x};
-        };
-
+        }; // TODO: getOffset bugfix - DIFFERENT VALUES IN FF vs Chrome!
+*/
         if (el) {
-            //scrollToY( getOffset(el).top + correction, 500, easingMethod); DIFFERENT VALUES IN FF vs Chrome!
+            //scrollToY( getOffset(el).top + correction, 500, easingMethod);
             scrollToY( jQ(el).offset().top + correction, 500, easingMethod);
         }
     } // end scrollToId
@@ -113,7 +113,7 @@ var EB_Template = (function () {
     function navButtonClick(buttonIndex) {
         var i;
         var tabContent = document.querySelectorAll(".container .tabContent");
-        var yCorrection;
+        var yCorrection = monsterHeaderType.mobile ? -60 : 0;
 
         // nodeListRemoveClass(document.querySelectorAll("#navigation button"), "active");
         // -- vanillaJS classList only in IE 10+
@@ -126,10 +126,8 @@ var EB_Template = (function () {
 
         if (idGetCss("mobileMenuButton", "display") === "block") {
             toggleMobileMenu();
-            yCorrection = monsterHeaderType.mobile ? -60 : 0;
             scrollToId("hook", yCorrection);
         }
-        //scrollToId("hook");
     } // navButtonClick()
 
 
@@ -154,25 +152,18 @@ var EB_Template = (function () {
         timeoutIDwindowResize = window.setTimeout(windowResizeAction, 50);
     }
 
-
+/*
     function onWindowScroll() {
-
         function windowScrollAction() {
-            /* executed only 1x every 30ms, but only the very last timeout fires this function,
-                    because all previous timeouts are being discarded with every new scroll event */
-            var navigation = document.getElementById("navigation");
+            // executed only 1x every 30ms, but only the very last timeout fires this function, because all previous timeouts are being discarded with every new scroll event
             if (window.pageYOffset > 37) {
-                navigation.style.top = 0;
-            } else {
-                navigation.style.top = "38px";
+                // do something ...
             }
         }
-
         if (timeoutIDwindowScroll) { window.clearTimeout(timeoutIDwindowScroll); }
         timeoutIDwindowScroll = window.setTimeout(windowScrollAction, 30);
-
     } // onWindowScroll()
-
+*/
 
     function urlParameterSwitchTab() {
     /* switches to specific tab directly, if URL parameter "tab" is found */
@@ -206,13 +197,6 @@ var EB_Template = (function () {
         document.getElementById("mobileMenuButton").addEventListener("click", toggleMobileMenu);
         document.querySelector(".container .content").addEventListener("click", contentClick);
         window.addEventListener("resize", onWindowResize);
-
-        if (monsterHeaderType.landingpage && idGetCss("navigation", "position") === "fixed") {
-            // if we have a fixed menu, we need a 'sticky' emulation for landingpages
-            // css3 "position: sticky" currently works only in Firefox (44)
-            window.addEventListener("scroll", onWindowScroll);
-            onWindowScroll(); // immediately set the correct menu position
-        }
     }
 
 
@@ -254,6 +238,11 @@ var EB_Template = (function () {
             idSetCss("mobileMenuButton", "top", "62px");
             idSetCss("navigation", "top", "62px");
         }
+        if (monsterHeaderType.landingpage && idGetCss("navigation", "position") === "fixed") {
+            // if we have a fixed menu, we need a 'sticky' emulation for landingpages
+            // css3 "position: sticky" currently works only in Firefox (44)
+            idSetCss("navigation", "top", "38px");
+        }
         //document.querySelector("#navigation button").click(); // directly click on 1st item
         tabContents[0].style.display = "block";
         jQ(document.querySelector("#navigation button")).addClass("active");
@@ -279,7 +268,7 @@ var EB_Template = (function () {
         monsterHeaderType: monsterHeaderType,
         idGetCss: idGetCss,
         idSetCss: idSetCss,
-        version: "1.03"
+        version: "1.04"
     };
 
 })(); // end EB_Template

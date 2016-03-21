@@ -5,7 +5,7 @@
 <head>
 
 <!--
-    EB_Template version 1.03
+    EB_Template - html version 1.04
 -->
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><!-- for eSend/FIPS -->
@@ -17,8 +17,6 @@
     <title>EB_Template</title>
 
     <link rel="stylesheet" type="text/css" href="http://images.monster.com/atge/interactive/printcss/print.css" media="print" />
-
-    <link rel="stylesheet" type="text/css" href="owl.carousel.fnp.min.css" />
 
 <!--
     <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
@@ -340,26 +338,22 @@
     <script src="http://media.newjobs.com/atge/interactive/js/jquery/jquery-2.1.4.min.js"></script>
     <script src="EB-template.fnp.js">/* EB-template */</script>
 
-    <script src="owl.carousel.fnp.min.js">/* OwlCarousel2 */</script>
+    <script src="jquery.bxslider.fnp.min.js">/* bxSlider */</script>
 
     <script>
         var jQ = jQuery.noConflict();
         jQ(function ($) {
-            var owl = $('.owl-carousel');
-            owl.owlCarousel({
-                items: 1,
-                loop: true,
-                autoplay: false,
-                animateOut: 'fadeOut',
-                mouseDrag: false,
-                touchDrag: false
+            var mySlider = $(".bxSlideshow").bxSlider({
+                mode: "fade",
+                speed: 300,
+                controls: false,
+                pager: false
             });
 
-            $('#navigation button').click(function() {
-                owl.trigger('to.owl.carousel', $(this).index());
-            })
+            $("#navigation button").on("click", function() {
+                mySlider.goToSlide( $(this).index() );
+            });
         });
-        //console.info("EB_Template " + EB_Template.version);
     </script>
 
 
@@ -429,7 +423,7 @@
 
         <div class="content">
 
-            <div class="header owl-carousel">
+            <div class="header bxSlideshow">
 
                 <img src="http://dummyimage.com/leaderboard/7bc043&text=banner_1" alt="" />
                 <img src="http://dummyimage.com/leaderboard/00e0c0&text=banner_2" alt="" />
