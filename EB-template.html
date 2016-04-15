@@ -161,11 +161,11 @@
             width: 48%;
         }
 
-        .container .cleaner {
+        .container .clear-after {}
+        .container .clear-after::after {
             clear: both;
-            font-size: 0;
-            height: 0;
-            line-height: 0;
+            display: block;
+            content: "";
         }
 
         .container .nowrap {
