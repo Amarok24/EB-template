@@ -268,6 +268,7 @@ var EB_Template = (function () {
         monsterHeaderType: monsterHeaderType,
         idGetCss: idGetCss,
         idSetCss: idSetCss,
+        navButtonClick: navButtonClick,
         version: "1.04"
     };
 
