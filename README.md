@@ -3,6 +3,8 @@ EB-template
 
 Changelog (only significant changes listed)
 -------------------------------------------
+v1.05 -- 20161020, MapQuest layer removed, using Mapbox as primary map layer.
+
 v1.04 -- 20160321, scrollToId() Gecko/Webkit difference patch, OwlCarousel2 bug -> using bxSlider
 
 v1.03 -- 20160314, desktop redux scrolling bugfix
