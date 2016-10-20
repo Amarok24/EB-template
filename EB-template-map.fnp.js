@@ -23,10 +23,11 @@ var LeafletMap = (function() {
             <a href='http://leafletjs.com' target='_blank'>leafletjs.com</a>"]
         ];
 
+        L.mapbox.accessToken = 'pk.eyJ1IjoiamFucCIsImEiOiJjaXEweHJpaHcwMDIwaTBua2N1OXc3ZDFiIn0.IH9TIUVAKC-XMzX3rpwyZA'; /* Monster Interactive Prague access token, for more info contact Jan Prazak */
+
         var jsmap,
             jsmapLayer1,
             jsmapLayer2,
-            jsmapLayer3,
             baseMaps,
             jsmapIcon = L.icon({
                 iconUrl: 'http://media.newjobs.com/atge/interactive/js/leaflet077/images/marker-icon.png',
@@ -40,6 +41,7 @@ var LeafletMap = (function() {
                 shadowAnchor: [3, 34]
                 });
 
+
         function addMarkers()
         {
             for (var i=0; i < jsmapMarkers.length; i++) {
@@ -49,33 +51,25 @@ var LeafletMap = (function() {
             }
         }
 
-        jsmapLayer1 = L.tileLayer('http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
-            { /* MapQuest */
+        jsmapLayer1 = L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}\u002epng?access_token=' + L.mapbox.accessToken,
+            { /* Mapbox Streets */
             maxZoom: 18,
-            attribution: '\u00A9 <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors, Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>',
-            subdomains: ['otile1','otile2','otile3','otile4'], /* MapQuest-Open tile servers */
+            attribution: '\u00A9 <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a>, \u00A9 <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors',
+            /* subdomains: ['','',''], */
             id: 'Map01'
             });
 
-        jsmapLayer2 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        jsmapLayer2 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}\u002epng',
             { /* OSM */
-            maxZoom: 18,
+            maxZoom: 12,
             attribution: '\u00A9 <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors',
             subdomains: ['a','b','c'], /* OpenStreetMap tile servers */
             id: 'Map02'
             });
 
-        jsmapLayer3 = L.tileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png',
-            { /* Thunderforest */
-            maxZoom: 18,
-            attribution: 'Maps \u00A9 <a href="http://www.thunderforest.com/" target="_blank">Thunderforest</a>, Data \u00A9 <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors',
-            subdomains: ['a','b','c'], /* Thunderforest tile servers */
-            id: 'Map03'
-            });
-
         jsmap = L.map('LeafletMap', {
                 center: [51.3, 10.6], /* MAP CENTER COORDINATES */
-                zoom: 6,
+                zoom: 5,
                 minZoom: 5,
                 scrollWheelZoom: false,
                 layers: [jsmapLayer1]
@@ -83,7 +77,7 @@ var LeafletMap = (function() {
 
         addMarkers();
 
-        baseMaps = {"MapQuest" : jsmapLayer1, "OpenStreetMap" : jsmapLayer2, "Thunderforest" : jsmapLayer3};
+        baseMaps = {"Mapbox Streets" : jsmapLayer1, "OpenStreetMap" : jsmapLayer2};
         L.control.layers(baseMaps).addTo(jsmap);
         //jsmapLayer1.addTo(jsmap);
         jsmap.once('focus', function() { jsmap.scrollWheelZoom.enable(); });
