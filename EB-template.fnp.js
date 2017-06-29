@@ -6,7 +6,8 @@
 var EB_Template = (function () {
 
     "use strict"; // use latest ECMAScript standard
-    var jQ = jQuery.noConflict(); // '$' is released, both jQ and jQuery can be used
+    var jQ = jQuery.noConflict(); // '$' released, jQ + jQuery can be used
+    // jQuery in EB_Template needed only for "offset().top"  TODO: make vanillaJS version
 
     var monsterHeaderType = {
         desktop: false, // height 159px
@@ -80,6 +81,7 @@ var EB_Template = (function () {
         if (el) {
             //scrollToY( getOffset(el).top + correction, 500, easingMethod);
             scrollToY( jQ(el).offset().top + correction, 500, easingMethod);
+            // TODO: remove the need for jQuery here!
         }
     } // end scrollToId
 
@@ -96,35 +98,50 @@ var EB_Template = (function () {
     }
 
 
+    function addClassAll(myQuery, className) {
+        var nodeList = document.querySelectorAll(myQuery);
+        // classList in IE 10+, nodeList as result from querySelectorAll etc.
+        for (var i = 0; i < nodeList.length; i++) { nodeList[i].classList.add(className); }
+    }
+
+    function removeClassAll(myQuery, className) {
+        var nodeList = document.querySelectorAll(myQuery);
+        for (var i = 0; i < nodeList.length; i++) { nodeList[i].classList.remove(className); }
+    }
+
+    function toggleClassAll(myQuery, className) {
+        var nodeList = document.querySelectorAll(myQuery);
+        for (var i = 0; i < nodeList.length; i++) { nodeList[i].classList.toggle(className); }
+    }
+
+
     function toggleMobileMenu() {
         if (idGetCss("navigation", "display") === "none") {
             idSetCss("navigation", "display", "block");
+            idSetCss("screenShade", "display", "block");
+            addClassAll("#mobileButton", "pressed");
         } else {
             idSetCss("navigation", "display", "none");
+            idSetCss("screenShade", "display", "none");
+            removeClassAll("#mobileButton", "pressed");
         }
     }
 
-/*
-    //vanillaJS classList only in IE 10+
-    function nodeListRemoveClass(nlist, className) {
-        for (var i; i < nlist.length; i++) { nlist[i].classList.remove(className); }
-    }
-*/
+
     function navButtonClick(buttonIndex) {
         var i;
-        var tabContent = document.querySelectorAll(".container .tabContent");
+        var tabContent = document.querySelectorAll(".containerIA .tabContent");
         var yCorrection = monsterHeaderType.mobile ? -60 : 0;
 
-        // nodeListRemoveClass(document.querySelectorAll("#navigation button"), "active");
-        // -- vanillaJS classList only in IE 10+
-        jQ("#navigation button").removeClass("active");
-        jQ("#navigation button:eq(" + buttonIndex + ")").addClass("active");
+        removeClassAll("#navigation button", "active");
+        document.querySelectorAll("#navigation button")[buttonIndex].classList.add("active");
+
         for (i=0; i < tabContent.length; i++) {
             tabContent[i].style.display = "none";
         }
         tabContent[buttonIndex].style.display = "block";
 
-        if (idGetCss("mobileMenuButton", "display") === "block") {
+        if (idGetCss("mobileButtonWrapper", "display") === "block") {
             toggleMobileMenu();
             scrollToId("hook", yCorrection);
         }
@@ -132,8 +149,10 @@ var EB_Template = (function () {
 
 
     function contentClick() {
-        if (idGetCss("mobileMenuButton", "display") === "block") {
+        if (idGetCss("mobileButtonWrapper", "display") === "block") {
             idSetCss("navigation", "display", "none");
+            idSetCss("screenShade", "display", "none");
+            removeClassAll("#mobileButton", "pressed");
         }
     }
 
@@ -141,7 +160,7 @@ var EB_Template = (function () {
     function onWindowResize() {
 
         function windowResizeAction() {
-            if (idGetCss("mobileMenuButton", "display") === "block") {
+            if (idGetCss("mobileButtonWrapper", "display") === "block") {
                 idSetCss("navigation", "display", "none");
             } else {
                 idSetCss("navigation", "display", "block");
@@ -194,8 +213,9 @@ var EB_Template = (function () {
             // stackoverflow.com/questions/35775562/get-index-of-child-with-event-currenttarget
             navItems[i].addEventListener("click", navButtonClick.bind(null, i));
         }
-        document.getElementById("mobileMenuButton").addEventListener("click", toggleMobileMenu);
-        document.querySelector(".container .content").addEventListener("click", contentClick);
+        document.getElementById("mobileButtonWrapper").addEventListener("click", toggleMobileMenu);
+        document.querySelector(".containerIA .content").addEventListener("click", contentClick);
+        document.getElementById("screenShade").addEventListener("click", contentClick);
         window.addEventListener("resize", onWindowResize);
     }
 
@@ -230,12 +250,12 @@ var EB_Template = (function () {
 
     function initAllTabs() {
         var i;
-        var tabContents = document.querySelectorAll(".container .tabContent");
+        var tabContents = document.querySelectorAll(".containerIA .tabContent");
         for (i = 0; i < tabContents.length; i++) {
             tabContents[i].style.display = "none";
         }
         if (monsterHeaderType.mobile) {
-            idSetCss("mobileMenuButton", "top", "62px");
+            idSetCss("mobileButtonWrapper", "top", "62px");
             idSetCss("navigation", "top", "62px");
         }
         if (monsterHeaderType.landingpage && idGetCss("navigation", "position") === "fixed") {
@@ -245,13 +265,13 @@ var EB_Template = (function () {
         }
         //document.querySelector("#navigation button").click(); // directly click on 1st item
         tabContents[0].style.display = "block";
-        jQ(document.querySelector("#navigation button")).addClass("active");
+        document.querySelector("#navigation button").classList.add("active"); // activate first button
     }
 
 
     function startTemplate() {
         getHeaderType();
-        onWindowResize(); // show #navigation if #mobileMenuButton is hidden
+        onWindowResize(); // show #navigation if #mobileButtonWrapper is hidden
         addEvents();
         initAllTabs();
         monsterBugFixes();
@@ -269,7 +289,7 @@ var EB_Template = (function () {
         idGetCss: idGetCss,
         idSetCss: idSetCss,
         navButtonClick: navButtonClick,
-        version: "1.04"
+        version: "1.1"
     };
 
 })(); // end EB_Template
