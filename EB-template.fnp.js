@@ -128,10 +128,11 @@ var EB_Template = (function () {
     }
 
 
-    function navButtonClick(buttonIndex) {
+    function navButtonClick(buttonIndex, expandMobileMenu /* default true (MouseEvent click) */) {
         var i;
         var tabContent = document.querySelectorAll(".containerIA .tabContent");
         var yCorrection = monsterHeaderType.mobile ? -60 : 0;
+        var expandMobileMenu = !!expandMobileMenu;
 
         removeClassAll("#navigation button", "active");
         document.querySelectorAll("#navigation button")[buttonIndex].classList.add("active");
@@ -142,7 +143,7 @@ var EB_Template = (function () {
         tabContent[buttonIndex].style.display = "block";
 
         if (idGetCss("mobileButtonWrapper", "display") === "block") {
-            toggleMobileMenu();
+            if (expandMobileMenu) { toggleMobileMenu(); }
             scrollToId("hook", yCorrection);
         }
     } // navButtonClick()
