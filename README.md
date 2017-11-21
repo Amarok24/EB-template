@@ -3,6 +3,8 @@ EB-template
 
 Changelog (only significant changes listed)
 -------------------------------------------
+v1.2 -- 20171121, map-code bugfix and update (using CSS for map-markers), main CSS moved to external CSS file
+
 v1.1 -- 20170629,
 - EB_Template html & Javascript version 1.1
 - bxSlider updated to 4.2.12

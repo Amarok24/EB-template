@@ -1,0 +1,14 @@
+<!--
+CSS & BODY code for header tests, not for production:
+
+<style id="header-test">
+header.landingpage {height: 37px; background-color: darkviolet;}
+header.desktop {height: 159px; background-color: darkviolet;}
+header.mobile {height: 63px; background-color: darkviolet;}
+</style>
+
+
+ <header class="landingpage" id="myheader_content"></header>
+ <header class="desktop" id="monsterAppliesPageWrapper"></header>
+ <header class="mobile" id="jobViewBody"></header>
+-->
