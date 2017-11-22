@@ -47,7 +47,18 @@ body {
 }
 
 .containerIA ul li::before {
-    content: "➤"; /* • ● ■ ▪ ◆ ❖ ✔ » ▸ ▶ ► ➤ ➢ ➧ ➭ ➽ ➲ 》➠ ◢ ◥ ☛ */
+    content: "\025A0";
+    /* ➤ \027A4
+       • \02022
+       ‧ \02027
+       ‣ \02023
+       › \0203A
+       ❯ \0276F
+       · \000B7
+       ☑ \02611
+       ✓ \02713
+       ✔ \02714
+       ■ \025A0 */
     color: #286090;
     position: absolute;
     left: -1.3em; top: 0;
@@ -56,7 +67,7 @@ body {
 .containerIA ul ul {margin-bottom: 0;}
 .containerIA ul ul li {padding-left: 1.3em;}
 .containerIA ul ul li::before {
-    content: "○";
+    content: "\02022";
     color: inherit;
     position: absolute;
     left: 0; top: 0;
