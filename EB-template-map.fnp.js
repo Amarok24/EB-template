@@ -53,14 +53,14 @@ var LeafletMap = (function() {
       }
     }
 
-    jsmapLayer1 = L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}\u002epng?access_token=' + L.mapbox.accessToken, { /* Mapbox Streets */
+    jsmapLayer1 = L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=' + L.mapbox.accessToken, { /* Mapbox Streets */
       maxZoom: 18,
       attribution: '\u00A9 <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a>, \u00A9 <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors',
       /* subdomains: ['','',''], */
       id: 'Map01'
     });
 
-    jsmapLayer2 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}\u002epng', { /* OSM */
+    jsmapLayer2 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { /* OSM */
       maxZoom: 12,
       attribution: '\u00A9 <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors',
       subdomains: ['a', 'b', 'c'],
