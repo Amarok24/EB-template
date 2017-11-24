@@ -1,5 +1,6 @@
 # Employer-Branding Template
 ![version](https://img.shields.io/badge/version-1.2-orange.svg) 
+![slide-show_bxSlider](https://img.shields.io/badge/slide--show-bxSlider-blue.svg) ![map-engine_Leaflet](https://img.shields.io/badge/map--engine-Leaflet-blue.svg) ![map-layer_Mapbox](https://img.shields.io/badge/map--layer-Mapbox-blue.svg)
 
 Changelog (only significant changes listed)
 -------------------------------------------
