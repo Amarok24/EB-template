@@ -1,5 +1,5 @@
-EB-template
-===========
+# Employer-Branding Template
+![version](https://img.shields.io/badge/version-1.2-orange.svg) 
 
 Changelog (only significant changes listed)
 -------------------------------------------
@@ -26,3 +26,5 @@ v1.01 -- 20160303, prepared for sticky-header simulation (position fixed) with m
 v1.0 -- 20160302, using buttons and OwlCarousel2
 
 v1.0preview -- 20160301, initial main version
+
+![end_of_text](https://img.shields.io/badge/end%20of%20readme--yellow.svg)
