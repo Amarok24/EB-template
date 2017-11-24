@@ -2,8 +2,12 @@
 ![version](https://img.shields.io/badge/version-1.2-orange.svg) 
 ![slide-show_bxSlider](https://img.shields.io/badge/slide--show-bxSlider-blue.svg) ![map-engine_Leaflet](https://img.shields.io/badge/map--engine-Leaflet-blue.svg) ![map-layer_Mapbox](https://img.shields.io/badge/map--layer-Mapbox-blue.svg)
 
+!!! under construction !!! Use "bxslider-branch" (no this "master" branch) until new version will be available!
+----------------------------------
+
 Changelog (only significant changes listed)
 -------------------------------------------
+v1.3 -- UNDER CONSTRUCTION
 v1.2 -- 20171121, map-code bugfix and update (using CSS for map-markers), main CSS moved to external CSS file
 
 v1.1 -- 20170629,
