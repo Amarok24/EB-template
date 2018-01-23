@@ -10,51 +10,62 @@
     <!-- Layout: NAME -->
 
     <title>EB_Template</title>
-
+<!--
     <link rel="stylesheet" type="text/css" href="https://images.monster.com/atge/interactive/printcss/print.css" media="print" />
+-->
 
     <style>
-        /* @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"); */
         /* @import url("jquery.bxslider.min.css"); */
-        @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700");
+        /* @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700"); */
         @import url("EB-template.css"); /* EB-template */
-        @import url("http://origin.media.monster.com/atge/interactive/Monster/2016/07-Juli/mapbox/mapbox.css");
-        @import url("EB-template-map.css"); /* EB-template-map */
+        /*@import url("http://origin.media.monster.com/atge/interactive/Monster/2016/07-Juli/mapbox/mapbox.css");*/
+        /*@import url("EB-template-map.css");*/ /* EB-template-map */
     </style>
 
     <!-- BEGIN: LEAFLET MAP SCRIPTS -->
+    <!--
     <script src='http://origin.media.monster.com/atge/interactive/Monster/2016/07-Juli/mapbox/mapbox.js'></script>
     <script src="EB-template-map.fnp.js">/* EB LeafletMap */</script>
+    -->
     <!-- END: LEAFLET MAP SCRIPTS -->
 
 
-    <script src="https://media.newjobs.com/atge/interactive/js/jquery/jquery-2.1.4.min.js"></script>
-    <script src="EB-template.fnp.js">/* EB-template */</script>
-    <script src="jquery.bxslider.fnp.min.js">/* bxSlider */</script>
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script> -->
+    <script src="https://media.newjobs.com/ATGE/js/jquery-dez-2017/jquery-3.2.1.min.js"></script>
+    <script src="EB-template.fnp.js"> /* EB-template */ </script>
+    <script src="simpleslider.js">
+      /* Simpleslider, https://github.com/ruyadorno/simple-slider */
+    </script>
 
     <script>
-        var jQnc = jQuery.noConflict();
-
-        function bxInit() {
-          function sliderLoaded() { jQnc(".bxSlideshow img").css("visibility", "visible"); }
-
-          var mySlider = jQnc(".bxSlideshow").bxSlider({
-                mode: "fade",
-                speed: 300,
-                controls: false,
-                pager: false,
-                preloadImages: "all",
-                onSliderLoad: function() { sliderLoaded(); }
-              });
-
-          jQnc("#navigation button").on("click", function() {
-              mySlider.goToSlide( jQnc(this).index() );
-          });
-        } // end bxInit
-
-        document.addEventListener("DOMContentLoaded", function() {
-          setTimeout(bxInit, 250); // bxSlider bugfix (especially in Google Chrome)
+    function initSlider() {
+        var navSlider = simpleslider.getSlider({
+            container: document.getElementById("headerSlideshow"),
+            paused: true,
+            prop: "opacity",
+            unit: "",
+            init: 0,
+            show: 1,
+            end: 0
         });
+
+        var navButtons = document.querySelectorAll("#navigation button");
+        var i;
+
+        function navSliderChangeTo(index) {
+          navSlider.change(index);
+        }
+
+        document.getElementById("headerSlideshow").style.paddingBottom = "19%";
+
+        for (i = 0; i < navButtons.length; i++) {
+          navButtons[i].addEventListener("click", navSliderChangeTo.bind(null, i));
+        }
+    } // end initSlider
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initSlider();
+    });
     </script>
 
 </head>
@@ -70,16 +81,17 @@
         </div>
 
 
+        <header id="headerSlideshow">>
+
+          <img src="images/tab1.jpg" alt="" />
+          <img src="images/tab2.jpg" alt="" />
+          <img src="images/tab3.jpg" alt="" />
+          <img src="images/tab4.jpg" alt="" />
+
+        </header>
+
+
         <div class="content">
-
-            <div class="header bxSlideshow">
-
-                <img src="images/tab1.jpg" alt="" />
-                <img src="images/tab2.jpg" alt="" />
-                <img src="images/tab3.jpg" alt="" />
-                <img src="images/tab4.jpg" alt="" />
-
-            </div>
 
 
             <nav id="navigation" role="navigation">
