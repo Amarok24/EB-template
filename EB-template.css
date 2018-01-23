@@ -104,6 +104,15 @@ body {
     margin-bottom: 0;
 }
 
+.containerIA header {
+    
+}
+
+.containerIA header img {
+    width: 100%;
+    height: auto;
+}
+
 .containerIA {
     max-width: 960px;
     margin: 3% auto;
@@ -118,15 +127,6 @@ body {
     background: white;
     position: relative;
     hyphens: manual;
-}
-
-.containerIA .header {
-    margin-bottom: 1.5em;
-}
-
-.containerIA .header img {
-    width: 100%;
-    height: auto;
 }
 
 .containerIA .company {
