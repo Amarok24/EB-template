@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de">
 <head>
-<!--   EB_Template - xhtml5 version 1.2  -->
+<!--   EB_Template - version 1.3beta  -->
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,10 +9,7 @@
 
     <!-- Layout: NAME -->
 
-    <title>EB_Template</title>
-<!--
-    <link rel="stylesheet" type="text/css" href="https://images.monster.com/atge/interactive/printcss/print.css" media="print" />
--->
+    <title>Employer Branding Template</title>
 
     <style>
         /* @import url("jquery.bxslider.min.css"); */
@@ -25,48 +22,16 @@
     <!-- BEGIN: LEAFLET MAP SCRIPTS -->
     <!--
     <script src='http://origin.media.monster.com/atge/interactive/Monster/2016/07-Juli/mapbox/mapbox.js'></script>
-    <script src="EB-template-map.fnp.js">/* EB LeafletMap */</script>
+    <script src="scripts/EB-template-map.fnp.js">/* EB LeafletMap */</script>
     -->
     <!-- END: LEAFLET MAP SCRIPTS -->
 
 
-    <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script> -->
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script> -->
     <script src="https://media.newjobs.com/ATGE/js/jquery-dez-2017/jquery-3.2.1.min.js"></script>
-    <script src="EB-template.fnp.js"> /* EB-template */ </script>
-    <script src="simpleslider.js">
-      /* Simpleslider, https://github.com/ruyadorno/simple-slider */
-    </script>
-
-    <script>
-    function initSlider() {
-        var navSlider = simpleslider.getSlider({
-            container: document.getElementById("headerSlideshow"),
-            paused: true,
-            prop: "opacity",
-            unit: "",
-            init: 0,
-            show: 1,
-            end: 0
-        });
-
-        var navButtons = document.querySelectorAll("#navigation button");
-        var i;
-
-        function navSliderChangeTo(index) {
-          navSlider.change(index);
-        }
-
-        document.getElementById("headerSlideshow").style.paddingBottom = "19%";
-
-        for (i = 0; i < navButtons.length; i++) {
-          navButtons[i].addEventListener("click", navSliderChangeTo.bind(null, i));
-        }
-    } // end initSlider
-
-    document.addEventListener('DOMContentLoaded', function() {
-        initSlider();
-    });
-    </script>
+    <script src="scripts/EB-template.fnp.js"> /* EB-template */ </script>
+    <script src="scripts/simpleslider.fnp.js"> /* Simpleslider */ </script>
+    <script src="scripts/init.js"> /* init */ </script>
 
 </head>
 
@@ -81,7 +46,7 @@
         </div>
 
 
-        <header id="headerSlideshow">>
+        <header id="headerSlideshow">
 
           <img src="images/tab1.jpg" alt="" />
           <img src="images/tab2.jpg" alt="" />
@@ -103,8 +68,8 @@
 
 
             <div class="title">
-                <h1> Employer branding <small>template</small> </h1>
-                <h2> subtitle </h2>
+                <h1> Employer Branding <small>template</small> </h1>
+                <h2> version 1.3beta </h2>
             </div>
 
 
@@ -139,12 +104,10 @@
                     <!-- remove all map code if not needed -->
                 </div>
 
-
                 <br /><br />
                 Praesent id justo in neque elementum ultrices. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Curabitur sagittis hendrerit ante. Maecenas sollicitudin. Nullam faucibus mi quis velit. Praesent in mauris eu tortor porttitor accumsan. In dapibus augue non sapien. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Integer vulputate sem a nibh rutrum consequat. Duis ante orci, molestie vitae vehicula venenatis, tincidunt ac pede. Aliquam erat volutpat.
 
             </section>
-
 
 
             <section class="tabContent">
@@ -154,9 +117,7 @@
                 <br />
                 <br /> Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
 
-
             </section>
-
 
 
             <section class="tabContent">
@@ -166,9 +127,7 @@
                 <br />
                 <br /> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
 
-
             </section>
-
 
 
             <footer class="company">
@@ -183,7 +142,7 @@
 
 
         </div>
-        <!-- /content -->
+
 
     </div>
     <!-- /containerIA -->
