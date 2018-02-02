@@ -7,7 +7,8 @@
 
 Changelog (only significant changes listed)
 -------------------------------------------
-v1.3 -- UNDER CONSTRUCTION
+v1.3 -- UNDER CONSTRUCTION (rewritten jquery-free version, new modern vanilla js slider, ...)
+
 v1.2 -- 20171121, map-code bugfix and update (using CSS for map-markers), main CSS moved to external CSS file
 
 v1.1 -- 20170629,
