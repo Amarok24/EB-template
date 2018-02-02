@@ -1,5 +1,5 @@
 # Employer-Branding Template
-![version](https://img.shields.io/badge/version-1.2-orange.svg) 
+![version](https://img.shields.io/badge/version-1.3beta-orange.svg) 
 ![slide-show_bxSlider](https://img.shields.io/badge/slide--show-bxSlider-blue.svg) ![map-engine_Leaflet](https://img.shields.io/badge/map--engine-Leaflet-blue.svg) ![map-layer_Mapbox](https://img.shields.io/badge/map--layer-Mapbox-blue.svg)
 
 !!! under construction !!! Use "bxslider-branch" (no this "master" branch) until new version will be available!
