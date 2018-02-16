@@ -167,8 +167,6 @@ body {
     white-space: nowrap;
 }
 
-.bxSlideshow img {visibility: hidden;}
-
 
 #screenShade {
     background-color: rgba(0, 0, 0, .7);
