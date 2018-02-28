@@ -1,3 +1,5 @@
+/* @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700"); */
+
 html {
     min-height: 100%;
     -webkit-text-size-adjust: none; /* iPhone portrait>landscape textzoom off */
@@ -96,11 +98,11 @@ body {
     margin: 1.2em 0 0 0;
 }
 
-.containerIA .content p {
+.containerIA .tabContent p {
     margin-bottom: 1em;
 }
 
-.containerIA .content p:last-child {
+.containerIA .tabContent p:last-child {
     margin-bottom: 0;
 }
 
@@ -136,10 +138,6 @@ body {
 
 .containerIA .title {
     margin: 1em 0;
-}
-
-.containerIA .content {
-    padding: 35px;
 }
 
 .containerIA .tabContent {
@@ -357,9 +355,7 @@ nav#navigation button::-moz-focus-inner {
         border-left: 8px solid #fff;
         font-weight: 700;
     }
-    .containerIA .content {
-        padding: 15px;
-    }
+
     .containerIA .leftColumn,
     .containerIA .rightColumn {
         float: none;
@@ -371,9 +367,7 @@ nav#navigation button::-moz-focus-inner {
 
 @media screen and (max-width: 380px) {
     /* modern mobile phones - portrait orientation */
-    .containerIA .content {
-        padding: 10px;
-    }
+
 }
 
 
