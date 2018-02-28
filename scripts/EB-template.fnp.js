@@ -237,7 +237,7 @@ var EB_Template = (function() {
       navItems[i].addEventListener("click", navButtonClick.bind(null, i));
     }
     document.getElementById("mobileButtonWrapper").addEventListener("click", toggleMobileMenu);
-    document.querySelector(".containerIA .content").addEventListener("click", contentClick);
+    document.querySelector(".containerIA .tabContent").addEventListener("click", contentClick);
     document.getElementById("screenShade").addEventListener("click", contentClick);
     window.addEventListener("resize", onWindowResize);
   }
