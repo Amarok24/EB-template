@@ -21,6 +21,7 @@ function initSlider() {
     for (i = 0; i < navButtons.length; i++) {
       navButtons[i].addEventListener("click", navSliderChangeTo.bind(null, i));
     }
+
 } // end initSlider
 
 document.addEventListener('DOMContentLoaded', function() {

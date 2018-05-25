@@ -1,4 +1,4 @@
-/* @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3-or-Later */
+// EB-Template is released under the GNU GENERAL PUBLIC LICENSE version 3.
 
 /* jshint devel: true, browser: true, jquery: true, shadow: true,
           unused: true, undef: true, strict: true, esversion: 6 */
@@ -12,7 +12,9 @@ var EB_Template = (function() {
   var monsterHeaderType = {
     desktop: false, // height 159px
     mobile: false, // height 62px
-    landingpage: false // height 37px
+    landingpage: false, // height 37px
+    jv30_fullpage: false, // fullpage iframe view
+    jv30_combined: false  // combinded iframe (this is a placeholder, not implemented yet *TODO*)
   };
   var //timeoutIDwindowScroll = null,
     timeoutIDwindowResize = null;
@@ -158,13 +160,16 @@ var EB_Template = (function() {
     }
     tabContent[buttonIndex].style.display = "block";
 
+    /* TODO: execute all other onclick events on button, for example click event from slideshow */
+    document.querySelectorAll("#navigation button")[buttonIndex].click();
+
     if (idGetCss("mobileButtonWrapper", "display") === "block") {
       if (expandMobileMenu) {
         toggleMobileMenu();
       }
       scrollToId("hook", yCorrection);
     }
-  } // navButtonClick()
+  }
 
 
   function contentClick() {
@@ -205,13 +210,28 @@ var EB_Template = (function() {
       } // onWindowScroll()
   */
 
-  function urlParameterSwitchTab() {
-    /* switches to specific tab directly, if URL parameter "tab" is found */
+  function initStartingTab() {
+    /* switches to some tab directly if URL parameter "tab" found, or just switches to 1st tab */
     var params = {}, // pairs of  key - value (name - value)
-      i;
+        locationSearch = "",
+        i;
 
-    if (location.search) {
-      var a_parts = location.search.substring(1).split('&');
+    console.group("EB_Template initStartingTab");
+
+    if (monsterHeaderType.jv30_fullpage) {
+      try {
+        locationSearch = window.parent.location.search;
+      }
+      catch(er) {
+        console.error("locationSearch error, details following");
+        console.log(er);
+      }
+    } else {
+      locationSearch = window.location.search;
+    }
+
+    if (locationSearch) {
+      var a_parts = locationSearch.substring(1).split('&');
       // "a_parts" will be eg. ["tab=2", "bla=text", "val="]
       for (i = 0; i < a_parts.length; i++) {
         var nv = a_parts[i].split('=');
@@ -222,10 +242,22 @@ var EB_Template = (function() {
         params[nv[0]] = nv[1] || true; // 'true' if no value was provided
       }
     }
+
     if (params.tab) {
-      document.querySelectorAll("#navigation button")[params.tab].click();
+      try {
+        navButtonClick(params.tab);
+        //document.querySelectorAll("#navigation button")[params.tab].click();
+      } catch (er) {
+        console.error("navigation click error, details following");
+        console.log(er);
+        navButtonClick(0);
+      }
+    } else {
+      navButtonClick(0);
     }
-  }
+
+    console.groupEnd();
+  } // end initStartingTab
 
 
   function addEvents() {
@@ -269,9 +301,19 @@ var EB_Template = (function() {
 
 
   function getHeaderType() {
+    function insideOfIframe() { // test if this html document is in iframe
+      try { return window.self !== window.top }
+      catch (e) { return true; } // fallback for bad browsers, assumes true
+    }
+
     monsterHeaderType.desktop = !!document.getElementById("monsterAppliesPageWrapper");
     monsterHeaderType.mobile = !!document.getElementById("jobViewBody");
     monsterHeaderType.landingpage = !!document.getElementById("myheader_content");
+    monsterHeaderType.jv30_fullpage = insideOfIframe();
+
+    console.group("EB_Template getHeaderType");
+    console.log("monsterHeaderType:", monsterHeaderType);
+    console.groupEnd();
   }
 
 
@@ -291,8 +333,9 @@ var EB_Template = (function() {
       idSetCss("navigation", "top", "38px");
     }
     //document.querySelector("#navigation button").click(); // directly click on 1st item
-    tabContents[0].style.display = "block";
-    document.querySelector("#navigation button").classList.add("active"); // activate first button
+    //tabContents[0].style.display = "block";
+    //document.querySelector("#navigation button").classList.add("active"); // activate first button
+    initStartingTab();
   }
 
 
@@ -302,7 +345,6 @@ var EB_Template = (function() {
     addEvents();
     initAllTabs();
     monsterBugFixes();
-    urlParameterSwitchTab();
   }
 
 
@@ -316,9 +358,9 @@ var EB_Template = (function() {
     idGetCss: idGetCss,
     idSetCss: idSetCss,
     navButtonClick: navButtonClick,
-    version: "1.1"
+    version: "1.31"
   };
 
 })(); // end EB_Template
 
-/* @license-end */
+/* TODO: bugfix, screenShade should disappear after mobile menu click */
