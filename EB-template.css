@@ -6,7 +6,7 @@ html {
 }
 
 body {
-    background: #f0f0f0;
+    background: #ffffff;
     margin: 0;
 }
 
@@ -28,11 +28,12 @@ body {
 }
 
 .containerIA h2 {
-    font-size: 1.5em;
+
 }
 
 .containerIA h3 {
     font-size: 1.2em;
+    line-height: normal;
 }
 
 .containerIA h1 small {
@@ -116,15 +117,14 @@ body {
 }
 
 .containerIA {
-    max-width: 960px;
-    margin: 3% auto;
-    border: 1px solid #bababa;
-    box-shadow: 0 0 10px #bababa;
+    max-width: 880px;
+    margin: 0 auto;
+    border: 0;
     color: #303030;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 16px;
     text-align: left;
-    line-height: 1.25em;
+    line-height: 1.3em;
     text-shadow: none;
     background: white;
     position: relative;
@@ -303,7 +303,7 @@ nav#navigation button::-moz-focus-inner {
 }
 
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 900px) {
     .containerIA {
         margin: auto;
         border: none;
