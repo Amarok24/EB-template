@@ -1,9 +1,11 @@
 # Employer-Branding Template
-![version](https://img.shields.io/badge/version-1.31-orange.svg) 
+![version](https://img.shields.io/badge/version-1.32-orange.svg) 
 ![slide-show_SimpleSlider](https://img.shields.io/badge/slide--show-SimpleSlider-yellow.svg) ![map-engine_Leaflet](https://img.shields.io/badge/map--engine-Leaflet-blue.svg) ![map-layer_Mapbox](https://img.shields.io/badge/map--layer-Mapbox-blue.svg)
 
 Changelog (only significant changes listed)
 -------------------------------------------
+v1.32 -- 20180531 jQuery-free version. More changes for JV30. Code optimization: now class "mobile" on main container toggles mobile and desktop view (useful for CSS formatting), EB_Template script also works with this class.
+
 v1.31 -- 20180525, still not fully free of jQuery. This update covers first changes towards full JV30 support and some other code improvements.
 
 v1.3 -- new modern vanilla JS slider
