@@ -1,23 +1,20 @@
 // EB-Template is released under the GNU GENERAL PUBLIC LICENSE version 3.
 
-/* jshint devel: true, browser: true, jquery: true, shadow: true,
+/* jshint devel: true, browser: true, shadow: true,
           unused: true, undef: true, strict: true, esversion: 6 */
 
 var EB_Template = (function() {
 
   "use strict"; // use latest ECMAScript standard
-  var jQ = jQuery.noConflict(); // '$' released, jQ + jQuery can be used
-  // jQuery in EB_Template needed only for "offset().top"  TODO: make vanillaJS version
 
   var monsterHeaderType = {
-    desktop: false, // height 159px
-    mobile: false, // height 62px
-    landingpage: false, // height 37px
-    jv30_fullpage: false, // fullpage iframe view
+    jv30_fullpage: false, // fullpage iframe view (currently same for mobile, 5/2018)
     jv30_combined: false  // combinded iframe (this is a placeholder, not implemented yet *TODO*)
   };
-  var //timeoutIDwindowScroll = null,
-    timeoutIDwindowResize = null;
+  var templateYoffset = 0; // usually 0 if not inside of iframe
+  var timeoutIDwindowResize = null;
+  var mobileScreen = false;
+  const desktopBreakpoint = 481; // defines minimal screen width for desktop layout
 
 
   window.requestAnimFrame = (function() {
@@ -32,70 +29,11 @@ var EB_Template = (function() {
   })();
 
 
-  function scrollToId(css_id, correction, easingMethod) {
-    var easingMethod = easingMethod || "easeOutSine";
-    var correction = correction || 0;
-    var el = document.getElementById(css_id);
-
-    var scrollToY = function(scrollTargetY, speed, easing) {
-      /*  Source: http://stackoverflow.com/a/26808520/5986007
-          speed: time in pixels per second */
-      var scrollY = window.scrollY,
-        scrollTargetY = scrollTargetY || 0,
-        speed = speed || 2000,
-        easing = easing || 'easeOutSine',
-        currentTime = 0;
-      // min time .1, max time .8 seconds
-      var time = Math.max(0.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, 0.8));
-      // easing equations from https://github.com/danro/easing-js/blob/master/easing.js
-      var easingEquations = {
-        easeOutSine: function(pos) {
-          return Math.sin(pos * (Math.PI / 2));
-        },
-        easeInOutSine: function(pos) {
-          return (-0.5 * (Math.cos(Math.PI * pos) - 1));
-        },
-        easeInOutQuint: function(pos) {
-          if ((pos /= 0.5) < 1) {
-            return 0.5 * Math.pow(pos, 5);
-          }
-          return 0.5 * (Math.pow((pos - 2), 5) + 2);
-        }
-      };
-
-      function tick() { // add animation loop
-        currentTime += 1 / 60;
-        var p = currentTime / time;
-        var t = easingEquations[easing](p);
-        if (p < 1) {
-          window.requestAnimFrame(tick);
-          window.scrollTo(0, scrollY + ((scrollTargetY - scrollY) * t));
-        } else {
-          window.scrollTo(0, scrollTargetY);
-          //console.info('scrollToY done');
-        }
-      }
-      tick(); // call it once to get started
-    }; // end scrollToY
-    /*
-            var getOffset = function(elem) {
-                // http://stackoverflow.com/a/442474/5986007 + https://www.kirupa.com/html5/get_element_position_using_javascript.htm
-                var _x = 0;
-                var _y = 0;
-                while (elem && !isNaN(elem.offsetLeft) && !isNaN(elem.offsetTop)) {
-                    _x += elem.offsetLeft - elem.scrollLeft; // + elem.clientLeft
-                    _y += elem.offsetTop - elem.scrollTop; // + elem.clientTop
-                    elem = elem.offsetParent;
-                }
-                return {top: _y, left: _x};
-            }; // TODO: getOffset bugfix - DIFFERENT VALUES IN FF vs Chrome!
-    */
-    if (el) {
-      //scrollToY( getOffset(el).top + correction, 500, easingMethod);
-      scrollToY(jQ(el).offset().top + correction, 500, easingMethod);
-      // TODO: remove the need for jQuery here!
-    }
-  } // end scrollToId
+  function scrollToId(css_id, yCorrection) {
+    var yScroll = window.parent.scrollBy || window.scrollBy; // 1st in iframe (JV30) environment
+    document.getElementById(css_id).scrollIntoView();
+    yScroll(0, yCorrection);
+  }
 
 
   function idGetCss(s_elementId, s_styleProp) {
@@ -133,7 +71,19 @@ var EB_Template = (function() {
   }
 
 
+/*
+  function iframeParentResize() {
+    // not good: iframe never gets smaller, because body scrollHeight only gets bigger when scrollbar is visible, but never smaller
+    var iframeParent = window.parent.document.getElementById("JobPreviewSandbox");
+    var bodyThis = document.getElementsByTagName("body")[0];
+    if (monsterHeaderType.jv30_fullpage) {
+      iframeParent.style.height = bodyThis.scrollHeight + "px";
+    }
+  }
+*/
+
   function toggleMobileMenu() {
+    /* TODO  rewrite */
     if (idGetCss("navigation", "display") === "none") {
       idSetCss("navigation", "display", "block");
       idSetCss("screenShade", "display", "block");
@@ -149,8 +99,10 @@ var EB_Template = (function() {
   function navButtonClick(buttonIndex, expandMobileMenu /* default true (MouseEvent click) */ ) {
     var i;
     var tabContent = document.querySelectorAll(".containerIA .tabContent");
-    var yCorrection = monsterHeaderType.mobile ? -60 : 0;
+    var yCorrection = monsterHeaderType.jv30_combined ? -60 : 0; /* TODO - test later when combined is live */
     var expandMobileMenu = !!expandMobileMenu;
+
+    console.log("navButtonClick");
 
     removeClassAll("#navigation button", "active");
     document.querySelectorAll("#navigation button")[buttonIndex].classList.add("active");
@@ -160,10 +112,7 @@ var EB_Template = (function() {
     }
     tabContent[buttonIndex].style.display = "block";
 
-    /* TODO: execute all other onclick events on button, for example click event from slideshow */
-    document.querySelectorAll("#navigation button")[buttonIndex].click();
-
-    if (idGetCss("mobileButtonWrapper", "display") === "block") {
+    if (mobileScreen) {
       if (expandMobileMenu) {
         toggleMobileMenu();
       }
@@ -173,7 +122,7 @@ var EB_Template = (function() {
 
 
   function contentClick() {
-    if (idGetCss("mobileButtonWrapper", "display") === "block") {
+    if (mobileScreen) {
       idSetCss("navigation", "display", "none");
       idSetCss("screenShade", "display", "none");
       removeClassAll("#mobileButton", "pressed");
@@ -184,10 +133,15 @@ var EB_Template = (function() {
   function onWindowResize() {
 
     function windowResizeAction() {
-      if (idGetCss("mobileButtonWrapper", "display") === "block") {
-        idSetCss("navigation", "display", "none");
+      var mainContainer = document.getElementsByClassName("containerIA")[0];
+      mainContainer.classList.remove("mobile");
+      if (window.screen.width < desktopBreakpoint) {
+        mobileScreen = true;
+        mainContainer.classList.add("mobile");
+        contentClick(); // to hide the navigation menu
       } else {
-        idSetCss("navigation", "display", "block"); // use "block" or "flex"
+        mobileScreen = false;
+        idSetCss("navigation", "display", "block");
       }
     }
 
@@ -275,44 +229,20 @@ var EB_Template = (function() {
   }
 
 
-  function monsterBugFixes() {
-    /* if (monsterHeaderType.desktop) {
-        // Monster Redux bug fix (EB page scrolling with Javascript)
-        document.getElementsByTagName("html")[0].setAttribute(
-            "style", "height:auto !important; overflow:auto !important");
-        document.getElementsByTagName("body")[0].setAttribute(
-            "style", "height:auto !important; overflow:hidden !important");
-        // following corrects the position of desktop-redux footer
-        var afh = document.querySelector(".AppliesFooterHolder");
-        if (afh) { afh.setAttribute('style', 'margin-top: 0 !important'); }
-    } */
-    if (monsterHeaderType.mobile) {
-      // Monster mobile-Redux padding 0 for correct mobile navigation alignment
-      var jvb = document.getElementById("jobViewBody");
-      var uibox = document.querySelector("#jobViewBody .ui-box");
-      if (jvb) {
-        jvb.setAttribute("style", "padding: 0");
-      }
-      if (uibox) {
-        uibox.setAttribute("style", "padding: 0");
-      }
-    }
-  }
-
-
   function getHeaderType() {
+    var jobId = document.getElementsByTagName("body")[0].getAttribute("data-job-id");
+
     function insideOfIframe() { // test if this html document is in iframe
       try { return window.self !== window.top }
       catch (e) { return true; } // fallback for bad browsers, assumes true
     }
 
-    monsterHeaderType.desktop = !!document.getElementById("monsterAppliesPageWrapper");
-    monsterHeaderType.mobile = !!document.getElementById("jobViewBody");
-    monsterHeaderType.landingpage = !!document.getElementById("myheader_content");
+    //monsterHeaderType.landingpage = !!document.getElementById("myheader_content"); TODO: remove this line in summer 2018
     monsterHeaderType.jv30_fullpage = insideOfIframe();
 
     console.group("EB_Template getHeaderType");
     console.log("monsterHeaderType:", monsterHeaderType);
+    if (jobId) { console.log("jobId = ", jobId); }
     console.groupEnd();
   }
 
@@ -323,15 +253,14 @@ var EB_Template = (function() {
     for (i = 0; i < tabContents.length; i++) {
       tabContents[i].style.display = "none";
     }
-    if (monsterHeaderType.mobile) {
+
+    if (monsterHeaderType.jv30_combined) { //  *TODO* test when "combined" goes live
       idSetCss("mobileButtonWrapper", "top", "62px");
       idSetCss("navigation", "top", "62px");
     }
-    if (monsterHeaderType.landingpage && idGetCss("navigation", "position") === "fixed") {
-      // if we have a fixed menu, we need a 'sticky' emulation for landingpages
-      // css3 "position: sticky" currently works only in Firefox (44)
-      idSetCss("navigation", "top", "38px");
-    }
+
+    mobileScreen = (window.screen.width < desktopBreakpoint) ? true : false;
+
     //document.querySelector("#navigation button").click(); // directly click on 1st item
     //tabContents[0].style.display = "block";
     //document.querySelector("#navigation button").classList.add("active"); // activate first button
@@ -341,10 +270,9 @@ var EB_Template = (function() {
 
   function startTemplate() {
     getHeaderType();
-    onWindowResize(); // show #navigation if #mobileButtonWrapper is hidden
+    onWindowResize(); // decide if mobile view should be used
     addEvents();
     initAllTabs();
-    monsterBugFixes();
   }
 
 
@@ -358,7 +286,7 @@ var EB_Template = (function() {
     idGetCss: idGetCss,
     idSetCss: idSetCss,
     navButtonClick: navButtonClick,
-    version: "1.31"
+    version: "1.33"
   };
 
 })(); // end EB_Template
