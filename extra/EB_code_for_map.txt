@@ -1,0 +1,21 @@
+1) IMPORT CSS CODE FOR MAP:
+
+    @import url("http://origin.media.monster.com/atge/interactive/Monster/2016/07-Juli/mapbox/mapbox.css");
+    @import url("EB-template-map.css"); /* EB-template-map */
+
+
+2) IMPORT SCRIPTS:
+
+    <!-- BEGIN: LEAFLET MAP SCRIPTS -->
+
+    <script src='http://origin.media.monster.com/atge/interactive/Monster/2016/07-Juli/mapbox/mapbox.js'></script>
+    <script src="scripts/EB-template-map.fnp.js">/* EB LeafletMap */</script>
+
+    <!-- END: LEAFLET MAP SCRIPTS -->
+
+
+3) PLACE THE MAP SOMEWHERE:
+
+    <div class="myLeafletMap" id="myLeafletMap">
+        <!-- leave this empty -->
+    </div>
