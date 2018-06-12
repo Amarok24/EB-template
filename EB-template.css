@@ -2,6 +2,7 @@
  */
  html {
     min-height: 100%;
+    text-size-adjust: none;
     -webkit-text-size-adjust: none;
    /* iPhone portrait>landscape textzoom off */
 }
@@ -42,8 +43,18 @@ body {
     width: calc(100% - 1.3em);
 }
 .containerIA ul li::before {
-    content: "\025A0";
-   /* ➤ \027A4 • \02022 ‧ \02027 ‣ \02023 › \0203A ❯ \0276F · \000B7 ☑ \02611 ✓ \02713 ✔ \02714 ■ \025A0 */
+    content: "\0276F";
+   /* ➤ \027A4
+   • \02022
+   ‧ \02027
+   ‣ \02023
+   › \0203A
+   ❯ \0276F
+   · \000B7
+   ☑ \02611
+   ✓ \02713
+   ✔ \02714
+   ■ \025A0 */
     color: #286090;
     position: absolute;
     left: -1.3em;
@@ -67,8 +78,6 @@ body {
     color: darkblue;
     text-decoration: underline;
     font-weight: inherit;
-   /* Monster mobile Redux bugfix */
-    hyphens: manual;
 }
 .containerIA a:hover {
     color: red;
@@ -79,7 +88,6 @@ body {
 }
 .containerIA address {
     font-style: normal;
-    margin: 1.2em 0 0 0;
 }
 .containerIA .tabContent p {
     margin-bottom: 1em;
@@ -110,9 +118,7 @@ body {
     position: relative;
     hyphens: manual;
 }
-.containerIA.mobile {
 
-}
 .containerIA .title {
     margin: 1em 0;
 }
@@ -136,176 +142,80 @@ body {
     white-space: nowrap;
 }
 
-.containerIA #screenShade {
-    display: none;
-    background-color: rgba(0, 0, 0, .7);
-    position: fixed;
-    z-index: 100;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-}
 .containerIA #navigation {
-    display: block;
-}
-.containerIA #navigation::after {
-    clear: both;
-    display: block;
-    content: "";
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+    justify-content: flex-start;
+    background-color: #ecedf5;
 }
 .containerIA #navigation button {
-    float: left;
-    border: 0;
-    border-left: 2px solid white;
+	flex: 1 1 auto; /* for equally shared leftover space between buttons */
+	align-self: stretch;
+	white-space: nowrap;
+	border: 1px solid #d7daf5;
     box-sizing: border-box;
-    width: calc(100% / 4);
     padding: .7em 2%;
-    background-color: #ecedf5;
     color: #505050;
+    background-color: inherit;
     text-decoration: none;
     text-align: center;
     cursor: pointer;
     transition: background .6s ease;
-   /* mobile redux fixes: */
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    font-style: normal;
-    line-height: inherit;
 }
-.containerIA #navigation button:first-child {
-    border-left-width: 0;
-}
+
 .containerIA #navigation button:hover {
-    background-color: #dde2ed;
+    background-color: #d3dae9;
 }
 .containerIA #navigation button.active {
     background-color: #a0abc8;
     color: #fff;
 }
 .containerIA #navigation button:focus {
-    outline-style: none;
-   /* Webkit fix */
+    outline-style: none; /* Webkit */
 }
-.containerIA #navigation button::-moz-focus-inner {
-    border: 0; /* Firefox fix */
-}
+.containerIA #navigation button::-moz-focus-inner { border: 0; }
 
-/* MOBILE NAVIGATION */
-.containerIA.mobile #navigation {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: calc(100% - 50px);
-    display: none;
-    z-index: 100;
-}
-.containerIA.mobile #navigation button {
-    width: 100%;
-    height: auto;
-    min-height: 43px;
-    margin: 0;
-    padding: 12px 60px 10px 20px;
-    border: none;
-    border-bottom: 1px solid #efefef;
-    background-color: #dadada;
-    color: #707070;
-    text-align: left;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: normal;
-    text-transform: uppercase;
-}
-.containerIA.mobile #navigation button:hover {
-    background-color: #dadada;
-    background-image: none;
+.containerIA #sitemap button {
     border: 0;
-    color: #fff;
-}
-.containerIA.mobile #navigation button.active {
-    background-color: #909090;
-    background-image: none;
-    color: #fff;
-    border: 0;
-    border-left: 8px solid #fff;
-    font-weight: 700;
-}
-
-.containerIA #mobileButtonWrapper {
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 101;
-    background-color: rgba(0, 0, 0, .7);
-    padding: 10px;
-    box-sizing: content-box;
-    width: 30px;
-    height: 25px;
-    cursor: pointer;
-    display: none;
-}
-.containerIA.mobile #mobileButtonWrapper {
     display: block;
+    cursor: pointer;
+    color: inherit;
+    background-color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
 }
-.containerIA #mobileButton {
-    box-sizing: content-box;
-    border-bottom: 4px solid #e0e0e0;
-    transition: all 0.3s;
-    position: relative;
-}
-.containerIA #mobileButtonWrapper:hover #mobileButton, .containerIA #mobileButtonWrapper:hover #mobileButton::before, .containerIA #mobileButtonWrapper:hover #mobileButton::after {
-    border-bottom-color: #fff;
-    background-color: #fff;
-}
-.containerIA #mobileButton::before {
-    content: "";
-    position: absolute;
-    transition: all 0.3s;
-    background-color: #e0e0e0;
-    height: 4px;
-    width: 30px;
-    top: 50%;
-    left: 50%;
-    margin-left: -15px;
-    margin-top: 10px;
-}
-.containerIA #mobileButton::after {
-    content: "";
-    position: absolute;
-    transition: all 0.3s;
-    background-color: #e0e0e0;
-    height: 4px;
-    width: 30px;
-    top: 50%;
-    left: 50%;
-    margin-left: -15px;
-    margin-top: 20px;
-}
-.containerIA #mobileButton.pressed {
-    border: 0;
-}
-.containerIA #mobileButton.pressed::before {
-    transform: rotate(45deg);
-    margin-top: 10px;
-}
-.containerIA #mobileButton.pressed::after {
-    transform: rotate(-45deg);
-    margin-top: 10px;
+.containerIA #sitemap button:hover { text-decoration: underline; }
+.containerIA #sitemap button::-moz-focus-inner { border: 0; }
+
+/* -=-= MOBILE SPECIFIC FORMATTING =-=- */
+
+.containerIA.mobile {
+    border: none;
 }
 
+.containerIA.mobile .tabContent {
+    display: block !important;
+}
 
-@media screen and (max-width: 640px) {
-    .containerIA {
-        border: none;
-   }
-    .containerIA .leftColumn, .containerIA .rightColumn {
-        float: none;
-        width: auto;
-   }
-    .containerIA .mobile-hidden {
-        display: none;
-   }
+.containerIA.mobile #navigation button.active {
+    background-color: inherit;
+    color: inherit;
+}
+
+.containerIA.mobile .mobile-hidden {
+    display: none;
+}
+
+.containerIA.mobile .leftColumn,
+.containerIA.mobile .rightColumn {
+    float: none;
+    width: auto;
+}
+
+@media screen and (max-width: 480px) {
+
 }
 
 @media print {

@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>EB_Template - JV30 test</title>
@@ -18,7 +17,7 @@
 
         body {
             margin: 0;
-            background: #cbe0cc;
+            background: #EDF7FF;
             font-family: sans-serif;
             font-size: 13px;
             line-height: 1.4em;
@@ -39,7 +38,7 @@
         }
 
         #JobDescription {
-            max-width: 790px;
+            max-width: 800px;
             margin: 3em auto;
             padding: 0;
             box-sizing: content-box;
@@ -54,12 +53,11 @@
         }
 
         button {
-            background-color: rgb(21, 143, 47);
-            color: rgb(205, 255, 205);
+            background-color: #09233A;
+            color: #EDF7FF;
             cursor: pointer;
             padding: 5px 15px;
             outline: 0;
-            border: 2px #64ff3d outset;
             font-size: 120%;
             font-family: Consolas, monospace;
             font-weight: bold;
@@ -70,9 +68,9 @@
         button:hover {border-style: inset;}
 
         button.active {
-            background-color: #52ff26;
-            color: rgb(24, 88, 15);
-            border-style: inset;
+            background-color: #688CAC;
+            color: #EDF7FF;
+            box-shadow: 0 0 7px #3cc1ff;
             outline-style: none;
         }
         button::-moz-focus-inner {
@@ -96,19 +94,15 @@
 
             x.classList.add("active");
         }
-
-
     </script>
 
 </head>
-
 <body>
 
-    
 <div id="changeWidth">
-    <button onclick="resizeFrame(400, this);" class="">400px</button>
-    <button onclick="resizeFrame(790, this);" class="active">790px</button>
-    <button onclick="resizeFrame(900, this);" class="">900px</button>
+    <button onclick="resizeFrame(400, this);" class="" title="Mobile view">400px</button>
+    <button onclick="resizeFrame(800, this);" class="active" title="Combined view">800px</button>
+    <button onclick="resizeFrame(900, this);" class="" title="Single view">900px</button>
 </div>
 
 <div id="JobViewContent">
@@ -120,5 +114,4 @@
 </div>
 
 </body>
-
 </html>
