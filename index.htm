@@ -94,6 +94,16 @@
 
             x.classList.add("active");
         }
+
+        function setIframeBodyOverflowToHidden() {
+            // removes scrollbars from iframe body (same as in JV30 environment)
+            document.getElementById("JobPreviewSandbox").contentDocument.body.style.overflow = "hidden";
+        }
+
+        document.addEventListener("load", function() {
+            setIframeBodyOverflowToHidden();
+        });
+
     </script>
 
 </head>

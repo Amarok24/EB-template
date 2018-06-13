@@ -13,6 +13,7 @@ body {
 .containerIA * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 .containerIA img {
     border: 0;
@@ -106,6 +107,7 @@ body {
 
 .containerIA {
     max-width: 900px;
+    box-sizing: border-box;
     margin: 0 auto;
     border: 0;
     color: #303030;
