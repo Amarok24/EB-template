@@ -63,10 +63,10 @@ var EB_Template = (function() {
     var container = document.querySelector(".containerIA");
 
     // the following could not be tested yet, *TODO* test in live environment
-    var MUXobject = window.parent.window.MUX;
-    if (MUXobject != null) {
+    var MUXmethod = window.parent.window.MUX.callResize;
+    if (MUXmethod != null) {
       try {
-        MUXobject.callResize();
+        MUXmethod();
         console.info("iframeParent resized, MUX method");
       } catch (er) {
         console.error("EB_template: callResize error", er);
