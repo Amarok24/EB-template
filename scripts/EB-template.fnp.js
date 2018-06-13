@@ -1,5 +1,5 @@
 /*
-EB_Template version: 1.4
+EB_Template version: 1.41
 https://github.com/Amarok24/EB-template
 EB_Template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
@@ -7,31 +7,30 @@ see LICENSE.md or http://unlicense.org/ for more information.
 
 var EB_Template = (function() {
 
-  "use strict"; // use latest ECMAScript standard
+  "use strict";
 
   const _onePageLayout = false; // set this to either "true" or "false"
   const _desktopBreakpoint = 481; // set this to define minimal screen width for desktop layout
 
-  var _monsterHeaderType = {
-    jv30_fullpage: false, // fullpage iframe view (currently same for mobile, 5/2018)
-    jv30_combined: false  // combinded iframe (this is a placeholder, not implemented yet *TODO*)
+  var _monsterTemplateType = {
+    jv30_general: false, // true in both cases: fullpage + combined view
+    jv30_combined: false  // true only in combinded view
   };
   var _timeoutIDwindowResize = null;
   var _isMobileScreen = false;
   var _winScrollBy = null; // used by scrollToObject
-  //var _siteNavigation = null;
+  var _JobViewHeader = null; // used in jv30_combined
+  var _iframeParent = null; // used in jv30
 
 /*
   function idGetCss(s_elementId, s_styleProp) {
     var element = document.getElementById(s_elementId);
     return window.getComputedStyle(element, null).getPropertyValue(s_styleProp);
   }
-
   function idSetCss(s_elementId, s_styleName, s_styleProp) {
     // styleNames are CSS2Properties:  backgroundColor, fontSize ...
     document.getElementById(s_elementId).style[s_styleName] = s_styleProp;
   }
-
   function addClassAll(myQuery, className) {
     var nodeList = document.querySelectorAll(myQuery);
     // classList in IE 10+, nodeList as result from querySelectorAll etc.
@@ -39,7 +38,6 @@ var EB_Template = (function() {
       nodeList[i].classList.add(className);
     }
   }
-
   function toggleClassAll(myQuery, className) {
     var nodeList = document.querySelectorAll(myQuery);
     for (var i = 0; i < nodeList.length; i++) {
@@ -58,24 +56,20 @@ var EB_Template = (function() {
 
   function iframeParentResize() {
     // this function handles iframe height in JV30
-    var iframeParent = window.parent.document.getElementById("JobPreviewSandbox");
-    //var bodyThis = document.body;
     var container = document.querySelector(".containerIA");
 
     // the following could not be tested yet, *TODO* test in live environment
-    var MUXmethod = window.parent.window.MUX.callResize;
-    if (MUXmethod != null) {
+    var MUXmethod = window.parent.window.MUX;
+    if ((MUXmethod != null) && (MUXmethod.callResize != null)) {
       try {
-        MUXmethod();
-        console.info("iframeParent resized, MUX method");
+        MUXmethod.callResize();
+        console.info("_iframeParent resized, MUX method");
       } catch (er) {
         console.error("EB_template: callResize error", er);
       }
     } else {
-      // the following line is just a quick hack, not good: iframe never gets smaller, because body scrollHeight only gets bigger when scrollbar is visible, but never smaller
-      //iframeParent.style.height = bodyThis.scrollHeight + "px";
-      iframeParent.style.height = container.offsetHeight + 10 + "px";
-      console.info("iframeParent resized, own method");
+      _iframeParent.style.height = container.offsetHeight + 10 + "px";
+      console.info("_iframeParent resized, own method");
     }
   }
 
@@ -95,7 +89,6 @@ var EB_Template = (function() {
   function navButtonClick(buttonIndex, ev /* default true (MouseEvent click) */ ) {
     var i;
     var tabContent = document.querySelectorAll(".containerIA .tabContent");
-    var yCorrection = _monsterHeaderType.jv30_combined ? -80 : 0; /* TODO - test later when combined is live */
     var clickOrigin = ev ? ev.target.parentElement.id : null;
 
     if (!_onePageLayout) {
@@ -108,14 +101,14 @@ var EB_Template = (function() {
     }
 
     // first we need to resize iframe and THEN we can scroll, else wrong behaviour can be expected
-    if (_monsterHeaderType.jv30_fullpage) {
+    if (_monsterTemplateType.jv30_general) {
       window.setTimeout(iframeParentResize, 80); // wait a little bit for content to settle
     }
 
     if (_onePageLayout || _isMobileScreen || (clickOrigin == "sitemap")) {
-      window.setTimeout( function() {scrollToObject(tabContent[buttonIndex], yCorrection);}, 120);
+      window.setTimeout( function() {scrollToObject(tabContent[buttonIndex]);}, 120);
     }
-  } // end navButtonClick
+  }
 
 
   function onWindowResize() {
@@ -131,7 +124,7 @@ var EB_Template = (function() {
         _isMobileScreen = false;
       }
       console.log("EB_Template _isMobileScreen:", _isMobileScreen);
-      if (_monsterHeaderType.jv30_fullpage) {
+      if (_monsterTemplateType.jv30_general) {
         iframeParentResize();
       }
     }
@@ -140,18 +133,17 @@ var EB_Template = (function() {
       window.clearTimeout(_timeoutIDwindowResize);
     }
     _timeoutIDwindowResize = window.setTimeout(windowResizeAction, 50);
-  } // end onWindowResize
+  }
 
-/*
-  function onParentWindowScroll() {
-    // this was a workaround solution for a fixed navigation inside of JV30 iframe
-    // to be used together with window.parent.addEventListener("scroll", onParentWindowScroll);
-    // and with this after each window resize: JobViewContentYPosition = window.parent.document.getElementById("JobViewContent").offsetTop;
-    if (!_isMobileScreen && (window.parent.pageYOffset > JobViewContentYPosition)) {
-      siteNavigation.style.top = (window.parent.pageYOffset - JobViewContentYPosition) + "px";
+
+  function onParentContentScroll() {
+    if (_JobViewHeader.classList.contains("is-reduced")) {
+      _iframeParent.style.marginTop = "72px";
+    } else {
+      _iframeParent.style.marginTop = "0";
     }
   }
-*/
+
 
   function initStartingTab() {
     // switches to some tab directly if URL parameter "tab" found, or just switches to 1st tab
@@ -159,7 +151,7 @@ var EB_Template = (function() {
         locationSearch = "",
         i;
 
-    if (_monsterHeaderType.jv30_fullpage) {
+    if (_monsterTemplateType.jv30_general) {
       try {
         locationSearch = window.parent.location.search;
       }
@@ -209,10 +201,13 @@ var EB_Template = (function() {
       navSitemapItems[i].addEventListener("click", navButtonClick.bind(null, i));
     }
     window.addEventListener("resize", onWindowResize);
+    if (_monsterTemplateType.jv30_combined) {
+      window.parent.document.getElementById("ContentScrollable").addEventListener("scroll", onParentContentScroll);
+    }
   }
 
 
-  function getHeaderType() {
+  function detectMonsterTemplateType() {
     var jobId = document.getElementsByTagName("body")[0].getAttribute("data-job-id");
 
     function insideOfIframe() { // test if this html document is in iframe
@@ -220,29 +215,31 @@ var EB_Template = (function() {
       catch (e) { return true; } // fallback for bad browsers, assumes true
     }
 
-    //_monsterHeaderType.landingpage = !!document.getElementById("myheader_content"); TODO: remove this line in summer 2018
-    _monsterHeaderType.jv30_fullpage = insideOfIframe();
+    _monsterTemplateType.jv30_general = insideOfIframe();
+    _monsterTemplateType.jv30_combined = window.parent.document.getElementById("ContentScrollable") ? true : false;
 
-    if (_monsterHeaderType.jv30_fullpage) {
-      document.body.style.overflowY = "hidden"; // removes vertical scrollbar
-    }
-
-    console.group("EB_Template getHeaderType");
-    console.log("_monsterHeaderType:", _monsterHeaderType);
+    console.group("EB_Template detectMonsterTemplateType");
+    console.log("_monsterTemplateType:", _monsterTemplateType);
     if (jobId) { console.log("jobId = ", jobId); }
     console.groupEnd();
-  } // end getHeaderType
+  }
 
 
   function initAllTabs() {
     var i;
-    //siteNavigation = document.getElementById("navigation");
     var tabContents = document.querySelectorAll(".containerIA .tabContent");
 
-    if (_monsterHeaderType.jv30_fullpage) {
+    if (_monsterTemplateType.jv30_general) {
       _winScrollBy = window.parent.scrollBy;
+      // *TODO* window.parent.scrollBy has no effect for combined view (DIV scrolls)
+      _iframeParent = window.parent.document.getElementById("JobPreviewSandbox");
     } else {
       _winScrollBy =  window.scrollBy;
+    }
+
+    if (_monsterTemplateType.jv30_combined) {
+      _iframeParent.style.transition = "margin-top 1s";
+      _JobViewHeader = window.parent.document.getElementById("JobViewHeader");
     }
 
     if (!_onePageLayout) {
@@ -255,7 +252,7 @@ var EB_Template = (function() {
 
 
   function startTemplate() {
-    getHeaderType();
+    detectMonsterTemplateType();
     onWindowResize(); // decides if mobile view should be used
     addEvents();
     initAllTabs();
@@ -269,7 +266,7 @@ var EB_Template = (function() {
     /*publicProperty: "test",
     publicMethod: function() {},*/
     navButtonClick: navButtonClick,
-    _monsterHeaderType: _monsterHeaderType // info: public properties won't get updated during runtime
+    _monsterTemplateType: _monsterTemplateType // info: public properties won't get updated during runtime
   };
 
 })(); // end EB_Template
