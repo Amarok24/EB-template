@@ -1,5 +1,5 @@
 /*
-EB_Template version: 1.41
+EB_Template version: 1.42
 https://github.com/Amarok24/EB-template
 EB_Template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
@@ -19,7 +19,6 @@ var EB_Template = (function() {
   var _timeoutIDwindowResize = null;
   var _isMobileScreen = false;
   var _winScrollBy = null; // used by scrollToObject
-  var _JobViewHeader = null; // used in jv30_combined
   var _iframeParent = null; // used in jv30
 
 /*
@@ -59,6 +58,7 @@ var EB_Template = (function() {
     var container = document.querySelector(".containerIA");
 
     // the following could not be tested yet, *TODO* test in live environment
+    /*
     var MUXmethod = window.parent.window.MUX;
     if ((MUXmethod != null) && (MUXmethod.callResize != null)) {
       try {
@@ -71,14 +71,17 @@ var EB_Template = (function() {
       _iframeParent.style.height = container.offsetHeight + 10 + "px";
       console.info("_iframeParent resized, own method");
     }
+    */
+    _iframeParent.style.height = container.offsetHeight + 10 + "px";
+    console.info("_iframeParent resized, own method");
   }
 
 
   function scrollToObject(elementObject, yCorrection) {
     try {
-      elementObject.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+      elementObject.scrollIntoView({behavior: 'instant', block: 'start', inline: 'nearest'});
       if ( (yCorrection != null) && (yCorrection != 0) ) {
-        window.setTimeout( function() {_winScrollBy(0, yCorrection);}, 800); // dirty hack because scrollIntoView is asynchronous, *TODO*
+        window.setTimeout( function() {_winScrollBy(0, yCorrection);}, 50); // dirty hack because scrollIntoView is asynchronous, *TODO*
       }
     } catch (er) {
       console.error("scrollToObject error", er);
@@ -90,6 +93,7 @@ var EB_Template = (function() {
     var i;
     var tabContent = document.querySelectorAll(".containerIA .tabContent");
     var clickOrigin = ev ? ev.target.parentElement.id : null;
+    var scrollCorrection = _monsterTemplateType.jv30_combined ? -78 : 0; // JobViewHeader height is 72px
 
     if (!_onePageLayout) {
       for (i = 0; i < tabContent.length; i++) {
@@ -106,7 +110,7 @@ var EB_Template = (function() {
     }
 
     if (_onePageLayout || _isMobileScreen || (clickOrigin == "sitemap")) {
-      window.setTimeout( function() {scrollToObject(tabContent[buttonIndex]);}, 120);
+      window.setTimeout( function() {scrollToObject(tabContent[buttonIndex], scrollCorrection);}, 120);
     }
   }
 
@@ -135,15 +139,16 @@ var EB_Template = (function() {
     _timeoutIDwindowResize = window.setTimeout(windowResizeAction, 50);
   }
 
-
+/*
   function onParentContentScroll() {
+    // combined view feature to detect reduced banner
     if (_JobViewHeader.classList.contains("is-reduced")) {
       _iframeParent.style.marginTop = "72px";
     } else {
       _iframeParent.style.marginTop = "0";
     }
   }
-
+*/
 
   function initStartingTab() {
     // switches to some tab directly if URL parameter "tab" found, or just switches to 1st tab
@@ -201,9 +206,11 @@ var EB_Template = (function() {
       navSitemapItems[i].addEventListener("click", navButtonClick.bind(null, i));
     }
     window.addEventListener("resize", onWindowResize);
+    /*
     if (_monsterTemplateType.jv30_combined) {
       window.parent.document.getElementById("ContentScrollable").addEventListener("scroll", onParentContentScroll);
     }
+    */
   }
 
 
@@ -229,17 +236,15 @@ var EB_Template = (function() {
     var i;
     var tabContents = document.querySelectorAll(".containerIA .tabContent");
 
-    if (_monsterTemplateType.jv30_general) {
+    if (_monsterTemplateType.jv30_combined) {
+      _winScrollBy =  window.parent.document.getElementById("ContentScrollable").scrollBy;
+      _iframeParent = window.parent.document.getElementById("JobPreviewSandbox");
+      //_JobViewHeader = window.parent.document.getElementById("JobViewHeader");
+    } else if (_monsterTemplateType.jv30_general) {
       _winScrollBy = window.parent.scrollBy;
-      // *TODO* window.parent.scrollBy has no effect for combined view (DIV scrolls)
       _iframeParent = window.parent.document.getElementById("JobPreviewSandbox");
     } else {
       _winScrollBy =  window.scrollBy;
-    }
-
-    if (_monsterTemplateType.jv30_combined) {
-      _iframeParent.style.transition = "margin-top 1s";
-      _JobViewHeader = window.parent.document.getElementById("JobViewHeader");
     }
 
     if (!_onePageLayout) {
