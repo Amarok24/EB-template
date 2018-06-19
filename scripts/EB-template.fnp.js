@@ -59,7 +59,7 @@ var EB_Template = (function() {
 
     // the following could not be tested yet, *TODO* test in live environment
     /*
-    var MUXmethod = window.parent.window.MUX;
+    var MUXmethod = window.MUX;
     if ((MUXmethod != null) && (MUXmethod.callResize != null)) {
       try {
         MUXmethod.callResize();
