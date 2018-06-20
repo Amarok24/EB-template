@@ -1,5 +1,5 @@
 /*
-EB_Template version: 1.42
+EB_Template version: 1.45
 https://github.com/Amarok24/EB-template
 EB_Template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
@@ -9,8 +9,9 @@ var EB_Template = (function() {
 
   "use strict";
 
-  const _onePageLayout = false; // set this to either "true" or "false"
-  const _desktopBreakpoint = 481; // set this to define minimal screen width for desktop layout
+  const _ONEPAGELAYOUT = false; // set this to either "true" or "false"
+  const _DESKTOPBREAKPOINT = 481; // minimal screen width for desktop layout
+  var _DOMQUERY = {};
 
   var _monsterTemplateType = {
     jv30_general: false, // true in both cases: fullpage + combined view
@@ -20,6 +21,21 @@ var EB_Template = (function() {
   var _isMobileScreen = false;
   var _winScrollBy = null; // used by scrollToObject
   var _iframeParent = null; // used in jv30
+
+
+  function startTemplate() {
+    _DOMQUERY = {
+      container : document.querySelector(".containerIA"),
+      tabContents : document.querySelectorAll(".tabContent"),
+      navButtons : document.querySelectorAll("#navigation button"),
+      sitemapButtons : document.querySelectorAll("#sitemap button")
+    }
+    detectMonsterTemplateType();
+    onWindowResize(); // decides if mobile view should be used
+    addEvents();
+    initAllTabs();
+  }
+
 
 /*
   function idGetCss(s_elementId, s_styleProp) {
@@ -45,8 +61,8 @@ var EB_Template = (function() {
   }
 */
 
-  function removeClassAll(myQuery, className) {
-    var nodeList = document.querySelectorAll(myQuery);
+  function removeClassAll(nList, className) {
+    var nodeList = nList;
     for (var i = 0; i < nodeList.length; i++) {
       nodeList[i].classList.remove(className);
     }
@@ -55,10 +71,6 @@ var EB_Template = (function() {
 
   function iframeParentResize() {
     // this function handles iframe height in JV30
-    var container = document.querySelector(".containerIA");
-
-    // the following could not be tested yet, *TODO* test in live environment
-    /*
     var MUXmethod = window.MUX;
     if ((MUXmethod != null) && (MUXmethod.callResize != null)) {
       try {
@@ -68,20 +80,23 @@ var EB_Template = (function() {
         console.error("EB_template: callResize error", er);
       }
     } else {
-      _iframeParent.style.height = container.offsetHeight + 10 + "px";
+      _iframeParent.style.height = _DOMQUERY.container.offsetHeight + 10 + "px";
       console.info("_iframeParent resized, own method");
     }
-    */
-    _iframeParent.style.height = container.offsetHeight + 10 + "px";
-    console.info("_iframeParent resized, own method");
   }
 
 
   function scrollToObject(elementObject, yCorrection) {
+    var yCorrection = yCorrection || 0;
     try {
       elementObject.scrollIntoView({behavior: 'instant', block: 'start', inline: 'nearest'});
-      if ( (yCorrection != null) && (yCorrection != 0) ) {
-        window.setTimeout( function() {_winScrollBy(0, yCorrection);}, 50); // dirty hack because scrollIntoView is asynchronous, *TODO*
+      if (yCorrection != 0) {
+        if (_monsterTemplateType.jv30_combined) {
+          window.setTimeout( function() {_winScrollBy.scrollBy(0, yCorrection);}, 50);
+          /* TODO: bug in Chrome + Edge in combined view! */
+        } else {
+          window.setTimeout( function() {_winScrollBy(0, yCorrection);}, 50); // dirty hack because scrollIntoView is asynchronous, *TODO*
+        }
       }
     } catch (er) {
       console.error("scrollToObject error", er);
@@ -91,17 +106,17 @@ var EB_Template = (function() {
 
   function navButtonClick(buttonIndex, ev /* default true (MouseEvent click) */ ) {
     var i;
-    var tabContent = document.querySelectorAll(".containerIA .tabContent");
+    var tabContents = _DOMQUERY.tabContents;
     var clickOrigin = ev ? ev.target.parentElement.id : null;
     var scrollCorrection = _monsterTemplateType.jv30_combined ? -78 : 0; // JobViewHeader height is 72px
 
-    if (!_onePageLayout) {
-      for (i = 0; i < tabContent.length; i++) {
-        tabContent[i].style.display = "none";
+    if (!_ONEPAGELAYOUT) {
+      for (i = 0; i < tabContents.length; i++) {
+        tabContents[i].style.display = "none";
       }
-      tabContent[buttonIndex].style.display = "block";
-      removeClassAll("#navigation button", "active");
-      document.querySelectorAll("#navigation button")[buttonIndex].classList.add("active");
+      tabContents[buttonIndex].style.display = "block";
+      removeClassAll(_DOMQUERY.navButtons, "active");
+      _DOMQUERY.navButtons[buttonIndex].classList.add("active");
     }
 
     // first we need to resize iframe and THEN we can scroll, else wrong behaviour can be expected
@@ -109,28 +124,25 @@ var EB_Template = (function() {
       window.setTimeout(iframeParentResize, 80); // wait a little bit for content to settle
     }
 
-    if (_onePageLayout || _isMobileScreen || (clickOrigin == "sitemap")) {
-      window.setTimeout( function() {scrollToObject(tabContent[buttonIndex], scrollCorrection);}, 120);
+    if (_ONEPAGELAYOUT || _isMobileScreen || (clickOrigin == "sitemap")) {
+      window.setTimeout( function() {scrollToObject(tabContents[buttonIndex], scrollCorrection);}, 120);
     }
   }
 
 
   function onWindowResize() {
     function windowResizeAction() {
-      var mainContainer = document.getElementsByClassName("containerIA")[0];
+      var mainContainer = _DOMQUERY.container;
       var availWidth = document.body.clientWidth;
 
       mainContainer.classList.remove("mobile");
-      if (availWidth < _desktopBreakpoint) {
+      if (availWidth < _DESKTOPBREAKPOINT) {
         _isMobileScreen = true;
         mainContainer.classList.add("mobile");
       } else {
         _isMobileScreen = false;
       }
       console.log("EB_Template _isMobileScreen:", _isMobileScreen);
-      if (_monsterTemplateType.jv30_general) {
-        iframeParentResize();
-      }
     }
 
     if (_timeoutIDwindowResize) {
@@ -184,7 +196,7 @@ var EB_Template = (function() {
     if (params.tab) {
       try {
         navButtonClick(params.tab);
-        //document.querySelectorAll("#navigation button")[params.tab].click();
+        //document.querySelectorAll(_QUERYNAVIGATION)[params.tab].click();
       } catch (er) {
         console.error("EB_Template initStartingTab: navigation click error, details following");
         console.log(er);
@@ -198,19 +210,14 @@ var EB_Template = (function() {
 
   function addEvents() {
     var i;
-    var navItems = document.querySelectorAll("#navigation button");
-    var navSitemapItems = document.querySelectorAll("#sitemap button");
+    var navItems = _DOMQUERY.navButtons;
+    var navSitemapItems = _DOMQUERY.sitemapButtons;
 
     for (i = 0; i < navItems.length; i++) {
       navItems[i].addEventListener("click", navButtonClick.bind(null, i));
       navSitemapItems[i].addEventListener("click", navButtonClick.bind(null, i));
     }
     window.addEventListener("resize", onWindowResize);
-    /*
-    if (_monsterTemplateType.jv30_combined) {
-      window.parent.document.getElementById("ContentScrollable").addEventListener("scroll", onParentContentScroll);
-    }
-    */
   }
 
 
@@ -234,10 +241,10 @@ var EB_Template = (function() {
 
   function initAllTabs() {
     var i;
-    var tabContents = document.querySelectorAll(".containerIA .tabContent");
+    var tabContents = _DOMQUERY.tabContents;
 
     if (_monsterTemplateType.jv30_combined) {
-      _winScrollBy =  window.parent.document.getElementById("ContentScrollable").scrollBy;
+      _winScrollBy =  window.parent.document.getElementById("ContentScrollable"); // not possible to use directly .scrollBy here, TypeError: 'scrollBy' called on an object that does not implement interface Element.
       _iframeParent = window.parent.document.getElementById("JobPreviewSandbox");
       //_JobViewHeader = window.parent.document.getElementById("JobViewHeader");
     } else if (_monsterTemplateType.jv30_general) {
@@ -247,20 +254,12 @@ var EB_Template = (function() {
       _winScrollBy =  window.scrollBy;
     }
 
-    if (!_onePageLayout) {
+    if (!_ONEPAGELAYOUT) {
       for (i = 0; i < tabContents.length; i++) {
         tabContents[i].style.display = "none";
       }
       initStartingTab();
     }
-  }
-
-
-  function startTemplate() {
-    detectMonsterTemplateType();
-    onWindowResize(); // decides if mobile view should be used
-    addEvents();
-    initAllTabs();
   }
 
 
