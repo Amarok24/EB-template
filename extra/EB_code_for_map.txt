@@ -1,21 +1,73 @@
-1) IMPORT CSS CODE FOR MAP:
+1) import MAPBOX-GL JS and CSS code (save offline)
 
-    @import url("http://origin.media.monster.com/atge/interactive/Monster/2016/07-Juli/mapbox/mapbox.css");
-    @import url("EB-template-map.css"); /* EB-template-map */
-
-
-2) IMPORT SCRIPTS:
-
-    <!-- BEGIN: LEAFLET MAP SCRIPTS -->
-
-    <script src='http://origin.media.monster.com/atge/interactive/Monster/2016/07-Juli/mapbox/mapbox.js'></script>
-    <script src="scripts/EB-template-map.fnp.js">/* EB LeafletMap */</script>
-
-    <!-- END: LEAFLET MAP SCRIPTS -->
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
 
 
-3) PLACE THE MAP SOMEWHERE:
+2) import EB-template-map.fnp.js (and edit code at the beginning)
+    
+<script src="scripts/EB-template-map.fnp.js">/* EB MapboxMap */</script>
 
-    <div class="myLeafletMap" id="myLeafletMap">
+
+3) place the map into HTML code
+
+    <div id="myMapboxMap">
         <!-- leave this empty -->
     </div>
+
+4) style your map as you wish, for example:
+
+<style>
+	#myMapboxMap {
+		width: 500px;
+		height: 600px;
+		margin: 3em auto 1em;
+		border: 1px solid #dfdfdf;
+	}
+
+	#myMapboxMap .marker {
+		background-image: url(marker-icon2.png);
+		background-size: cover;
+		width: 25px;
+		height: 41px;
+		cursor: pointer;
+	}
+
+	#myMapboxMap .marker:hover {
+		background-image: url(marker-icon-hover2.png);
+	}
+
+	#myMapboxMap .mapboxgl-popup {
+		max-width: 250px;
+	}
+
+	#myMapboxMap .mapboxgl-popup-content {
+		text-align: center;
+		padding-top: 1.5em;
+	}
+
+	#myMapboxMap .mapboxgl-popup-content big {
+		display: block;
+		font-size: 1.4em;
+		font-weight: bold;
+		margin-bottom: .5em;
+	}
+
+	#myMapboxMap .mapboxgl-popup-content p {
+		margin-bottom: 0;
+	}
+
+	#myMapboxMap .mapboxgl-popup-content a {
+		color: cornflowerblue;
+		text-decoration: underline;
+	}
+
+	#myMapboxMap .mapboxgl-popup-close-button {
+		font-size: 2em;
+		right: 5px;
+	}
+
+	#myMapboxMap .mapboxgl-canvas {
+		position: relative !important; /* bugfix, default "absolute" is a mess in hidden DIVs even after resize(); */
+	}
+</style>
