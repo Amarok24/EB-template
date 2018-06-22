@@ -1,120 +1,99 @@
-var LeafletMap = (function() {
+var MapboxMap = (function() {
 
-  var mapTabIndex = 1; // EDIT THIS!!! index 0 = 1st tab
+  const MAP_TAB_INDEX = 4; // EDIT THIS! index 0 = 1st tab
+  const QUERY_NAVBUTTONS = "#navigation button"; // EDIT THIS! query/path to buttons
+
   var mapExists = false;
+  var map = null;
+
+  var geojson = {
+      "features": [{
+          "type": "Feature",
+          "properties": {
+              "place_name": "Rheinstrasse 19, 64283 Darmstadt, Germany",
+              "location": "Darmstadt"
+          },
+          "geometry": {
+              "coordinates": [8.648691, 49.872638],
+              "type": "Point"
+          },
+          "id": "address.1081757480"
+      }, {
+          "type": "Feature",
+          "properties": {
+              "place_name": "Faulbrunnenstrasse 6, 65183 Wiesbaden, Germany",
+              "location": "Wiesbaden"
+          },
+          "geometry": {
+              "coordinates": [8.237337, 50.080712],
+              "type": "Point"
+          },
+          "id": "address.1251362007"
+      }],
+      "type": "FeatureCollection"
+  };
 
   function initMap() {
-    var jsmapMarkers = [
-      /* coordY, coordX, title onMouseOver, html content */
-      [48.193801, 11.564755, "M\u00FCnchen",
-        "<strong>Company name</strong><br /> \
-             Street 123, 80935 M\u00FCnchen, Tel. 0123/555888999<br /> \
-            <a href='http://leafletjs.com'>leafletjs.com</a>"
-      ],
+          mapboxgl.accessToken = "pk.eyJ1IjoiamFucCIsImEiOiJjaXEweHJpaHcwMDIwaTBua2N1OXc3ZDFiIn0.IH9TIUVAKC-XMzX3rpwyZA"; //  Monster Interactive Prague access token, for more info contact Jan Prazak
 
-      [53.5503414, 10.000654, "Hamburg",
-        "<strong>Company name</strong><br /> \
-             Street 123, 21129 Hamburg, Tel. 0123/555888999<br /> \
-            <a href='http://leafletjs.com' target='_blank'>leafletjs.com</a>"
-      ],
+          if (!mapboxgl.supported()) {
+              document.getElementById("myMapboxMap").innerHTML = "Your browser does not support Mapbox GL. For more info click here:<br /><a href='https://www.mapbox.com/help/mapbox-browser-support/' target='_blank'>Mapbox browser support</a>";
+          } else {
+              map = new mapboxgl.Map({
+                  container: "myMapboxMap", // container ID
+                  style: "mapbox://styles/mapbox/light-v9",
+                  // mapbox://styles/mapbox/light-v9
+                  // mapbox://styles/mapbox/streets-v10
+                  // mapbox://styles/mapbox/outdoors-v10
+                  zoom: 5,
+                  minZoom: 5,
+                  maxZoom: 17,
+                  pitch: 0, // 3D angle
+                  center: [10.5, 51.3] // [lng, lat]
+              });
 
-      [51.3396, 12.2607, "Leipzig",
-        "<strong>Company name</strong><br /> \
-             Street 123, 123456 Leipzig<br /> \
-            <a href='http://leafletjs.com' target='_blank'>leafletjs.com</a>"
-      ],
+              geojson.features.forEach(function(marker) {
+                  var el = document.createElement('div');
+                  el.className = 'marker';
+                  if (!marker.properties.details) {
+                      marker.properties.details = "";
+                  }
+                  if (!marker.properties.email) {
+                      marker.properties.email = "";
+                  }
+                  new mapboxgl.Marker(el)
+                      .setLngLat(marker.geometry.coordinates)
+                      .setPopup(new mapboxgl.Popup({
+                              offset: 25
+                          }) // add popups
+                          .setHTML('<big>' + marker.properties.location + '</big><p>' + marker.properties.place_name + '</p>'))
+                      .addTo(map);
+              });
+              map.addControl(new mapboxgl.FullscreenControl());
 
-      [53.0577, 8.7424, "Bremen",
-        "<strong>Company name</strong><br /> \
-             Street 123, 123456 Bremen<br /> \
-            <a href='http://leafletjs.com' target='_blank'>leafletjs.com</a>"
-      ]
-    ];
+              function setMapLanguage() {
+                  if (map.isStyleLoaded()) {
+                      console.info("Setting map language (country-label-lg)");
+                      map.setLayoutProperty('country-label-lg', 'text-field', ['get', 'name_de']);
+                  } else {
+                      window.setTimeout(setMapLanguage, 500);
+                  }
+              }
 
-    L.mapbox.accessToken = 'pk.eyJ1IjoiamFucCIsImEiOiJjaXEweHJpaHcwMDIwaTBua2N1OXc3ZDFiIn0.IH9TIUVAKC-XMzX3rpwyZA'; /* Monster Interactive Prague access token, for more info contact Jan Prazak */
-
-    var jsmap,
-      jsmapLayer1,
-      jsmapLayer2,
-      baseMaps,
-      jsmapIcon = L.divIcon({ /* CSS icon */
-        className: 'leafletMarker',
-        iconSize: [25, 41]
-      });
-
-
-    function addMarkers() {
-      for (var i = 0; i < jsmapMarkers.length; i++) {
-        L.marker([jsmapMarkers[i][0], jsmapMarkers[i][1]], {
-          icon: jsmapIcon,
-          title: jsmapMarkers[i][2],
-          opacity: .8
-        }).addTo(jsmap).bindPopup(jsmapMarkers[i][3]);
-      }
-    }
-
-    jsmapLayer1 = L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=' + L.mapbox.accessToken, { /* Mapbox Streets */
-      maxZoom: 18,
-      attribution: '\u00A9 <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a>, \u00A9 <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors',
-      /* subdomains: ['','',''], */
-      id: 'Map01'
-    });
-
-    jsmapLayer2 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { /* OSM */
-      maxZoom: 12,
-      attribution: '\u00A9 <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors',
-      subdomains: ['a', 'b', 'c'],
-      /* OpenStreetMap tile servers */
-      id: 'Map02'
-    });
-
-    jsmap = L.map('myLeafletMap', {
-      center: [51.3, 10.5],
-      /* MAP CENTER COORDINATES */
-      zoom: 6,
-      minZoom: 5,
-      scrollWheelZoom: false,
-      layers: [jsmapLayer1]
-    });
-
-    addMarkers();
-
-    baseMaps = {
-      "Mapbox Streets": jsmapLayer1,
-      "OpenStreetMap": jsmapLayer2
-    };
-    L.control.layers(baseMaps).addTo(jsmap);
-    //jsmapLayer1.addTo(jsmap);
-    jsmap.once('focus', function() {
-      jsmap.scrollWheelZoom.enable();
-    });
-
-  } // end initMap
-
+              setMapLanguage();
+          }
+      } // end initMap
 
   function drawMap() {
-    if (!mapExists) {
-      mapExists = true;
-      initMap();
-      console.log("drawMap() end");
-    }
+      if (!mapExists) {
+          mapExists = true;
+          map.resize();
+      }
   }
 
   document.addEventListener("DOMContentLoaded", function() {
-    /*
-        var timeout = (!!window.chrome) ? 150 : 0; // 150ms OR 0ms, Chrome bugfix
-        setTimeout(drawMap, timeout); // Chrome bugfix
-    */
-
-    document.querySelectorAll("#navigation button")[mapTabIndex].addEventListener("click", function() {
-      setTimeout(drawMap, 150);
-    });
-
+      window.setTimeout(initMap, 150);
+      document.querySelectorAll(QUERY_NAVBUTTONS)[MAP_TAB_INDEX].addEventListener("click", function() { window.setTimeout(drawMap, 250); });
   });
 
-
-  return {
-    /* public objects */
-  };
-
-})(); // end LeafletMap
+})(); // end MapboxMap
