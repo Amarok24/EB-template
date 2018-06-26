@@ -5,6 +5,10 @@ var MapboxMap = (function() {
 
   var mapExists = false;
   var map = null;
+  var mapBounds = [ // bounds for Germany
+    [6.608, 46.864], // SW coordinates
+    [15.3699, 54.8766]  // NE coordinates
+  ];
 
   var geojson = {
       "features": [{
@@ -49,7 +53,8 @@ var MapboxMap = (function() {
                   minZoom: 5,
                   maxZoom: 17,
                   pitch: 0, // 3D angle
-                  center: [10.5, 51.3] // [lng, lat]
+                  center: [10.5, 51.3], // [lng, lat]
+                  maxBounds: mapBounds
               });
 
               geojson.features.forEach(function(marker) {
