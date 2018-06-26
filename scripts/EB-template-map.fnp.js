@@ -6,8 +6,8 @@ var MapboxMap = (function() {
   var mapExists = false;
   var map = null;
   var mapBounds = [ // bounds for Germany
-    [6.608, 46.864], // SW coordinates
-    [15.3699, 54.8766]  // NE coordinates
+    [4.4, 45.8], // SW coordinates
+    [16.4, 56.0]  // NE coordinates
   ];
 
   var geojson = {
@@ -75,7 +75,7 @@ var MapboxMap = (function() {
                       .addTo(map);
               });
               map.addControl(new mapboxgl.FullscreenControl());
-              map.addControl(new mapboxgl.NavigationControl()); // zoom and rotation controls
+              map.addControl(new mapboxgl.NavigationControl({showCompass: false})); // zoom and rotation controls
 
               function setMapLanguage() {
                   if (map.isStyleLoaded()) {
