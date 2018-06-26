@@ -75,6 +75,7 @@ var MapboxMap = (function() {
                       .addTo(map);
               });
               map.addControl(new mapboxgl.FullscreenControl());
+              map.addControl(new mapboxgl.NavigationControl()); // zoom and rotation controls
 
               function setMapLanguage() {
                   if (map.isStyleLoaded()) {
