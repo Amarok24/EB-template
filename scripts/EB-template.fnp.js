@@ -80,7 +80,7 @@ var EB_Template = (function() {
         console.error("EB_template: callResize error", er);
       }
     } else {
-      _iframeParent.style.height = _DOMQUERY.container.offsetHeight + 10 + "px";
+      _iframeParent.style.height = _DOMQUERY.container.offsetHeight + 30 + "px";
       console.info("_iframeParent resized, own method");
     }
   }
