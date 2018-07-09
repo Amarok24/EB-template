@@ -1,9 +1,11 @@
 # Employer-Branding Template
-![version](https://img.shields.io/badge/version-1.45-orange.svg) 
+![version](https://img.shields.io/badge/version-1.46-orange.svg) 
 ![slide-show_SimpleSlider](https://img.shields.io/badge/slide--show-SimpleSlider-yellow.svg) ![map-engine_Mapbox--GL--JS](https://img.shields.io/badge/map--engine-Mapbox--GL--JS-blue.svg) ![map-layer_Mapbox](https://img.shields.io/badge/map--layer-Mapbox-blue.svg)
 
 Changelog (only significant changes listed)
 -------------------------------------------
+v1.46 -- 20180709, JV30 iframe-fix update.
+
 v1.45 -- 20180620, callResize MUX-method successfully implemented. Code-cleanup. Known bug: Chrome+Edge sitemap scroll in JV30 Combined view.
 
 v1.41 -- 20180613, updates for JV30 combined view.
