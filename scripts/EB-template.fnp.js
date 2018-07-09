@@ -1,5 +1,5 @@
 /*
-EB_Template version: 1.45
+EB_Template version: 1.46
 https://github.com/Amarok24/EB-template
 EB_Template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
@@ -37,30 +37,6 @@ var EB_Template = (function() {
   }
 
 
-/*
-  function idGetCss(s_elementId, s_styleProp) {
-    var element = document.getElementById(s_elementId);
-    return window.getComputedStyle(element, null).getPropertyValue(s_styleProp);
-  }
-  function idSetCss(s_elementId, s_styleName, s_styleProp) {
-    // styleNames are CSS2Properties:  backgroundColor, fontSize ...
-    document.getElementById(s_elementId).style[s_styleName] = s_styleProp;
-  }
-  function addClassAll(myQuery, className) {
-    var nodeList = document.querySelectorAll(myQuery);
-    // classList in IE 10+, nodeList as result from querySelectorAll etc.
-    for (var i = 0; i < nodeList.length; i++) {
-      nodeList[i].classList.add(className);
-    }
-  }
-  function toggleClassAll(myQuery, className) {
-    var nodeList = document.querySelectorAll(myQuery);
-    for (var i = 0; i < nodeList.length; i++) {
-      nodeList[i].classList.toggle(className);
-    }
-  }
-*/
-
   function removeClassAll(nList, className) {
     var nodeList = nList;
     for (var i = 0; i < nodeList.length; i++) {
@@ -71,17 +47,20 @@ var EB_Template = (function() {
 
   function iframeParentResize() {
     // this function handles iframe height in JV30
-    var MUXmethod = window.MUX;
-    if ((MUXmethod != null) && (MUXmethod.callResize != null)) {
-      try {
-        MUXmethod.callResize();
-        console.info("_iframeParent resized, MUX method");
-      } catch (er) {
-        console.error("EB_template: callResize error", er);
-      }
-    } else {
-      _iframeParent.style.height = _DOMQUERY.container.offsetHeight + 30 + "px";
-      console.info("_iframeParent resized, own method");
+    /*
+        var MUXmethod = window.MUX;
+        if ((MUXmethod != null) && (MUXmethod.callResize != null)) {
+          try {
+            MUXmethod.callResize();
+            console.info("iframe resized, MUX method");
+          } catch (er) {
+            console.error("EB_template: callResize error", er);
+          }
+        }
+    */
+    if (_iframeParent != null) {
+      _iframeParent.style.height = _DOMQUERY.container.offsetHeight + 40 + "px";
+      console.info("iframe resized, own method");
     }
   }
 
@@ -121,7 +100,7 @@ var EB_Template = (function() {
 
     // first we need to resize iframe and THEN we can scroll, else wrong behaviour can be expected
     if (_monsterTemplateType.jv30_general) {
-      window.setTimeout(iframeParentResize, 80); // wait a little bit for content to settle
+      window.setTimeout(iframeParentResize, 200); // wait a little bit for content to settle
     }
 
     if (_ONEPAGELAYOUT || _isMobileScreen || (clickOrigin == "sitemap")) {
@@ -264,6 +243,10 @@ var EB_Template = (function() {
 
 
   document.addEventListener("DOMContentLoaded", startTemplate);
+
+  window.addEventListener("load", function () {
+    window.setTimeout(iframeParentResize, 1000);
+  });
 
 
   return {
