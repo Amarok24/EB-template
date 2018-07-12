@@ -68,15 +68,17 @@ var EB_Template = (function() {
   function scrollToObject(elementObject, yCorrection) {
     var yCorrection = yCorrection || 0;
     try {
-      elementObject.scrollIntoView({behavior: 'instant', block: 'start', inline: 'nearest'});
+      elementObject.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+      /*
       if (yCorrection != 0) {
         if (_monsterTemplateType.jv30_combined) {
           window.setTimeout( function() {_winScrollBy.scrollBy(0, yCorrection);}, 50);
-          /* TODO: bug in Chrome + Edge in combined view! */
+          // TODO: bug in Chrome + Edge in combined view!
         } else {
           window.setTimeout( function() {_winScrollBy(0, yCorrection);}, 50); // dirty hack because scrollIntoView is asynchronous, *TODO*
         }
       }
+      */
     } catch (er) {
       console.error("scrollToObject error", er);
     }
