@@ -164,6 +164,7 @@ body {
     text-align: center;
     cursor: pointer;
     transition: background .6s ease;
+    overflow: visible; /* IE 11 bugfix */
 }
 
 .containerIA #navigation button:hover {
