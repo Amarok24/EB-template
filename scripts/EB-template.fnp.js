@@ -1,5 +1,5 @@
 /*
-EB_Template version: 1.46
+EB_Template version: 1.47
 https://github.com/Amarok24/EB-template
 EB_Template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
@@ -94,11 +94,14 @@ var EB_Template = (function() {
     if (!_ONEPAGELAYOUT) {
       for (i = 0; i < tabContents.length; i++) {
         tabContents[i].style.display = "none";
+        _DOMQUERY.container.classList.remove("tab" + i);
       }
       tabContents[buttonIndex].style.display = "block";
       removeClassAll(_DOMQUERY.navButtons, "active");
       _DOMQUERY.navButtons[buttonIndex].classList.add("active");
     }
+
+    _DOMQUERY.container.classList.add("tab" + buttonIndex);
 
     // first we need to resize iframe and THEN we can scroll, else wrong behaviour can be expected
     if (_monsterTemplateType.jv30_general) {
