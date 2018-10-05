@@ -1,5 +1,5 @@
 /*
-EB_Template version: 1.47
+EB_Template version: 1.48
 https://github.com/Amarok24/EB-template
 EB_Template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
@@ -10,7 +10,7 @@ var EB_Template = (function() {
   "use strict";
 
   const _ONEPAGELAYOUT = false; // set this to either "true" or "false"
-  const _DESKTOPBREAKPOINT = 481; // minimal screen width for desktop layout
+  const _DESKTOPBREAKPOINT = 601; // minimal screen width for desktop layout
   var _DOMQUERY = {};
 
   var _monsterTemplateType = {
@@ -19,8 +19,8 @@ var EB_Template = (function() {
   };
   var _timeoutIDwindowResize = null;
   var _isMobileScreen = false;
-  var _winScrollBy = null; // used by scrollToObject
   var _iframeParent = null; // used in jv30
+  //var _winScrollBy = null;
 
 
   function startTemplate() {
@@ -47,19 +47,13 @@ var EB_Template = (function() {
 
   function iframeParentResize() {
     // this function handles iframe height in JV30
-    /*
-        var MUXmethod = window.MUX;
+    /* var MUXmethod = window.MUX;
         if ((MUXmethod != null) && (MUXmethod.callResize != null)) {
-          try {
-            MUXmethod.callResize();
-            console.info("iframe resized, MUX method");
-          } catch (er) {
-            console.error("EB_template: callResize error", er);
-          }
-        }
-    */
+          try { MUXmethod.callResize(); console.info("iframe resized, MUX method");
+          } catch (er) { console.error("EB_template: callResize error", er); }
+        } */
     if (_iframeParent != null) {
-      _iframeParent.style.height = _DOMQUERY.container.offsetHeight + 40 + "px";
+      _iframeParent.style.height = _DOMQUERY.container.offsetHeight + 20 + "px";
       console.info("iframe resized, own method");
     }
   }
@@ -197,9 +191,11 @@ var EB_Template = (function() {
     var navItems = _DOMQUERY.navButtons;
     var navSitemapItems = _DOMQUERY.sitemapButtons;
 
-    for (i = 0; i < navItems.length; i++) {
-      navItems[i].addEventListener("click", navButtonClick.bind(null, i));
-      navSitemapItems[i].addEventListener("click", navButtonClick.bind(null, i));
+    if(navItems.length) {
+      for (i = 0; i < navItems.length; i++) {
+        navItems[i].addEventListener("click", navButtonClick.bind(null, i));
+        if (navSitemapItems.length) {navSitemapItems[i].addEventListener("click", navButtonClick.bind(null, i));}
+      }
     }
     window.addEventListener("resize", onWindowResize);
   }
@@ -228,14 +224,14 @@ var EB_Template = (function() {
     var tabContents = _DOMQUERY.tabContents;
 
     if (_monsterTemplateType.jv30_combined) {
-      _winScrollBy =  window.parent.document.getElementById("ContentScrollable"); // not possible to use directly .scrollBy here, TypeError: 'scrollBy' called on an object that does not implement interface Element.
+      //_winScrollBy =  window.parent.document.getElementById("ContentScrollable"); // not possible to use directly .scrollBy here, TypeError: 'scrollBy' called on an object that does not implement interface Element.
       _iframeParent = window.parent.document.getElementById("JobPreviewSandbox");
       //_JobViewHeader = window.parent.document.getElementById("JobViewHeader");
     } else if (_monsterTemplateType.jv30_general) {
-      _winScrollBy = window.parent.scrollBy;
+      //_winScrollBy = window.parent.scrollBy;
       _iframeParent = window.parent.document.getElementById("JobPreviewSandbox");
     } else {
-      _winScrollBy =  window.scrollBy;
+      //_winScrollBy =  window.scrollBy;
     }
 
     if (!_ONEPAGELAYOUT) {
