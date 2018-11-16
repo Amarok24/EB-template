@@ -127,6 +127,7 @@ body {
     padding: 0.7em 2% 0.5em;
     color: #505050;
     background-color: inherit;
+    font-family: inherit;
     text-transform: uppercase;
     text-decoration: none;
     text-align: center;
@@ -156,6 +157,7 @@ body {
     color: inherit;
     background-color: inherit;
     font-family: inherit;
+    font-weight: inherit;
     font-size: inherit;
     line-height: inherit;
 }
