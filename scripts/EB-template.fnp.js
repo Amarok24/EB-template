@@ -66,10 +66,10 @@ var EB_Template = (function() {
       /*
       if (yCorrection != 0) {
         if (_monsterTemplateType.jv30_combined) {
-          window.setTimeout( function() {_winScrollBy.scrollBy(0, yCorrection);}, 50);
+          setTimeout( function() {_winScrollBy.scrollBy(0, yCorrection);}, 50);
           // TODO: bug in Chrome + Edge in combined view!
         } else {
-          window.setTimeout( function() {_winScrollBy(0, yCorrection);}, 50); // dirty hack because scrollIntoView is asynchronous, *TODO*
+          setTimeout( function() {_winScrollBy(0, yCorrection);}, 50); // dirty hack because scrollIntoView is asynchronous, *TODO*
         }
       }
       */
@@ -99,11 +99,11 @@ var EB_Template = (function() {
 
     // first we need to resize iframe and THEN we can scroll, else wrong behaviour can be expected
     if (_monsterTemplateType.jv30_general) {
-      window.setTimeout(iframeParentResize, 200); // wait a little bit for content to settle
+      setTimeout(iframeParentResize, 200); // wait a little bit for content to settle
     }
 
     if (_ONEPAGELAYOUT || _isMobileScreen || (clickOrigin == "sitemap")) {
-      window.setTimeout( function() {scrollToObject(tabContents[buttonIndex], scrollCorrection);}, 120);
+      setTimeout( function() {scrollToObject(tabContents[buttonIndex], scrollCorrection);}, 120);
     }
   }
 
@@ -126,7 +126,7 @@ var EB_Template = (function() {
     if (_timeoutIDwindowResize) {
       window.clearTimeout(_timeoutIDwindowResize);
     }
-    _timeoutIDwindowResize = window.setTimeout(windowResizeAction, 50);
+    _timeoutIDwindowResize = setTimeout(windowResizeAction, 50);
   }
 
 /*
@@ -246,7 +246,7 @@ var EB_Template = (function() {
   document.addEventListener("DOMContentLoaded", startTemplate);
 
   window.addEventListener("load", function () {
-    window.setTimeout(iframeParentResize, 1000);
+    setTimeout(iframeParentResize, 1000);
   });
 
 
