@@ -35,6 +35,10 @@ body {
     text-align: left;
     margin: 0 0 1.3em 0;
 }
+.containerIA ul:last-child {
+    /* when UL is the last child of its parent element */
+    margin-bottom: 0;
+}
 .containerIA ul li {
     list-style-type: none;
     position: relative;
@@ -81,6 +85,7 @@ body {
     margin-bottom: 1em;
 }
 .containerIA .tabContent p:last-child {
+    /* when P is the last child of its parent element */
     margin-bottom: 0;
 }
 .containerIA header img {
