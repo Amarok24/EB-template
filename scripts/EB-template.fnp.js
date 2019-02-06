@@ -1,5 +1,5 @@
 /*
-EB_Template version: 1.48
+EB_Template version: 1.49
 https://github.com/Amarok24/EB-template
 EB_Template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
@@ -9,8 +9,8 @@ var EB_Template = (function() {
 
   "use strict";
 
-  const _ONEPAGELAYOUT = false; // set this to either "true" or "false"
-  const _DESKTOPBREAKPOINT = 601; // minimal screen width for desktop layout
+  /*const*/ var _ONEPAGELAYOUT = false; // set this to either "true" or "false"
+  /*const*/ var _DESKTOPBREAKPOINT = 601; // minimal screen width for desktop layout
   var _DOMQUERY = {};
 
   var _monsterTemplateType = {
@@ -29,7 +29,7 @@ var EB_Template = (function() {
       tabContents : document.querySelectorAll(".tabContent"),
       navButtons : document.querySelectorAll("#navigation button"),
       sitemapButtons : document.querySelectorAll("#sitemap button")
-    }
+    };
     detectMonsterTemplateType();
     onWindowResize(); // decides if mobile view should be used
     addEvents();
@@ -205,7 +205,7 @@ var EB_Template = (function() {
     var jobId = document.getElementsByTagName("body")[0].getAttribute("data-job-id");
 
     function insideOfIframe() { // test if this html document is in iframe
-      try { return window.self !== window.top }
+      try { return window.self !== window.top; }
       catch (e) { return true; } // fallback for bad browsers, assumes true
     }
 
