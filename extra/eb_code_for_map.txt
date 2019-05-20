@@ -4,9 +4,9 @@
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
 
 
-2) import EB-template-map.fnp.js (and edit code at the beginning)
+2) import eb_template-map.fnp.js (and edit code at the beginning)
     
-<script src="scripts/EB-template-map.fnp.js">/* EB MapboxMap */</script>
+<script src="scripts/eb_template-map.fnp.js">/* EB MapboxMap */</script>
 
 
 3) place the map into HTML code
