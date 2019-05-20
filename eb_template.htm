@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de">
 
 <head>
-    <!--  EB_Template version 1.48  -->
+    <!--  EB Template version 1.5  -->
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,12 +14,12 @@
     <title>EB Template</title>
 
     <style>
-        @import url("EB-template.css"); /* EB-template */
+        @import url("eb_template.css"); /* eb_template */
     </style>
 
     <script src="scripts/simpleslider.fnp.js" title="SimpleSlider"></script>
     <script src="scripts/init.js" title="init"></script>
-    <script src="scripts/EB-template.fnp.js" title="EB_Template"></script>
+    <script src="scripts/eb_template.fnp.js" title="eb_template"></script>
 
 </head>
 
@@ -28,10 +28,23 @@
     <div class="containerIA">
 
         <header id="headerSlideshow">
-            <img src="images/tab1.jpg" alt="" />
-            <img src="images/tab2.jpg" alt="" />
-            <img src="images/tab3.jpg" alt="" />
-            <img src="images/tab4.jpg" alt="" />
+            <!-- recommended ratio for mobile header pic is 3:1 (width:height) -->
+            <picture>
+                <source srcset="images/tab1.jpg" media="(min-width: 680px)">
+                <img src="images/tab1_mobile.jpg" alt="" />
+            </picture>
+            <picture>
+                <source srcset="images/tab2.jpg" media="(min-width: 680px)">
+                <img src="images/tab2_mobile.jpg" alt="" />
+            </picture>
+            <picture>
+                <source srcset="images/tab3.jpg" media="(min-width: 680px)">
+                <img src="images/tab3_mobile.jpg" alt="" />
+            </picture>
+            <picture>
+                <source srcset="images/tab4.jpg" media="(min-width: 680px)">
+                <img src="images/tab4_mobile.jpg" alt="" />
+            </picture>
         </header>
 
 
@@ -44,7 +57,7 @@
 
 
         <div class="title">
-            <h1> EB_Template 1.48 </h1>
+            <h1> EB Template 1.5 </h1>
         </div>
 
 
@@ -81,6 +94,7 @@
 
         </section>
 
+        <img src="images/tab2_mobile.jpg" alt="" class="desktopHidden" />
 
         <section class="tabContent">
             <h3>TAB 1</h3>
@@ -107,6 +121,7 @@
 
         </section>
 
+        <img src="images/tab3_mobile.jpg" alt="" class="desktopHidden" />
 
         <section class="tabContent">
             <h3>TAB 2</h3>
@@ -142,6 +157,7 @@
 
         </section>
 
+        <img src="images/tab4_mobile.jpg" alt="" class="desktopHidden" />
 
         <section class="tabContent">
             <h3>TAB 3</h3>
