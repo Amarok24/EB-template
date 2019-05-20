@@ -1,9 +1,10 @@
 # Employer-Branding Template
-![version](https://img.shields.io/badge/version-1.48-orange.svg) 
+![version](https://img.shields.io/badge/version-1.5-orange.svg) 
 ![slide-show_SimpleSlider](https://img.shields.io/badge/slide--show-SimpleSlider-yellow.svg) ![map-engine_Mapbox--GL--JS](https://img.shields.io/badge/map--engine-Mapbox--GL--JS-blue.svg) ![map-layer_Mapbox](https://img.shields.io/badge/map--layer-Mapbox-blue.svg)
 
 Changelog (only significant changes listed)
 -------------------------------------------
+v1.5 -- 20190520, mobile optimizations
 v1.48 -- 20181005, mobile version: now completely without navigation due to Webkit iOS bugs (iPhone) and because of this there is now an #arrowScrollToTop in the bottom right corner. Desktop version: #sitemap now optional and does not lead to Javascript error when removed.
 
 v1.47 -- 20180814, main container now gets classes "tab0", "tab1" and so on, depending on what TAB is active. Useful for advanced CSS styling.
