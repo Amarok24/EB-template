@@ -16,7 +16,7 @@ function initSlider() {
       navSlider.change(index);
     }
 
-    document.getElementById("headerSlideshow").style.paddingBottom = "19%"; // modify this padding!
+    //document.getElementById("headerSlideshow").style.paddingBottom = "46.875%";
 
     for (i = 0; i < navButtons.length; i++) {
       navButtons[i].addEventListener("click", navSliderChangeTo.bind(null, i));
