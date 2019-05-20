@@ -1,16 +1,17 @@
 /*
-EB_Template version: 1.49
+EB Template version: 1.5
 https://github.com/Amarok24/EB-template
-EB_Template is released under The Unlicense,
+eb_template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
 */
 
-var EB_Template = (function() {
+var eb_template = (function() {
 
   "use strict";
 
-  /*const*/ var _ONEPAGELAYOUT = false; // set this to either "true" or "false"
-  /*const*/ var _DESKTOPBREAKPOINT = 601; // minimal screen width for desktop layout
+  /*const*/ var _ONEPAGELAYOUT = false; // set this to either "true" or "false", "true" makes sense with no navi-connected slideshow
+  /*const*/ var _DESKTOPBREAKPOINT = 680; // minimal screen width for desktop layout
+
   var _DOMQUERY = {};
 
   var _monsterTemplateType = {
@@ -50,7 +51,7 @@ var EB_Template = (function() {
     /* var MUXmethod = window.MUX;
         if ((MUXmethod != null) && (MUXmethod.callResize != null)) {
           try { MUXmethod.callResize(); console.info("iframe resized, MUX method");
-          } catch (er) { console.error("EB_template: callResize error", er); }
+          } catch (er) { console.error("eb_template: callResize error", er); }
         } */
     if (_iframeParent != null) {
       _iframeParent.style.height = _DOMQUERY.container.offsetHeight + 20 + "px";
@@ -120,7 +121,7 @@ var EB_Template = (function() {
       } else {
         _isMobileScreen = false;
       }
-      console.log("EB_Template _isMobileScreen:", _isMobileScreen);
+      console.log("eb_template _isMobileScreen:", _isMobileScreen);
     }
 
     if (_timeoutIDwindowResize) {
@@ -151,7 +152,7 @@ var EB_Template = (function() {
         locationSearch = window.parent.location.search;
       }
       catch(er) {
-        console.error("EB_Template initStartingTab: locationSearch error, details following");
+        console.error("eb_template initStartingTab: locationSearch error, details following");
         console.log(er);
       }
     } else {
@@ -163,7 +164,7 @@ var EB_Template = (function() {
       // "a_parts" will be eg. ["tab=2", "bla=text", "val="]
       for (i = 0; i < a_parts.length; i++) {
         var nv = a_parts[i].split('=');
-        console.log("EB_Template initStartingTab:", nv);
+        console.log("eb_template initStartingTab:", nv);
         if (!nv[0]) {
           continue;
         } // skip cases like "=25" with no 'key'
@@ -176,7 +177,7 @@ var EB_Template = (function() {
         navButtonClick(params.tab);
         //document.querySelectorAll(_QUERYNAVIGATION)[params.tab].click();
       } catch (er) {
-        console.error("EB_Template initStartingTab: navigation click error, details following");
+        console.error("eb_template initStartingTab: navigation click error, details following");
         console.log(er);
         navButtonClick(0);
       }
@@ -212,7 +213,7 @@ var EB_Template = (function() {
     _monsterTemplateType.jv30_general = insideOfIframe();
     _monsterTemplateType.jv30_combined = window.parent.document.getElementById("ContentScrollable") ? true : false;
 
-    console.group("EB_Template detectMonsterTemplateType");
+    console.group("eb_template detectMonsterTemplateType");
     console.log("_monsterTemplateType:", _monsterTemplateType);
     if (jobId) { console.log("jobId = ", jobId); }
     console.groupEnd();
@@ -257,4 +258,4 @@ var EB_Template = (function() {
     _monsterTemplateType: _monsterTemplateType // info: public properties won't get updated during runtime
   };
 
-})(); // end EB_Template
+})(); // end eb_template
