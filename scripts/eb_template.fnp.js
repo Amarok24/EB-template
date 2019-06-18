@@ -194,8 +194,8 @@ var eb_template = (function() {
 
     if(navItems.length) {
       for (i = 0; i < navItems.length; i++) {
-        navItems[i].addEventListener("click", navButtonClick.bind(null, i));
-        if (navSitemapItems.length) {navSitemapItems[i].addEventListener("click", navButtonClick.bind(null, i));}
+        navItems[i].addEventListener("click", navButtonClick.bind(navItems[i], i));
+        if (navSitemapItems.length) {navSitemapItems[i].addEventListener("click", navButtonClick.bind(navSitemapItems[i], i));}
       }
     }
     window.addEventListener("resize", onWindowResize);
