@@ -1,30 +1,30 @@
 /*
-EB Template version: 1.55 (ES5 version for IE 11 support)
+EB Template version: 1.55
 https://github.com/Amarok24/EB-template
 eb_template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
 */
 
-var eb_template = (function() {
+let eb_template = (function() {
 
   "use strict";
 
-  var _ONEPAGELAYOUT = false; // set this to either "true" or "false", "true" makes sense with no navi-connected slideshow
-  var _DESKTOPBREAKPOINT = 680; // minimal screen width for desktop layout
+  const _ONEPAGELAYOUT = false; // set this to either "true" or "false", "true" makes sense with no navi-connected slideshow
+  const _DESKTOPBREAKPOINT = 680; // minimal screen width for desktop layout
 
-  var cout = console.log;
-  var cerr = console.error;
+  const cout = console.log;
+  const cerr = console.error;
 
-  var _DOMQUERY = {};
+  let _DOMQUERY = {};
 
-  var _monsterTemplateType = {
+  let _monsterTemplateType = {
     jv30_general: false, // true in both cases: fullpage + combined view
     jv30_combined: false  // true only in combinded view
   };
-  var _timeoutIDwindowResize = null;
-  var _isMobileScreen = false;
-  var _iframeParent = null; // used in jv30
-  //var _winScrollBy = null;
+  let _timeoutIDwindowResize = null;
+  let _isMobileScreen = false;
+  let _iframeParent = null; // used in jv30
+  //let _winScrollBy = null;
 
 
   function startTemplate() {
@@ -42,8 +42,8 @@ var eb_template = (function() {
 
 
   function removeClassAll(nList, className) {
-    var nodeList = nList;
-    for (var i = 0; i < nodeList.length; i++) {
+    let nodeList = nList;
+    for (let i = 0; i < nodeList.length; i++) {
       nodeList[i].classList.remove(className);
     }
   }
@@ -51,7 +51,7 @@ var eb_template = (function() {
 
   function iframeParentResize() {
     // this function handles iframe height in JV30
-    /* var MUXmethod = window.MUX;
+    /* let MUXmethod = window.MUX;
         if ((MUXmethod != null) && (MUXmethod.callResize != null)) {
           try { MUXmethod.callResize(); console.info("iframe resized, MUX method");
           } catch (er) { cerr("eb_template: callResize error", er); }
@@ -84,13 +84,12 @@ var eb_template = (function() {
 
 
   function navButtonClick(buttonIndex, ev /* default true (MouseEvent click) */ ) {
-    var i;
-    var tabContents = _DOMQUERY.tabContents;
-    var clickOrigin = ev ? ev.target.parentElement.id : null;
-    var scrollCorrection = _monsterTemplateType.jv30_combined ? -78 : 0; // JobViewHeader height is 72px
+    let tabContents = _DOMQUERY.tabContents;
+    let clickOrigin = ev ? ev.target.parentElement.id : null;
+    let scrollCorrection = _monsterTemplateType.jv30_combined ? -78 : 0; // JobViewHeader height is 72px
 
     if (!_ONEPAGELAYOUT) {
-      for (i = 0; i < tabContents.length; i++) {
+      for (let i = 0; i < tabContents.length; i++) {
         tabContents[i].style.display = "none";
         _DOMQUERY.container.classList.remove("tab" + i);
       }
@@ -114,8 +113,8 @@ var eb_template = (function() {
 
   function onWindowResize() {
     function windowResizeAction() {
-      var mainContainer = _DOMQUERY.container;
-      var availWidth = document.body.clientWidth;
+      let mainContainer = _DOMQUERY.container;
+      let availWidth = document.body.clientWidth;
 
       mainContainer.classList.remove("mobile");
       if (availWidth < _DESKTOPBREAKPOINT) {
@@ -146,9 +145,8 @@ var eb_template = (function() {
 
   function initStartingTab() {
     // switches to some tab directly if URL parameter "tab" found, or just switches to 1st tab
-    var params = {}, // pairs of  key - value (name - value)
-        locationSearch = "",
-        i;
+    let params = {}, // pairs of  key - value (name - value)
+        locationSearch = "";
 
     if (_monsterTemplateType.jv30_general) {
       try {
@@ -163,10 +161,10 @@ var eb_template = (function() {
     }
 
     if (locationSearch) {
-      var a_parts = locationSearch.substring(1).split('&');
+      let a_parts = locationSearch.substring(1).split('&');
       // "a_parts" will be eg. ["tab=2", "bla=text", "val="]
-      for (i = 0; i < a_parts.length; i++) {
-        var nv = a_parts[i].split('=');
+      for (let i = 0; i < a_parts.length; i++) {
+        let nv = a_parts[i].split('=');
         cout("eb_template initStartingTab:", nv);
         if (!nv[0]) {
           continue;
@@ -191,12 +189,11 @@ var eb_template = (function() {
 
 
   function addEvents() {
-    var i;
-    var navItems = _DOMQUERY.navButtons;
-    var navSitemapItems = _DOMQUERY.sitemapButtons;
+    let navItems = _DOMQUERY.navButtons;
+    let navSitemapItems = _DOMQUERY.sitemapButtons;
 
     if(navItems.length) {
-      for (i = 0; i < navItems.length; i++) {
+      for (let i = 0; i < navItems.length; i++) {
         navItems[i].addEventListener("click", navButtonClick.bind(navItems[i], i));
         if (navSitemapItems.length) {navSitemapItems[i].addEventListener("click", navButtonClick.bind(navSitemapItems[i], i));}
       }
@@ -206,11 +203,11 @@ var eb_template = (function() {
 
 
   function detectMonsterTemplateType() {
-    var jobId = document.getElementsByTagName("body")[0].getAttribute("data-job-id");
+    let jobId = document.getElementsByTagName("body")[0].getAttribute("data-job-id");
 
     function insideOfIframe() { // test if this html document is in iframe
       try { return window.self !== window.top; }
-      catch (e) { return true; } // fallback for bad browsers, assumes true
+      catch (er) { return true; } // fallback for bad browsers, assumes true
     }
 
     _monsterTemplateType.jv30_general = insideOfIframe();
@@ -224,8 +221,7 @@ var eb_template = (function() {
 
 
   function initAllTabs() {
-    var i;
-    var tabContents = _DOMQUERY.tabContents;
+    let tabContents = _DOMQUERY.tabContents;
 
     if (_monsterTemplateType.jv30_combined) {
       //_winScrollBy =  window.parent.document.getElementById("ContentScrollable"); // not possible to use directly .scrollBy here, TypeError: 'scrollBy' called on an object that does not implement interface Element.
@@ -239,7 +235,7 @@ var eb_template = (function() {
     }
 
     if (!_ONEPAGELAYOUT) {
-      for (i = 0; i < tabContents.length; i++) {
+      for (let i = 0; i < tabContents.length; i++) {
         tabContents[i].style.display = "none";
       }
       initStartingTab();
@@ -249,9 +245,7 @@ var eb_template = (function() {
 
   document.addEventListener("DOMContentLoaded", startTemplate);
 
-  window.addEventListener("load", function () {
-    setTimeout(iframeParentResize, 1000);
-  });
+  window.addEventListener("load", () => setTimeout(iframeParentResize, 1000));
 
 
   return {
