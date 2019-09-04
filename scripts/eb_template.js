@@ -1,5 +1,5 @@
 /*
-EB Template version: 1.55 (ES6 compatible)
+EB Template version: 1.55b (ES6 compatible)
 https://github.com/Amarok24/EB-template
 eb_template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
@@ -14,8 +14,16 @@ let eb_template = (function() {
   const cout = console.log;
   const cerr = console.error;
 
-  let _DOMQUERY = {};
+  const queryMainElements = () => {
+    return {
+      container: document.querySelector(".containerIA"),
+      tabContents: document.querySelectorAll(".tabContent"),
+      navButtons: document.querySelectorAll("#navigation button"),
+      sitemapButtons: document.querySelectorAll("#sitemap button")
+    };
+  };
 
+  let _domElements = {};
   let _monsterTemplateType = {
     jv30_general: false, // true in both cases: fullpage + combined view
     jv30_combined: false  // true only in combinded view
@@ -24,20 +32,6 @@ let eb_template = (function() {
   let _isMobileScreen = false;
   let _iframeParent = null; // used in jv30
   //let _winScrollBy = null;
-
-
-  function startTemplate() {
-    _DOMQUERY = {
-      container : document.querySelector(".containerIA"),
-      tabContents : document.querySelectorAll(".tabContent"),
-      navButtons : document.querySelectorAll("#navigation button"),
-      sitemapButtons : document.querySelectorAll("#sitemap button")
-    };
-    detectMonsterTemplateType();
-    onWindowResize(); // decides if mobile view should be used
-    addEvents();
-    initAllTabs();
-  }
 
 
   function removeClassAll(nList, className) {
@@ -51,7 +45,7 @@ let eb_template = (function() {
   function iframeParentResize() {
     // this function handles iframe height in JV30
     if (_iframeParent != null) {
-      _iframeParent.style.height = _DOMQUERY.container.offsetHeight + 20 + "px";
+      _iframeParent.style.height = _domElements.container.offsetHeight + 20 + "px";
       console.info("iframe resized, own method");
     }
   }
@@ -76,21 +70,21 @@ let eb_template = (function() {
 
 
   function navButtonClick(buttonIndex, ev /* default true (MouseEvent click) */ ) {
-    let tabContents = _DOMQUERY.tabContents;
+    let tabContents = _domElements.tabContents;
     let clickOrigin = ev ? ev.target.parentElement.id : null;
     let scrollCorrection = _monsterTemplateType.jv30_combined ? -78 : 0; // JobViewHeader height is 72px
 
     if (!_ONEPAGELAYOUT) {
       for (let i = 0; i < tabContents.length; i++) {
         tabContents[i].style.display = "none";
-        _DOMQUERY.container.classList.remove("tab" + i);
+        _domElements.container.classList.remove("tab" + i);
       }
       tabContents[buttonIndex].style.display = "block";
-      removeClassAll(_DOMQUERY.navButtons, "active");
-      _DOMQUERY.navButtons[buttonIndex].classList.add("active");
+      removeClassAll(_domElements.navButtons, "active");
+      _domElements.navButtons[buttonIndex].classList.add("active");
     }
 
-    _DOMQUERY.container.classList.add("tab" + buttonIndex);
+    _domElements.container.classList.add("tab" + buttonIndex);
 
     // first we need to resize iframe and THEN we can scroll, else wrong behaviour can be expected
     if (_monsterTemplateType.jv30_general) {
@@ -105,7 +99,7 @@ let eb_template = (function() {
 
   function onWindowResize() {
     function windowResizeAction() {
-      let mainContainer = _DOMQUERY.container;
+      let mainContainer = _domElements.container;
       let availWidth = document.body.clientWidth;
 
       mainContainer.classList.remove("mobile");
@@ -181,8 +175,8 @@ let eb_template = (function() {
 
 
   function addEvents() {
-    let navItems = _DOMQUERY.navButtons;
-    let navSitemapItems = _DOMQUERY.sitemapButtons;
+    let navItems = _domElements.navButtons;
+    let navSitemapItems = _domElements.sitemapButtons;
 
     if(navItems.length) {
       for (let i = 0; i < navItems.length; i++) {
@@ -217,7 +211,7 @@ let eb_template = (function() {
 
 
   function initAllTabs() {
-    let tabContents = _DOMQUERY.tabContents;
+    let tabContents = _domElements.tabContents;
 
     try {
       if (_monsterTemplateType.jv30_combined) {
@@ -242,6 +236,14 @@ let eb_template = (function() {
     }
   }
 
+
+  function startTemplate() {
+    _domElements = queryMainElements();
+    detectMonsterTemplateType();
+    onWindowResize(); // decides if mobile view should be used
+    addEvents();
+    initAllTabs();
+  }
 
   document.addEventListener("DOMContentLoaded", startTemplate);
 
