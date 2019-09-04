@@ -1,16 +1,15 @@
 /*
-EB Template version: 1.55
+EB Template version: 1.55 (ES6 compatible)
 https://github.com/Amarok24/EB-template
 eb_template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
 */
 
 let eb_template = (function() {
-
   "use strict";
 
   const _ONEPAGELAYOUT = false; // set this to either "true" or "false", "true" makes sense with no navi-connected slideshow
-  const _DESKTOPBREAKPOINT = 680; // minimal screen width for desktop layout
+  const _DESKTOPBREAKPOINT = 680; // set this to minimal screen width for desktop layout
 
   const cout = console.log;
   const cerr = console.error;
@@ -51,11 +50,6 @@ let eb_template = (function() {
 
   function iframeParentResize() {
     // this function handles iframe height in JV30
-    /* let MUXmethod = window.MUX;
-        if ((MUXmethod != null) && (MUXmethod.callResize != null)) {
-          try { MUXmethod.callResize(); console.info("iframe resized, MUX method");
-          } catch (er) { cerr("eb_template: callResize error", er); }
-        } */
     if (_iframeParent != null) {
       _iframeParent.style.height = _DOMQUERY.container.offsetHeight + 20 + "px";
       console.info("iframe resized, own method");
@@ -67,16 +61,14 @@ let eb_template = (function() {
     //var yCorrection = yCorrection || 0;
     try {
       elementObject.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
-      /*
-      if (yCorrection != 0) {
+      /*if (yCorrection != 0) {
         if (_monsterTemplateType.jv30_combined) {
           setTimeout( function() {_winScrollBy.scrollBy(0, yCorrection);}, 50);
           // TODO: bug in Chrome + Edge in combined view!
         } else {
           setTimeout( function() {_winScrollBy(0, yCorrection);}, 50); // dirty hack because scrollIntoView is asynchronous, *TODO*
         }
-      }
-      */
+      }*/
     } catch (er) {
       cerr("scrollToObject error", er);
     }
@@ -211,7 +203,11 @@ let eb_template = (function() {
     }
 
     _monsterTemplateType.jv30_general = insideOfIframe();
-    _monsterTemplateType.jv30_combined = window.parent.document.getElementById("ContentScrollable") ? true : false;
+    try {
+      _monsterTemplateType.jv30_combined = window.parent.document.getElementById("ContentScrollable") ? true : false;
+    } catch (er) {
+      cerr("access to window.parent.document failed, probably cross-origin violation");
+    }
 
     console.group("eb_template detectMonsterTemplateType");
     cout("_monsterTemplateType:", _monsterTemplateType);
@@ -223,15 +219,19 @@ let eb_template = (function() {
   function initAllTabs() {
     let tabContents = _DOMQUERY.tabContents;
 
-    if (_monsterTemplateType.jv30_combined) {
-      //_winScrollBy =  window.parent.document.getElementById("ContentScrollable"); // not possible to use directly .scrollBy here, TypeError: 'scrollBy' called on an object that does not implement interface Element.
-      _iframeParent = window.parent.document.getElementById("JobPreviewSandbox");
-      //_JobViewHeader = window.parent.document.getElementById("JobViewHeader");
-    } else if (_monsterTemplateType.jv30_general) {
-      //_winScrollBy = window.parent.scrollBy;
-      _iframeParent = window.parent.document.getElementById("JobPreviewSandbox");
-    } else {
-      //_winScrollBy =  window.scrollBy;
+    try {
+      if (_monsterTemplateType.jv30_combined) {
+        //_winScrollBy =  window.parent.document.getElementById("ContentScrollable"); // not possible to use directly .scrollBy here, TypeError: 'scrollBy' called on an object that does not implement interface Element.
+        _iframeParent = window.parent.document.getElementById("JobPreviewSandbox");
+        //_JobViewHeader = window.parent.document.getElementById("JobViewHeader");
+      } else if (_monsterTemplateType.jv30_general) {
+        //_winScrollBy = window.parent.scrollBy;
+        _iframeParent = window.parent.document.getElementById("JobPreviewSandbox");
+      } else {
+        //_winScrollBy =  window.scrollBy;
+      }
+    } catch (er) {
+      cerr("access to window.parent.document failed, probably cross-origin violation");
     }
 
     if (!_ONEPAGELAYOUT) {
