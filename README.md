@@ -4,6 +4,8 @@
 
 Changelog (only significant changes listed)
 -------------------------------------------
+v1.55 -- 20190904, main JS file now twice, one development version (ES6 support), one production version (ES5 for old browsers like IE 11)
+
 v1.5 -- 20190520, mobile optimizations
 
 v1.48 -- 20181005, mobile version: now completely without navigation due to Webkit iOS bugs (iPhone) and because of this there is now an #arrowScrollToTop in the bottom right corner. Desktop version: #sitemap now optional and does not lead to Javascript error when removed.
