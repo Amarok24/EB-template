@@ -1,10 +1,10 @@
 # Employer-Branding Template
-![version](https://img.shields.io/badge/version-1.5-orange.svg) 
+![version](https://img.shields.io/badge/version-1.55-orange.svg)
 ![slide-show_SimpleSlider](https://img.shields.io/badge/slide--show-SimpleSlider-yellow.svg) ![map-engine_Mapbox--GL--JS](https://img.shields.io/badge/map--engine-Mapbox--GL--JS-blue.svg) ![map-layer_Mapbox](https://img.shields.io/badge/map--layer-Mapbox-blue.svg)
 
 Changelog (only significant changes listed)
 -------------------------------------------
-v1.55 -- 20190904, main JS file now twice, one development version (ES6 support), one production version (ES5 for old browsers like IE 11)
+v1.55 -- 20190904, main JS file now twice, one development version (ES6 support), one production version (ES5 for old browsers like IE 11) Attention: HTML file uses picture-img (CSS3) which is not fully supported by old IE. In case of need just use "img" only.
 
 v1.5 -- 20190520, mobile optimizations
 
