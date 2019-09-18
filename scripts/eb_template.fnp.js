@@ -1,43 +1,39 @@
 /*
-EB Template version: 1.55 (ES5 for old browsers)
+EB Template version: 1.55c (ES5 compatible)
 https://github.com/Amarok24/EB-template
 eb_template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
 */
-
 var eb_template = function () {
   "use strict";
 
   var _ONEPAGELAYOUT = false; // set this to either "true" or "false", "true" makes sense with no navi-connected slideshow
+
   var _DESKTOPBREAKPOINT = 680; // set this to minimal screen width for desktop layout
 
   var cout = console.log;
   var cerr = console.error;
 
-  var _DOMQUERY = {};
-
-  var _monsterTemplateType = {
-    jv30_general: false, // true in both cases: fullpage + combined view
-    jv30_combined: false // true only in combinded view
-  };
-  var _timeoutIDwindowResize = null;
-  var _isMobileScreen = false;
-  var _iframeParent = null; // used in jv30
-  //let _winScrollBy = null;
-
-
-  function startTemplate() {
-    _DOMQUERY = {
+  var queryMainElements = function queryMainElements() {
+    return {
       container: document.querySelector(".containerIA"),
       tabContents: document.querySelectorAll(".tabContent"),
       navButtons: document.querySelectorAll("#navigation button"),
       sitemapButtons: document.querySelectorAll("#sitemap button")
     };
-    detectMonsterTemplateType();
-    onWindowResize(); // decides if mobile view should be used
-    addEvents();
-    initAllTabs();
-  }
+  };
+
+  var _domElements = {};
+  var _monsterTemplateType = {
+    jv30_general: false,
+    // true in both cases: fullpage + combined view
+    jv30_combined: false // true only in combinded view
+
+  };
+  var _timeoutIDwindowResize = null;
+  var _isMobileScreen = false;
+  var _iframeParent = null; // used in jv30
+  //let _winScrollBy = null;
 
   function removeClassAll(nList, className) {
     var nodeList = nList;
@@ -50,7 +46,7 @@ var eb_template = function () {
   function iframeParentResize() {
     // this function handles iframe height in JV30
     if (_iframeParent != null) {
-      _iframeParent.style.height = _DOMQUERY.container.offsetHeight + 20 + "px";
+      _iframeParent.style.height = _domElements.container.offsetHeight + 20 + "px";
       console.info("iframe resized, own method");
     }
   }
@@ -79,7 +75,7 @@ var eb_template = function () {
   function navButtonClick(buttonIndex, ev
   /* default true (MouseEvent click) */
   ) {
-    var tabContents = _DOMQUERY.tabContents;
+    var tabContents = _domElements.tabContents;
     var clickOrigin = ev ? ev.target.parentElement.id : null;
     var scrollCorrection = _monsterTemplateType.jv30_combined ? -78 : 0; // JobViewHeader height is 72px
 
@@ -87,16 +83,16 @@ var eb_template = function () {
       for (var i = 0; i < tabContents.length; i++) {
         tabContents[i].style.display = "none";
 
-        _DOMQUERY.container.classList.remove("tab" + i);
+        _domElements.container.classList.remove("tab" + i);
       }
 
       tabContents[buttonIndex].style.display = "block";
-      removeClassAll(_DOMQUERY.navButtons, "active");
+      removeClassAll(_domElements.navButtons, "active");
 
-      _DOMQUERY.navButtons[buttonIndex].classList.add("active");
+      _domElements.navButtons[buttonIndex].classList.add("active");
     }
 
-    _DOMQUERY.container.classList.add("tab" + buttonIndex); // first we need to resize iframe and THEN we can scroll, else wrong behaviour can be expected
+    _domElements.container.classList.add("tab" + buttonIndex); // first we need to resize iframe and THEN we can scroll, else wrong behaviour can be expected
 
 
     if (_monsterTemplateType.jv30_general) {
@@ -112,7 +108,7 @@ var eb_template = function () {
 
   function onWindowResize() {
     function windowResizeAction() {
-      var mainContainer = _DOMQUERY.container;
+      var mainContainer = _domElements.container;
       var availWidth = document.body.clientWidth;
       mainContainer.classList.remove("mobile");
 
@@ -192,8 +188,8 @@ var eb_template = function () {
 
 
   function addEvents() {
-    var navItems = _DOMQUERY.navButtons;
-    var navSitemapItems = _DOMQUERY.sitemapButtons;
+    var navItems = _domElements.navButtons;
+    var navSitemapItems = _domElements.sitemapButtons;
 
     if (navItems.length) {
       for (var i = 0; i < navItems.length; i++) {
@@ -228,19 +224,17 @@ var eb_template = function () {
     } catch (er) {
       cerr("access to window.parent.document failed, probably cross-origin violation");
     }
+    /*  IE11 is unable to output _monsterTemplateType to the console, so let's disable it
+        console.group("eb_template detectMonsterTemplateType");
+        cout("_monsterTemplateType:", _monsterTemplateType);
+        if (jobId) { cout("jobId = ", jobId); }
+        console.groupEnd();
+    */
 
-    console.group("eb_template detectMonsterTemplateType");
-    cout("_monsterTemplateType:", _monsterTemplateType);
-
-    if (jobId) {
-      cout("jobId = ", jobId);
-    }
-
-    console.groupEnd();
   }
 
   function initAllTabs() {
-    var tabContents = _DOMQUERY.tabContents;
+    var tabContents = _domElements.tabContents;
 
     try {
       if (_monsterTemplateType.jv30_combined) {
@@ -262,6 +256,15 @@ var eb_template = function () {
 
       initStartingTab();
     }
+  }
+
+  function startTemplate() {
+    _domElements = queryMainElements();
+    detectMonsterTemplateType();
+    onWindowResize(); // decides if mobile view should be used
+
+    addEvents();
+    initAllTabs();
   }
 
   document.addEventListener("DOMContentLoaded", startTemplate);

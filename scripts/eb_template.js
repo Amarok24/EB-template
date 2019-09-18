@@ -1,5 +1,5 @@
 /*
-EB Template version: 1.55b (ES6 compatible)
+EB Template version: 1.55c (ES6 compatible)
 https://github.com/Amarok24/EB-template
 eb_template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
@@ -202,11 +202,12 @@ let eb_template = (function() {
     } catch (er) {
       cerr("access to window.parent.document failed, probably cross-origin violation");
     }
-
+/*  IE11 is unable to output _monsterTemplateType to the console, so let's disable it
     console.group("eb_template detectMonsterTemplateType");
     cout("_monsterTemplateType:", _monsterTemplateType);
     if (jobId) { cout("jobId = ", jobId); }
     console.groupEnd();
+*/
   }
 
 
