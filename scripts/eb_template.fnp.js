@@ -1,5 +1,5 @@
 /*
-EB Template version: 1.55c (ES5 compatible)
+EB Template version: 1.56 (ES5 compatible)
 https://github.com/Amarok24/EB-template
 eb_template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
@@ -13,6 +13,9 @@ var eb_template = function () {
 
   var cout = console.log;
   var cerr = console.error;
+  var inBrowser = typeof window !== "undefined";
+  var browser_UA = inBrowser && window.navigator.userAgent.toLowerCase();
+  var browser_isIE = browser_UA && /msie|trident/.test(browser_UA);
 
   var queryMainElements = function queryMainElements() {
     return {
@@ -145,6 +148,11 @@ var eb_template = function () {
     var params = {},
         // pairs of  key - value (name - value)
     locationSearch = "";
+
+    if (browser_isIE) {
+      navButtonClick(0); // TODO: remove bugfix once we get rid of IE
+      return 0; // this is the end for IE
+    }
 
     if (_monsterTemplateType.jv30_general) {
       try {

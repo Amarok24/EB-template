@@ -1,5 +1,5 @@
 /*
-EB Template version: 1.55c (ES6 compatible)
+EB Template version: 1.56 (ES6 compatible)
 https://github.com/Amarok24/EB-template
 eb_template is released under The Unlicense,
 see LICENSE.md or http://unlicense.org/ for more information.
@@ -13,6 +13,10 @@ let eb_template = (function() {
 
   const cout = console.log;
   const cerr = console.error;
+
+  const inBrowser = typeof window !== "undefined";
+  const browser_UA = inBrowser && window.navigator.userAgent.toLowerCase();
+  const browser_isIE = browser_UA && /msie|trident/.test(browser_UA);
 
   const queryMainElements = () => {
     return {
@@ -133,6 +137,11 @@ let eb_template = (function() {
     // switches to some tab directly if URL parameter "tab" found, or just switches to 1st tab
     let params = {}, // pairs of  key - value (name - value)
         locationSearch = "";
+
+    if (browser_isIE) {
+      navButtonClick(0); // TODO: remove bugfix once we get rid of IE
+      return 0; // this is the end for IE
+    }
 
     if (_monsterTemplateType.jv30_general) {
       try {
