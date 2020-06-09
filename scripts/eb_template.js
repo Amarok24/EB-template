@@ -260,6 +260,9 @@ let eb_template = (function() {
   window.addEventListener("load", () => setTimeout(iframeParentResize, 1000));
 
 
+  // Value of a variable assigned to an IIFE is simply "undefined".
+  // To obtain a value or to make some content (functions, objects) available
+  // to the variable (to the outside scope), we can simply return something.
   return {
     /*publicProperty: "test",
     publicMethod: function() {},*/
