@@ -13,10 +13,10 @@
 
     <title>EB Template</title>
 
-    <link rel="stylesheet" href="eb_template.css" />
+    <link rel="stylesheet" href="eb_template.css" title="eb_template" />
 
     <script src="scripts/simpleslider.fnp.js" title="SimpleSlider"></script>
-    <script src="scripts/init.js" title="init"></script>
+    <script src="scripts/initslider.js" title="initSlider"></script>
     <script src="scripts/eb_template.fnp.js" title="eb_template"></script>
 
 </head>
@@ -28,32 +28,28 @@
         <header id="headerSlideshow">
             <!-- recommended ratio for mobile header pic is 3:1 (width:height) -->
             <picture>
-                <source srcset="images/tab1.jpg" media="(min-width: 680px)">
-                <img src="images/tab1_mobile.jpg" alt="" />
+                <source srcset="images/pic1.jpg" media="(min-width: 680px)">
+                <img src="images/pic1_mobile.jpg" alt="" />
             </picture>
             <picture>
-                <source srcset="images/tab2.jpg" media="(min-width: 680px)">
-                <img src="images/tab2_mobile.jpg" alt="" />
+                <source srcset="images/pic2.jpg" media="(min-width: 680px)">
+                <img src="images/pic2_mobile.jpg" alt="" />
             </picture>
             <picture>
-                <source srcset="images/tab3.jpg" media="(min-width: 680px)">
-                <img src="images/tab3_mobile.jpg" alt="" />
-            </picture>
-            <picture>
-                <source srcset="images/tab4.jpg" media="(min-width: 680px)">
-                <img src="images/tab4_mobile.jpg" alt="" />
+                <source srcset="images/pic3.jpg" media="(min-width: 680px)">
+                <img src="images/pic3_mobile.jpg" alt="" />
             </picture>
         </header>
 
 
 
-        <div class="title">
+        <div class="title" id="pos0">
             <h1> EB Template 2.0a SinglePage </h1>
         </div>
 
 
-        <section class="tabContent">
-            <h3>TAB 0</h3>
+        <section class="textContent" id="pos1">
+            <h3>Headline 1</h3>
 
             <p>
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec vitae arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Etiam dictum tincidunt diam. Sed vel lectus. Donec odio tempus molestie, porttitor
@@ -85,10 +81,10 @@
 
         </section>
 
-        <img src="images/tab2_mobile.jpg" alt="" class="desktopHidden" />
+        <img src="images/pic1_mobile.jpg" alt="" class="desktopHidden" />
 
-        <section class="tabContent">
-            <h3>TAB 1</h3>
+        <section class="textContent" id="pos2">
+            <h3>Headline 2</h3>
 
             <ul>
                 <li>Lorem ipsum dolor sit amet </li>
@@ -112,10 +108,10 @@
 
         </section>
 
-        <img src="images/tab3_mobile.jpg" alt="" class="desktopHidden" />
+        <img src="images/pic2_mobile.jpg" alt="" class="desktopHidden" />
 
-        <section class="tabContent">
-            <h3>TAB 2</h3>
+        <section class="textContent" id="pos3">
+            <h3>Headline 3</h3>
 
             <p>
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec vitae arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Etiam dictum tincidunt diam. Sed vel lectus. Donec odio tempus molestie, porttitor
@@ -148,10 +144,10 @@
 
         </section>
 
-        <img src="images/tab4_mobile.jpg" alt="" class="desktopHidden" />
+        <img src="images/pic3_mobile.jpg" alt="" class="desktopHidden" />
 
-        <section class="tabContent">
-            <h3>TAB 3</h3>
+        <section class="textContent" id="pos4">
+            <h3>Headline 4</h3>
 
 
             <p>
@@ -194,17 +190,10 @@
 
 
         <footer>
-<!--
-            <nav id="sitemap">
-                <button type="button"> Tab 0 </button>
-                <button type="button"> Tab 1  </button>
-                <button type="button"> Tab 2 ABC</button>
-                <button type="button"> Tab 3 VERY VERY LONG</button>
-            </nav>
--->
+            FOOTER FOOTER FOOTER
         </footer>
 
-        <div id="arrowScrollToTop" title="scroll to top" onclick="document.querySelector('.containerIA').scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});"></div>
+        <div id="arrowScrollToTop" title="scroll to top" onclick="document.querySelector('.containerIA').scrollIntoView({behavior: 'smooth', block: 'start'});"></div>
 
     </div>
     <!-- end containerIA -->

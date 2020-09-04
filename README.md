@@ -2,8 +2,10 @@
 ![version](https://img.shields.io/badge/version-2.0a-orange.svg)
 ![slide-show_SimpleSlider](https://img.shields.io/badge/slide--show-SimpleSlider-yellow.svg) ![map-engine_Mapbox--GL--JS](https://img.shields.io/badge/map--engine-Mapbox--GL--JS-blue.svg) ![map-layer_Mapbox](https://img.shields.io/badge/map--layer-Mapbox-blue.svg)
 
+## SinglePage (X)HTML Template with extras
+
 <details>
-<summary><strong>Changelog (only significant changes listed)</strong></summary>
+<summary><strong>Changelog</strong></summary>
 
 - v2.0a -- 2020-09-04, major update, code rewritten for a single-page layout
 - v1.56 -- 2020-03-16, bugfix for IE 11 where first tab was not shown after first page load.
