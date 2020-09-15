@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de">
-
-<head>
-    <!--  EB Template version 1.55  -->
+  <head>
+    <!-- EB Template version 2.1  -->
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,212 +12,338 @@
 
     <title>EB Template</title>
 
-    <style>
-        @import url("eb_template.css"); /* eb_template */
-    </style>
+    <link rel="stylesheet" href="eb_template.css" title="eb_template" />
 
     <script src="scripts/simpleslider.fnp.js" title="SimpleSlider"></script>
-    <script src="scripts/init.js" title="init"></script>
-    <script src="scripts/eb_template.fnp.js" title="eb_template"></script>
+    <script src="scripts/initslider.js" title="initSlider"></script>
+    <script src="scripts/eb_template.fnp.js" title="eb_template" defer="defer"></script>
+  </head>
 
-</head>
-
-<body>
+  <body>
 
     <div class="containerIA">
 
-        <header id="headerSlideshow">
-            <!-- recommended ratio for mobile header pic is 3:1 (width:height) -->
-            <picture>
-                <source srcset="images/tab1.jpg" media="(min-width: 680px)">
-                <img src="images/tab1_mobile.jpg" alt="" />
-            </picture>
-            <picture>
-                <source srcset="images/tab2.jpg" media="(min-width: 680px)">
-                <img src="images/tab2_mobile.jpg" alt="" />
-            </picture>
-            <picture>
-                <source srcset="images/tab3.jpg" media="(min-width: 680px)">
-                <img src="images/tab3_mobile.jpg" alt="" />
-            </picture>
-            <picture>
-                <source srcset="images/tab4.jpg" media="(min-width: 680px)">
-                <img src="images/tab4_mobile.jpg" alt="" />
-            </picture>
-        </header>
+      <header id="headerSlideshow">
+        <picture>
+          <source srcset="images/pic1.jpg" media="(min-width: 680px)" />
+          <source srcset="images/pic1_mobile.jpg" media="(max-width: 679px)" />
+          <img src="images/pic1.jpg" alt="" /> <!-- img fallback for IE11 -->
+          <!-- recommended ratio for mobile header pic is 3:1 (width:height) -->
+        </picture>
 
+        <picture>
+          <source srcset="images/pic2.jpg" media="(min-width: 680px)" />
+          <source srcset="images/pic2_mobile.jpg" media="(max-width: 679px)" />
+          <img src="images/pic2.jpg" alt="" />
+        </picture>
 
-        <nav id="navigation">
-            <button type="button"> Tab 0 </button>
-            <button type="button"> Tab 1  </button>
-            <button type="button"> Tab 2 ABC</button>
-            <button type="button"> Tab 3 VERY VERY LONG</button>
-        </nav>
+        <picture>
+          <source srcset="images/pic3.jpg" media="(min-width: 680px)" />
+          <source srcset="images/pic3_mobile.jpg" media="(max-width: 679px)" />
+          <img src="images/pic3.jpg" alt="" />
+        </picture>
+      </header>
 
+      <section class="title">
+        <p>
+          <strong>Section 1.</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque,
+          quasi.
+        </p>
 
-        <div class="title">
-            <h1> EB Template 1.55 </h1>
-        </div>
+        <h1>Template <small>2.1</small></h1>
+        <h2>SinglePage</h2>
 
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
+          aspernatur harum provident odit quo amet.
+        </p>
+      </section>
 
-        <section class="tabContent">
-            <h3>TAB 0</h3>
+      <section class="content">
+        <h3>Headline, section 2</h3>
 
-            <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec vitae arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Etiam dictum tincidunt diam. Sed vel lectus. Donec odio tempus molestie, porttitor
-                ut, iaculis quis, sem. Cras elementum. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Nulla non lectus
-                sed nisl molestie malesuada. Nulla accumsan, elit sit amet varius semper, nulla mauris mollis quam, tempor suscipit diam nulla vel leo. Donec vitae arcu. Praesent in mauris eu tortor porttitor accumsan. Vivamus porttitor turpis ac leo.
-                Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. Fusce suscipit libero eget elit. Duis viverra diam non justo.
-            </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+          <a href="#">Donec vitae arcu.</a> Class aptent taciti sociosqu ad
+          litora torquent per conubia nostra, per inceptos hymenaeos. Etiam
+          dictum tincidunt diam. Sed vel lectus. Donec odio tempus molestie,
+          porttitor ut, iaculis quis, sem. Cras elementum. Nam libero tempore,
+          cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
+          quod maxime placeat facere possimus, omnis voluptas assumenda est,
+          omnis dolor repellendus. Nulla non lectus sed nisl molestie malesuada.
+          Nulla accumsan, elit sit amet varius semper, nulla mauris mollis quam,
+          tempor suscipit diam nulla vel leo. Donec vitae arcu. Praesent in
+          mauris eu tortor porttitor accumsan. Vivamus porttitor turpis ac leo.
+          Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu.
+          Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est.
+          Fusce suscipit libero eget elit. Duis viverra diam non justo.
+        </p>
 
+        <p>Telefon <a href="tel:+420123456789">123 456 789</a></p>
 
-            <ul>
-                <li>Lorem ipsum dolor sit amet </li>
-                <li>Donec tristique non sapien in porta </li>
-                <li>Nulla pulvinar molestie metus, et blandit sapien pellentesque in </li>
-                <li>Ut ac mollis justo, eu varius augue</li>
-            </ul>
+        <ul>
+          <li>Lorem ipsum dolor sit amet</li>
+          <li>Donec tristique non sapien in porta</li>
+          <li>
+            Nulla pulvinar molestie metus, et blandit sapien pellentesque in
+          </li>
+          <li>Ut ac mollis justo, eu varius augue</li>
+        </ul>
 
-            <p>
-                Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Duis pulvinar. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et
-                molestiae non recusandae. Vivamus luctus egestas leo. Aliquam erat volutpat. Etiam bibendum elit eget erat. Phasellus et lorem id felis nonummy placerat. Vivamus luctus egestas leo. Fusce consectetuer risus a nunc. Vestibulum erat nulla,
-                ullamcorper nec, rutrum non, nonummy ac, erat. Cras elementum. Nullam at arcu a est sollicitudin euismod. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-                sequi nesciunt.
-            </p>
+        <p>
+          Maecenas fermentum, sem in pharetra pellentesque, velit turpis
+          volutpat ante, in pharetra metus odio a lectus. Duis pulvinar.
+          Temporibus autem quibusdam et aut officiis debitis aut rerum
+          necessitatibus saepe eveniet ut et voluptates repudiandae sint et
+          molestiae non recusandae. Vivamus luctus egestas leo. Aliquam erat
+          volutpat. Etiam bibendum elit eget erat. Phasellus et lorem id felis
+          nonummy placerat. Vivamus luctus egestas leo. Fusce consectetuer risus
+          a nunc. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy
+          ac, erat. Cras elementum. Nullam at arcu a est sollicitudin euismod.
+          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+          fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+          sequi nesciunt.
+        </p>
 
-            <p>
-                Animi iusto culpa porro quaerat impedit debitis maiores molestias soluta, quia minus vero eos voluptate error rerum odio aperiam modi odit optio, consequuntur aliquid dignissimos architecto! Aperiam facilis sapiente nesciunt. Repudiandae amet distinctio
-                error impedit obcaecati placeat! Dolorem minima repellat quam soluta quia inventore error cum quidem veritatis incidunt eaque, facere quas autem architecto ratione, obcaecati alias at ea quis! Eum magni architecto delectus perferendis
-                beatae, ut tenetur dolorem sequi quae eveniet. Perferendis, nostrum obcaecati doloribus, dolore magnam odio ipsum excepturi assumenda molestiae corporis voluptas sequi?
-            </p>
+        <p>
+          Animi iusto culpa porro quaerat impedit debitis maiores molestias
+          soluta, quia minus vero eos voluptate error rerum odio aperiam modi
+          odit optio, consequuntur aliquid dignissimos architecto! Aperiam
+          facilis sapiente nesciunt. Repudiandae amet distinctio error impedit
+          obcaecati placeat! Dolorem minima repellat quam soluta quia inventore
+          error cum quidem veritatis incidunt eaque, facere quas autem
+          architecto ratione, obcaecati alias at ea quis! Eum magni architecto
+          delectus perferendis beatae, ut tenetur dolorem sequi quae eveniet.
+          Perferendis, nostrum obcaecati doloribus, dolore magnam odio ipsum
+          excepturi assumenda molestiae corporis voluptas sequi?
+        </p>
+      </section>
 
-        </section>
+      <img
+        loading="lazy"
+        src="images/pic1_mobile.jpg"
+        alt=""
+        class="desktopHidden"
+      />
 
-        <img src="images/tab2_mobile.jpg" alt="" class="desktopHidden" />
+      <section class="content">
+        <h3>Headline, section 3</h3>
+        <h4>Subheadline</h4>
 
-        <section class="tabContent">
-            <h3>TAB 1</h3>
+        <ul>
+          <li>Lorem ipsum dolor sit amet</li>
+          <li>Donec tristique non sapien in porta</li>
+          <li>
+            Nulla pulvinar molestie metus, et blandit sapien pellentesque in
+          </li>
+          <li>Ut ac mollis justo, eu varius augue</li>
+        </ul>
 
-            <ul>
-                <li>Lorem ipsum dolor sit amet </li>
-                <li>Donec tristique non sapien in porta </li>
-                <li>Nulla pulvinar molestie metus, et blandit sapien pellentesque in </li>
-                <li>Ut ac mollis justo, eu varius augue</li>
-            </ul>
+        <h4>Subheadline</h4>
 
-            <p>
-                Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Duis pulvinar. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et
-                molestiae non recusandae. Vivamus luctus egestas leo. Aliquam erat volutpat. Etiam bibendum elit eget erat. Phasellus et lorem id felis nonummy placerat. Vivamus luctus egestas leo. Fusce consectetuer risus a nunc. Vestibulum erat nulla,
-                ullamcorper nec, rutrum non, nonummy ac, erat. Cras elementum. Nullam at arcu a est sollicitudin euismod. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-                sequi nesciunt.
-            </p>
+        <p>
+          Maecenas fermentum, sem in pharetra pellentesque, velit turpis
+          volutpat ante, in pharetra metus odio a lectus. Duis pulvinar.
+          Temporibus autem quibusdam et aut officiis debitis aut rerum
+          necessitatibus saepe eveniet ut et voluptates repudiandae sint et
+          molestiae non recusandae. Vivamus luctus egestas leo. Aliquam erat
+          volutpat. Etiam bibendum elit eget erat. Phasellus et lorem id felis
+          nonummy placerat. Vivamus luctus egestas leo. Fusce consectetuer risus
+          a nunc. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy
+          ac, erat. Cras elementum. Nullam at arcu a est sollicitudin euismod.
+          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+          fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+          sequi nesciunt.
+        </p>
 
-            <p>
-                Animi iusto culpa porro quaerat impedit debitis maiores molestias soluta, quia minus vero eos voluptate error rerum odio aperiam modi odit optio, consequuntur aliquid dignissimos architecto! Aperiam facilis sapiente nesciunt. Repudiandae amet distinctio
-                error impedit obcaecati placeat! Dolorem minima repellat quam soluta quia inventore error cum quidem veritatis incidunt eaque, facere quas autem architecto ratione, obcaecati alias at ea quis! Eum magni architecto delectus perferendis
-                beatae, ut tenetur dolorem sequi quae eveniet. Perferendis, nostrum obcaecati doloribus, dolore magnam odio ipsum excepturi assumenda molestiae corporis voluptas sequi?
-            </p>
+        <p>
+          Animi iusto culpa porro quaerat impedit debitis maiores molestias
+          soluta, quia minus vero eos voluptate error rerum odio aperiam modi
+          odit optio, consequuntur aliquid dignissimos architecto! Aperiam
+          facilis sapiente nesciunt. Repudiandae amet distinctio error impedit
+          obcaecati placeat! Dolorem minima repellat quam soluta quia inventore
+          error cum quidem veritatis incidunt eaque, facere quas autem
+          architecto ratione, obcaecati alias at ea quis! Eum magni architecto
+          delectus perferendis beatae, ut tenetur dolorem sequi quae eveniet.
+          Perferendis, nostrum obcaecati doloribus, dolore magnam odio ipsum
+          excepturi assumenda molestiae corporis voluptas sequi?
+        </p>
+      </section>
 
-        </section>
+      <img
+        loading="lazy"
+        src="images/pic2_mobile.jpg"
+        alt=""
+        class="desktopHidden"
+      />
 
-        <img src="images/tab3_mobile.jpg" alt="" class="desktopHidden" />
+      <section class="content">
+        <h3>Headline, section 4</h3>
 
-        <section class="tabContent">
-            <h3>TAB 2</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec vitae
+          arcu. Class aptent taciti sociosqu ad litora torquent per conubia
+          nostra, per inceptos hymenaeos. Etiam dictum tincidunt diam. Sed vel
+          lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem.
+          Cras elementum. Nam libero tempore, cum soluta nobis est eligendi
+          optio cumque nihil impedit quo minus id quod maxime placeat facere
+          possimus, omnis voluptas assumenda est, omnis dolor repellendus. Nulla
+          non lectus sed nisl molestie malesuada. Nulla accumsan, elit sit amet
+          varius semper, nulla mauris mollis quam, tempor suscipit diam nulla
+          vel leo. Donec vitae arcu. Praesent in mauris eu tortor porttitor
+          accumsan. Vivamus porttitor turpis ac leo. Etiam ligula pede, sagittis
+          quis, interdum ultricies, scelerisque eu. Donec ipsum massa,
+          ullamcorper in, auctor et, scelerisque sed, est. Fusce suscipit libero
+          eget elit. Duis viverra diam non justo.
+        </p>
 
-            <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec vitae arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Etiam dictum tincidunt diam. Sed vel lectus. Donec odio tempus molestie, porttitor
-                ut, iaculis quis, sem. Cras elementum. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Nulla non lectus
-                sed nisl molestie malesuada. Nulla accumsan, elit sit amet varius semper, nulla mauris mollis quam, tempor suscipit diam nulla vel leo. Donec vitae arcu. Praesent in mauris eu tortor porttitor accumsan. Vivamus porttitor turpis ac leo.
-                Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. Fusce suscipit libero eget elit. Duis viverra diam non justo.
-            </p>
+        <ul>
+          <li>Lorem ipsum dolor sit amet</li>
+          <li>Donec tristique non sapien in porta</li>
+          <li>
+            Nulla pulvinar molestie metus, et blandit sapien pellentesque in
+          </li>
+          <li>Ut ac mollis justo, eu varius augue</li>
+        </ul>
 
+        <p>
+          Maecenas fermentum, sem in pharetra pellentesque, velit turpis
+          volutpat ante, in pharetra metus odio a lectus. Duis pulvinar.
+          Temporibus autem quibusdam et aut officiis debitis aut rerum
+          necessitatibus saepe eveniet ut et voluptates repudiandae sint et
+          molestiae non recusandae. Vivamus luctus egestas leo. Aliquam erat
+          volutpat. Etiam bibendum elit eget erat. Phasellus et lorem id felis
+          nonummy placerat. Vivamus luctus egestas leo. Fusce consectetuer risus
+          a nunc. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy
+          ac, erat. Cras elementum. Nullam at arcu a est sollicitudin euismod.
+          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+          fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+          sequi nesciunt.
+        </p>
 
-            <ul>
-                <li>Lorem ipsum dolor sit amet </li>
-                <li>Donec tristique non sapien in porta </li>
-                <li>Nulla pulvinar molestie metus, et blandit sapien pellentesque in </li>
-                <li>Ut ac mollis justo, eu varius augue</li>
-            </ul>
+        <p>
+          Animi iusto culpa porro quaerat impedit debitis maiores molestias
+          soluta, quia minus vero eos voluptate error rerum odio aperiam modi
+          odit optio, consequuntur aliquid dignissimos architecto! Aperiam
+          facilis sapiente nesciunt. Repudiandae amet distinctio error impedit
+          obcaecati placeat! Dolorem minima repellat quam soluta quia inventore
+          error cum quidem veritatis incidunt eaque, facere quas autem
+          architecto ratione, obcaecati alias at ea quis! Eum magni architecto
+          delectus perferendis beatae, ut tenetur dolorem sequi quae eveniet.
+          Perferendis, nostrum obcaecati doloribus, dolore magnam odio ipsum
+          excepturi assumenda molestiae corporis voluptas sequi?
+        </p>
+      </section>
 
-            <p>
-                Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Duis pulvinar. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et
-                molestiae non recusandae. Vivamus luctus egestas leo. Aliquam erat volutpat. Etiam bibendum elit eget erat. Phasellus et lorem id felis nonummy placerat. Vivamus luctus egestas leo. Fusce consectetuer risus a nunc. Vestibulum erat nulla,
-                ullamcorper nec, rutrum non, nonummy ac, erat. Cras elementum. Nullam at arcu a est sollicitudin euismod. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-                sequi nesciunt.
-            </p>
+      <img
+        loading="lazy"
+        src="images/pic3_mobile.jpg"
+        alt=""
+        class="desktopHidden"
+      />
 
-            <p>
-                Animi iusto culpa porro quaerat impedit debitis maiores molestias soluta, quia minus vero eos voluptate error rerum odio aperiam modi odit optio, consequuntur aliquid dignissimos architecto! Aperiam facilis sapiente nesciunt. Repudiandae amet distinctio
-                error impedit obcaecati placeat! Dolorem minima repellat quam soluta quia inventore error cum quidem veritatis incidunt eaque, facere quas autem architecto ratione, obcaecati alias at ea quis! Eum magni architecto delectus perferendis
-                beatae, ut tenetur dolorem sequi quae eveniet. Perferendis, nostrum obcaecati doloribus, dolore magnam odio ipsum excepturi assumenda molestiae corporis voluptas sequi?
-            </p>
+      <section class="content">
+        <h3>Headline, section 5</h3>
 
+        <p>
+          Animi iusto culpa porro quaerat impedit debitis maiores molestias
+          soluta, quia minus vero eos voluptate error rerum odio aperiam modi
+          odit optio, consequuntur aliquid dignissimos architecto! Aperiam
+          facilis sapiente nesciunt. Repudiandae amet distinctio error impedit
+          obcaecati placeat! Dolorem minima repellat quam soluta quia inventore
+          error cum quidem veritatis incidunt eaque, facere quas autem
+          architecto ratione, obcaecati alias at ea quis! Eum magni architecto
+          delectus perferendis beatae, ut tenetur dolorem sequi quae eveniet.
+          Perferendis, nostrum obcaecati doloribus, dolore magnam odio ipsum
+          excepturi assumenda molestiae corporis voluptas sequi?
+        </p>
 
-        </section>
+        <ul>
+          <li>Lorem ipsum dolor sit amet</li>
+          <li>Donec tristique non sapien in porta</li>
+          <li>
+            Nulla pulvinar molestie metus, et blandit sapien pellentesque in
+          </li>
+          <li>Ut ac mollis justo, eu varius augue</li>
+        </ul>
 
-        <img src="images/tab4_mobile.jpg" alt="" class="desktopHidden" />
+        <p>
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec vitae
+          arcu. Class aptent taciti sociosqu ad litora torquent per conubia
+          nostra, per inceptos hymenaeos. Etiam dictum tincidunt diam. Sed vel
+          lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem.
+          Cras elementum. Nam libero tempore, cum soluta nobis est eligendi
+          optio cumque nihil impedit quo minus id quod maxime placeat facere
+          possimus, omnis voluptas assumenda est, omnis dolor repellendus. Nulla
+          non lectus sed nisl molestie malesuada. Nulla accumsan, elit sit amet
+          varius semper, nulla mauris mollis quam, tempor suscipit diam nulla
+          vel leo. Donec vitae arcu. Praesent in mauris eu tortor porttitor
+          accumsan. Vivamus porttitor turpis ac leo. Etiam ligula pede, sagittis
+          quis, interdum ultricies, scelerisque eu. Donec ipsum massa,
+          ullamcorper in, auctor et, scelerisque sed, est. Fusce suscipit libero
+          eget elit. Duis viverra diam non justo.
+        </p>
 
-        <section class="tabContent">
-            <h3>TAB 3</h3>
+        <p>
+          Maecenas fermentum, sem in pharetra pellentesque, velit turpis
+          volutpat ante, in pharetra metus odio a lectus. Duis pulvinar.
+          Temporibus autem quibusdam et aut officiis debitis aut rerum
+          necessitatibus saepe eveniet ut et voluptates repudiandae sint et
+          molestiae non recusandae. Vivamus luctus egestas leo. Aliquam erat
+          volutpat. Etiam bibendum elit eget erat. Phasellus et lorem id felis
+          nonummy placerat. Vivamus luctus egestas leo. Fusce consectetuer risus
+          a nunc. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy
+          ac, erat. Cras elementum. Nullam at arcu a est sollicitudin euismod.
+          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+          fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+          sequi nesciunt.
+        </p>
 
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam vitae
+          est quos saepe nisi. Vel, similique facilis. Neque atque debitis omnis
+          explicabo qui cum aperiam magni quo placeat maxime! Saepe, sit
+          doloribus quos quod quaerat, aperiam repudiandae, dolor impedit
+          eligendi asperiores quam necessitatibus? Itaque culpa aperiam eveniet
+          recusandae adipisci ducimus, sint eaque consequatur repudiandae
+          placeat amet quis nesciunt a ipsam. Dolorum perferendis, commodi modi
+          nesciunt, quis magni obcaecati distinctio a tenetur eius itaque. Quos
+          hic necessitatibus magni dolorem provident iure possimus quia
+          veritatis quis, asperiores saepe repellat nisi rem animi. Dolorum
+          corporis magni eveniet officia voluptatum maiores non sequi similique,
+          illum quibusdam velit voluptate, itaque illo expedita odio repudiandae
+          porro. Eveniet quis accusamus nemo dignissimos illum veniam voluptas
+          possimus qui eligendi velit, consequatur neque dolores aspernatur
+          iusto iste id assumenda est reiciendis quia deserunt repudiandae. Illo
+          labore veniam quaerat tempore cupiditate vitae modi at perferendis
+          dolorum. Eligendi dolores, labore, in tempore id fuga, molestiae
+          laboriosam nulla ea eaque eos asperiores ipsum nostrum. Facilis nisi
+          vero nulla maxime minima, labore ipsam quas id explicabo provident
+          quaerat illum porro quae. Eaque omnis natus nesciunt aut voluptatibus
+          cum, enim magnam at exercitationem quaerat. Molestias facere corporis
+          optio amet soluta minus aliquid libero est.
+        </p>
+      </section>
 
-            <p>
-                Animi iusto culpa porro quaerat impedit debitis maiores molestias soluta, quia minus vero eos voluptate error rerum odio aperiam modi odit optio, consequuntur aliquid dignissimos architecto! Aperiam facilis sapiente nesciunt. Repudiandae amet distinctio
-                error impedit obcaecati placeat! Dolorem minima repellat quam soluta quia inventore error cum quidem veritatis incidunt eaque, facere quas autem architecto ratione, obcaecati alias at ea quis! Eum magni architecto delectus perferendis
-                beatae, ut tenetur dolorem sequi quae eveniet. Perferendis, nostrum obcaecati doloribus, dolore magnam odio ipsum excepturi assumenda molestiae corporis voluptas sequi?
-            </p>
-            <ul>
-                <li>Lorem ipsum dolor sit amet </li>
-                <li>Donec tristique non sapien in porta </li>
-                <li>Nulla pulvinar molestie metus, et blandit sapien pellentesque in </li>
-                <li>Ut ac mollis justo, eu varius augue</li>
-            </ul>
+      <footer>
+        Footer<br />
+        Footer<br />
+        Footer
+      </footer>
 
-            <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec vitae arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Etiam dictum tincidunt diam. Sed vel lectus. Donec odio tempus molestie, porttitor
-                ut, iaculis quis, sem. Cras elementum. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Nulla non lectus
-                sed nisl molestie malesuada. Nulla accumsan, elit sit amet varius semper, nulla mauris mollis quam, tempor suscipit diam nulla vel leo. Donec vitae arcu. Praesent in mauris eu tortor porttitor accumsan. Vivamus porttitor turpis ac leo.
-                Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. Fusce suscipit libero eget elit. Duis viverra diam non justo.
-            </p>
-
-            <p>
-                Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Duis pulvinar. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et
-                molestiae non recusandae. Vivamus luctus egestas leo. Aliquam erat volutpat. Etiam bibendum elit eget erat. Phasellus et lorem id felis nonummy placerat. Vivamus luctus egestas leo. Fusce consectetuer risus a nunc. Vestibulum erat nulla,
-                ullamcorper nec, rutrum non, nonummy ac, erat. Cras elementum. Nullam at arcu a est sollicitudin euismod. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-                sequi nesciunt.
-            </p>
-
-            <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam vitae est quos saepe nisi. Vel, similique facilis. Neque atque debitis omnis explicabo qui cum aperiam magni quo placeat maxime! Saepe, sit doloribus quos quod quaerat, aperiam repudiandae,
-                dolor impedit eligendi asperiores quam necessitatibus? Itaque culpa aperiam eveniet recusandae adipisci ducimus, sint eaque consequatur repudiandae placeat amet quis nesciunt a ipsam. Dolorum perferendis, commodi modi nesciunt, quis magni
-                obcaecati distinctio a tenetur eius itaque. Quos hic necessitatibus magni dolorem provident iure possimus quia veritatis quis, asperiores saepe repellat nisi rem animi. Dolorum corporis magni eveniet officia voluptatum maiores non sequi
-                similique, illum quibusdam velit voluptate, itaque illo expedita odio repudiandae porro. Eveniet quis accusamus nemo dignissimos illum veniam voluptas possimus qui eligendi velit, consequatur neque dolores aspernatur iusto iste id assumenda
-                est reiciendis quia deserunt repudiandae. Illo labore veniam quaerat tempore cupiditate vitae modi at perferendis dolorum. Eligendi dolores, labore, in tempore id fuga, molestiae laboriosam nulla ea eaque eos asperiores ipsum nostrum.
-                Facilis nisi vero nulla maxime minima, labore ipsam quas id explicabo provident quaerat illum porro quae. Eaque omnis natus nesciunt aut voluptatibus cum, enim magnam at exercitationem quaerat. Molestias facere corporis optio amet soluta
-                minus aliquid libero est.
-            </p>
-
-        </section>
-
-
-        <footer>
-<!--
-            <nav id="sitemap">
-                <button type="button"> Tab 0 </button>
-                <button type="button"> Tab 1  </button>
-                <button type="button"> Tab 2 ABC</button>
-                <button type="button"> Tab 3 VERY VERY LONG</button>
-            </nav>
--->
-        </footer>
-
-        <div id="arrowScrollToTop" title="scroll to top" onclick="document.querySelector('.containerIA').scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});"></div>
+      <div id="arrowScrollToTop"
+        title="scroll to top"
+        onclick="document.querySelector('.containerIA').scrollIntoView({block: 'start'});">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+          x="0px" y="0px" viewBox="0 0 122.88 122.88"
+          style="enable-background: new 0 0 122.88 122.88" xml:space="preserve">
+          <path class="st0"
+            d="M33.56,72.51l27.87-27.88l27.88,27.88H33.56L33.56,72.51z M104.34,122.88H18.53v-0.03 c-5.1-0.01-9.74-2.09-13.09-5.44c-3.32-3.33-5.39-7.94-5.41-13.04H0V18.53h0.03c0.01-5.1,2.09-9.74,5.44-13.09 c3.33-3.32,7.94-5.4,13.04-5.41V0h85.84v0.03c5.11,0.01,9.75,2.09,13.09,5.44c3.32,3.33,5.39,7.94,5.41,13.04h0.03v85.84h-0.03 c-0.01,5.11-2.09,9.74-5.44,13.09c-3.33,3.32-7.94,5.39-13.04,5.41v0.03H104.34L104.34,122.88z M18.54,108.82h85.82v0.03 c1.2,0,2.33-0.52,3.15-1.35c0.82-0.81,1.33-1.94,1.33-3.15h-0.03V18.51h0.03c0-1.21-0.52-2.33-1.35-3.15 c-0.81-0.82-1.94-1.33-3.15-1.33v0.03H18.51v-0.03c-1.21,0-2.33,0.52-3.15,1.35c-0.82,0.81-1.33,1.94-1.33,3.15h0.03v85.84h-0.03 c0,1.2,0.52,2.33,1.35,3.15c0.81,0.82,1.94,1.33,3.15,1.33v-0.03L18.54,108.82L18.54,108.82L18.54,108.82z" />
+        </svg>
+      </div>
 
     </div>
-    <!-- end containerIA -->
 
 
-</body>
-
+  </body>
 </html>
