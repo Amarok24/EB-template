@@ -93,7 +93,7 @@ let eb_template = (function () {
     let paramsObj = {}, // pairs of key-value
         locationSearch = "";
 
-    if (window.parent !== window) { // if we are inside of iframe
+    if (IN_IFRAME) { // if we are inside of iframe
       try {
         locationSearch = window.parent.location.search;
       } catch (er) {
@@ -110,7 +110,7 @@ let eb_template = (function () {
       // 'arrayParams' will be eg. ["focus=5", "val="]
 
       for (let i = 0; i < arrayParams.length; i++) {
-        let keyValPair = arrayParams[i].split('=');
+        let keyValPair = arrayParams[i].split("=");
         // keyValPair will be eg. ["focus", "5"]
 
         if (keyValPair[0] === "") continue; // skip cases like "=25" with no 'key'
