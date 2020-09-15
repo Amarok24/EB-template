@@ -6,9 +6,6 @@
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   background: whitesmoke;
-  --textColor: DarkSlateGray;
-  --primaryColor: Indigo;
-  --secondaryColor: Teal;
 }
 html {
   min-height: 100%;
@@ -31,7 +28,7 @@ h1,
 h2,
 h3,
 h4 {
-  color: var(--primaryColor);
+  color: Indigo;
   font-weight: bold;
   line-height: normal;
   margin: 1rem 0;
@@ -46,7 +43,7 @@ h4 {
   font-size-adjust: 1rem;
 }
 h1 small {
-  color: var(--secondaryColor);
+  color: Teal;
   font-size: 0.75em;
 }
 p {
@@ -61,23 +58,29 @@ p {
   position: relative;
   left: 1.5em;
   width: calc(100% - 1.5em);
+  margin-bottom: 0.25em;
+}
+.content li:last-child {
+  margin-bottom: 0;
 }
 .content li::before {
   content: "\276F";
-  color: var(--secondaryColor);
+  color: Teal;
   position: absolute;
   left: -1.5em;
   top: 0;
 }
 a {
-  color: var(--secondaryColor);
+  color: Teal;
   text-decoration: underline;
+  text-decoration-thickness: 2px;
   font-weight: inherit;
   transition: 0.3s ease all;
 }
 a:hover {
-  color: var(--primaryColor);
+  color: Indigo;
   text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 a[href^="mailto"],
 a[href^="tel"] {
@@ -88,16 +91,16 @@ a[href^="tel"] {
   text-decoration: underline;
   text-decoration-style: dotted;
   text-decoration-thickness: 2px;
-  text-decoration-color: var(--secondaryColor);
+  text-decoration-color: Teal;
 }
 a[href^="tel"]:hover {
-  text-decoration-color: var(--primaryColor);
+  text-decoration-color: Indigo;
 }
 address {
   font-style: normal;
 }
 footer {
-  background-color: var(--secondaryColor);
+  background-color: Teal;
   color: white;
   padding: 2rem;
 }
@@ -105,7 +108,7 @@ footer {
   max-width: 900px;
   margin: 0 auto;
   border: 0;
-  color: var(--textColor);
+  color: DarkSlateGray;
   font-size: 1rem;
   text-align: left;
   line-height: 1.5;
@@ -146,8 +149,10 @@ footer {
 #arrowScrollToTop {
   position: fixed;
   z-index: 3;
+  width: 3rem;
+  height: 3rem;
   right: 1rem;
-  bottom: 1rem;
+  bottom: 3rem;
   color: white;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25), 0 0 2px rgba(0, 0, 0, 0.25);
   font-size: 4rem; /* to resize button it is enough to change font-size using rem */
@@ -155,16 +160,17 @@ footer {
   display: inline-block;
   text-align: center;
   cursor: pointer;
-  opacity: 0.5;
-  border-radius: 0em;
+  border-radius: 0;
   transition: 0.3s ease all;
   display: none;
 }
 
-#arrowScrollToTop:hover {
-  opacity: 1;
+#arrowScrollToTop svg {
+  fill: rgba(0, 0, 0, 0.25);
 }
-
+#arrowScrollToTop:hover svg {
+  fill: rgba(0, 0, 0, 0.5);
+}
 #headerSlideshow {
   padding-bottom: calc(
     600 / 1280 * 100%
@@ -200,10 +206,7 @@ footer {
     color: inherit;
     text-decoration: none;
   }
-}
-
-@media print {
-  .noprint {
-    display: none;
+  #arrowScrollToTop svg {
+    fill: rgba(0, 0, 0, 0.25);
   }
 }
