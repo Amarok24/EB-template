@@ -9,7 +9,3 @@ function initSlider() {
     end: 0
   });
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-  initSlider();
-});
