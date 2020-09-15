@@ -172,6 +172,7 @@ footer {
 }
 
 /* -=-= MOBILE SPECIFIC FORMATTING =-=- */
+
 @media screen and (max-width: 680px) {
   .containerIA {
     border: none;
@@ -192,6 +193,7 @@ footer {
     ); /* pic dimensions | height / width * 100% */
   }
 }
+
 /* smartphones, touchscreens */
 @media (hover: none) and (pointer: coarse) {
   a:hover {
