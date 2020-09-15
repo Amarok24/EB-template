@@ -1,13 +1,13 @@
 # Employer-Branding Template
 ![version](https://img.shields.io/badge/version-2.1-orange.svg)
-![slide-show_SimpleSlider](https://img.shields.io/badge/slide--show-SimpleSlider-yellow.svg) ![map-engine_Mapbox--GL--JS](https://img.shields.io/badge/map--engine-Mapbox--GL--JS-blue.svg) ![map-layer_Mapbox](https://img.shields.io/badge/map--layer-Mapbox-blue.svg)
+![slide-show_SimpleSlider](https://img.shields.io/badge/slide--show-SimpleSlider-yellow.svg)
 
 ## SinglePage (X)HTML Template with extras
 
 <details>
 <summary><strong>Changelog</strong></summary>
 
-- v2.1 -- 2020-09-15, minor fixes, change of URL parameter for focus scrolling
+- v2.1 -- 2020-09-15, major CSS changes, other JS modifications (mainly change of scrolling URL parameter to 'focus')
 - v2.0a -- 2020-09-04, major update, code rewritten for a single-page layout
 - v1.56 -- 2020-03-16, bugfix for IE 11 where first tab was not shown after first page load.
 - v1.55 -- 2019-09-04, main JS file now twice, one development version (ES6 support), one production version (ES5 for old browsers like IE 11) Attention: HTML file uses picture-img (CSS3) which is not fully supported by old IE. In case of need just use "img" only.
